@@ -1,0 +1,213 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../WorkCard.astro';
+import { ui, type Lang } from '../../i18n/ui';
+import { getWorks, getAuthors, getEras, getAdaptations } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const prefix = lang === 'en' ? '/en' : '';
+
+const works = await getWorks(lang);
+const authors = await getAuthors(lang);
+const eras = await getEras();
+
+// 以影视改编集合的 workSlug 反推「有影视改编」，比作品侧 adaptations[] 更全
+const adaptations = await getAdaptations(lang);
+const adaptedSlugs = new Set(
+  adaptations.map((a) => a.entry.data.workSlug).filter((s): s is string => Boolean(s)),
+);
+
+// 标签全集（去重、排序）
+const tagSet = new Set<string>();
+for (const w of works) for (const tg of w.entry.data.tags) tagSet.add(tg);
+const tags = [...tagSet].sort((a, b) => a.localeCompare(b, 'zh-Hans-CN'));
+
+// 为每张卡片计算筛选字段
+const cards = works.map((w) => {
+  const d = w.entry.data;
+  const hasAdapt = adaptedSlugs.has(w.slug);
+  return {
+    slug: w.slug,
+    dataAttrs: {
+      'data-era': d.era,
+      'data-author': d.authorSlug ?? '',
+      'data-kind': d.kind,
+      'data-adapted': hasAdapt ? '1' : '0',
+      'data-tags': d.tags.join(' '),
+      'data-year': d.year == null ? '' : String(d.year),
+      'data-title': d.title,
+      'data-authorname': d.author ?? '',
+    },
+  };
+});
+---
+
+<BaseLayout lang={lang} title={t.navWorks}>
+  <section class="section">
+    <h1 class="section-title">{t.navWorks}</h1>
+
+    <div class="works-filters">
+      <div class="filter-row">
+        <div class="filter-field">
+          <label for="f-kind">{t.filterKind}</label>
+          <select id="f-kind" data-filter="kind">
+            <option value="">{t.filterAll}</option>
+            <option value="myth">{t.kindMyth}</option>
+            <option value="proto-sf">{t.kindProtoSf}</option>
+            <option value="sf">{t.kindSf}</option>
+          </select>
+        </div>
+        <div class="filter-field">
+          <label for="f-era">{t.filterEra}</label>
+          <select id="f-era" data-filter="era">
+            <option value="">{t.filterAll}</option>
+            {eras.map((e) => <option value={e.id}>{lang === 'en' ? e.data.labelEn : e.data.label}</option>)}
+          </select>
+        </div>
+        <div class="filter-field">
+          <label for="f-author">{t.filterAuthor}</label>
+          <select id="f-author" data-filter="author">
+            <option value="">{t.filterAll}</option>
+            {authors.map((a) => <option value={a.slug}>{a.entry.data.name}</option>)}
+          </select>
+        </div>
+        <div class="filter-field">
+          <label for="f-adapted">{t.filterAdapted}</label>
+          <select id="f-adapted" data-filter="adapted">
+            <option value="">{t.filterAll}</option>
+            <option value="1">{t.filterHasAdaptation}</option>
+            <option value="0">{t.filterNoAdaptation}</option>
+          </select>
+        </div>
+        <div class="filter-field">
+          <label for="f-tag">{t.filterTag}</label>
+          <select id="f-tag" data-filter="tag">
+            <option value="">{t.filterAll}</option>
+            {tags.map((tg) => <option value={tg}>{tg}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-row filter-row--bottom">
+        <div class="filter-field filter-field--grow">
+          <label for="f-q">{t.filterSearch}</label>
+          <input id="f-q" type="search" data-filter="q" placeholder={t.searchPlaceholder} />
+        </div>
+        <div class="filter-field">
+          <label for="f-sort">{t.filterSort}</label>
+          <select id="f-sort" data-filter="sort">
+            <option value="year-asc">{t.sortYearAsc}</option>
+            <option value="year-desc">{t.sortYearDesc}</option>
+            <option value="title">{t.sortTitle}</option>
+          </select>
+        </div>
+        <button type="button" class="filter-reset" data-reset>{t.filterReset}</button>
+      </div>
+    </div>
+
+    <p class="works-count"><span id="works-count">{works.length}</span> {t.statWorks}</p>
+    <p class="works-empty" id="works-empty" hidden>{t.filterEmpty}</p>
+
+    <div class="grid" id="works-grid">
+      {
+        works.map((w, i) => (
+          <WorkCard
+            entry={w.entry}
+            lang={lang}
+            href={`${prefix}/works/${w.slug}`}
+            dataAttrs={cards[i].dataAttrs}
+          />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const grid = document.getElementById('works-grid');
+  const countEl = document.getElementById('works-count');
+  const emptyEl = document.getElementById('works-empty');
+  if (grid && countEl) {
+    const controls = Array.from(document.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-filter]'));
+    const resetBtn = document.querySelector<HTMLButtonElement>('[data-reset]');
+
+    const getVal = (name: string) =>
+      (document.querySelector<HTMLInputElement | HTMLSelectElement>(`[data-filter="${name}"]`)?.value ?? '');
+
+    const yearNum = (c: Element): number => {
+      const y = c.getAttribute('data-year');
+      if (y === null || y === '') return Infinity; // 年代不详永远排最后
+      return Number(y);
+    };
+
+    const cmpYear = (a: Element, b: Element, desc: boolean): number => {
+      const ya = yearNum(a);
+      const yb = yearNum(b);
+      const an = ya === Infinity;
+      const bn = yb === Infinity;
+      if (an && bn) return 0;
+      if (an) return 1;
+      if (bn) return -1;
+      return desc ? yb - ya : ya - yb;
+    };
+
+    const apply = () => {
+      const f = {
+        kind: getVal('kind'),
+        era: getVal('era'),
+        author: getVal('author'),
+        adapted: getVal('adapted'),
+        tag: getVal('tag'),
+        q: getVal('q').trim().toLowerCase(),
+        sort: getVal('sort'),
+      };
+
+      const all = Array.from(grid.querySelectorAll<HTMLElement>('.card'));
+      const visible: HTMLElement[] = [];
+
+      for (const c of all) {
+        const era = c.getAttribute('data-era') || '';
+        const kind = c.getAttribute('data-kind') || '';
+        const author = c.getAttribute('data-author') || '';
+        const adapted = c.getAttribute('data-adapted') || '0';
+        const tags = (c.getAttribute('data-tags') || '').split(' ').filter(Boolean);
+        const title = (c.getAttribute('data-title') || '').toLowerCase();
+        const authorname = (c.getAttribute('data-authorname') || '').toLowerCase();
+
+        if (f.kind && kind !== f.kind) continue;
+        if (f.era && era !== f.era) continue;
+        if (f.author && author !== f.author) continue;
+        if (f.adapted && adapted !== f.adapted) continue;
+        if (f.tag && !tags.includes(f.tag)) continue;
+        if (f.q && !(title.includes(f.q) || authorname.includes(f.q))) continue;
+        visible.push(c);
+      }
+
+      visible.sort((a, b) => {
+        if (f.sort === 'year-desc') return cmpYear(a, b, true);
+        if (f.sort === 'title') return (a.getAttribute('data-title') || '').localeCompare(b.getAttribute('data-title') || '', 'zh-Hans-CN');
+        return cmpYear(a, b, false);
+      });
+
+      const visibleSet = new Set(visible);
+      for (const c of all) c.style.display = visibleSet.has(c) ? '' : 'none';
+      for (const c of visible) grid.appendChild(c);
+
+      countEl.textContent = String(visible.length);
+      if (emptyEl) emptyEl.hidden = visible.length !== 0;
+    };
+
+    controls.forEach((el) => {
+      el.addEventListener('input', apply);
+      el.addEventListener('change', apply);
+    });
+    resetBtn?.addEventListener('click', () => {
+      controls.forEach((el) => (el.value = ''));
+      apply();
+    });
+  }
+</script>

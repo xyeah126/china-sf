@@ -1,0 +1,83 @@
+---
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuthorSeal from '../AuthorSeal.astro';
+import WorkCard from '../WorkCard.astro';
+import TranslationNotice from '../TranslationNotice.astro';
+import { ui, type Lang } from '../../i18n/ui';
+import { getWorksByAuthor } from '../../lib/content';
+
+interface Props {
+  entry: CollectionEntry<'authors'>;
+  lang: Lang;
+  slug: string;
+  isFallback: boolean;
+}
+const { entry, lang, slug, isFallback } = Astro.props;
+const d = entry.data;
+const T = ui[lang] as unknown as Record<string, string>;
+const prefix = lang === 'en' ? '/en' : '';
+
+const { Content } = await render(entry);
+const works = await getWorksByAuthor(slug, lang);
+
+const status: 'full' | 'partial' | 'none' =
+  isFallback ? 'none' : (d.translationStatus as 'full' | 'partial' | 'none');
+
+const lifeText =
+  d.birthYear !== null && d.birthYear !== undefined
+    ? `${d.birthYear}–${d.deathYear ?? ''}`
+    : lang === 'zh'
+      ? '生卒不详'
+      : 'dates unknown';
+---
+
+<BaseLayout lang={lang} title={d.name}>
+  <section class="section">
+    <TranslationNotice lang={lang} status={status} />
+
+    <div class="author-head">
+      <div class="author-seal-wrap">
+        <AuthorSeal name={d.name} lang={lang} variant="hero" />
+      </div>
+      <div>
+        <h1 class="section-title">{d.name}</h1>
+        <p class="detail-meta">
+          <span class="year">{lifeText}</span>{' '}
+          {`· ${works.length} ${lang === 'zh' ? '部作品' : 'works'}`}
+        </p>
+      </div>
+    </div>
+
+    <div class="detail-body">
+      <Content />
+    </div>
+
+    {
+      d.awards && d.awards.length > 0 && (
+        <>
+          <h2 class="subhead">{T.sectionAwards}</h2>
+          <ul class="sources awards">
+            {d.awards.map((a) => <li>{a}</li>)}
+          </ul>
+        </>
+      )
+    }
+
+    {
+      works.length > 0 && (
+        <>
+          <h2 class="subhead">{lang === 'zh' ? '作品' : 'Works'}</h2>
+          <div class="grid">
+            {works.map((w) => (
+              <WorkCard entry={w.entry} lang={lang} href={`${prefix}/works/${w.slug}`} />
+            ))}
+          </div>
+        </>
+      )
+    }
+
+    <a class="back-link" href={`${prefix}/authors`}>← {T.navAuthors}</a>
+  </section>
+</BaseLayout>

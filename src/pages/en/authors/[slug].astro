@@ -1,0 +1,17 @@
+---
+import type { GetStaticPaths } from 'astro';
+import AuthorDetail from '../../../components/pages/AuthorDetail.astro';
+import { getAuthors } from '../../../lib/content';
+
+export const getStaticPaths = (async () => {
+  const items = await getAuthors('en');
+  return items.map((x) => ({
+    params: { slug: x.slug },
+    props: { entry: x.entry, slug: x.slug, isFallback: x.isFallback },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry, slug, isFallback } = Astro.props;
+---
+
+<AuthorDetail entry={entry} lang="en" slug={slug} isFallback={isFallback} />

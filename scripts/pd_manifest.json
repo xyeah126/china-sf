@@ -1,0 +1,29 @@
+{
+  "shanhaijing": {
+    "file": "shanhaijing.jpg",
+    "commons_file": "File:Nine-headed phoenix, from a color edition of Shan Hai Jing.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File%3ANine-headed_phoenix%2C_from_a_color_edition_of_Shan_Hai_Jing.jpg",
+    "license": "Public domain",
+    "size": 562268,
+    "width": 1695,
+    "height": 3462
+  },
+  "huainanzi": {
+    "file": "huainanzi.jpg",
+    "commons_file": "File:莊逵吉本《淮南子》.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File%3A%E8%8E%8A%E9%80%B5%E5%90%89%E6%9C%AC%E3%80%8A%E6%B7%AE%E5%8D%97%E5%AD%90%E3%80%8B.jpg",
+    "license": "Public domain",
+    "size": 216799,
+    "width": 800,
+    "height": 1250
+  },
+  "liezi-tangwen": {
+    "file": "liezi-tangwen.jpg",
+    "commons_file": "File:Liezi-1921.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File%3ALiezi-1921.jpg",
+    "license": "Public domain",
+    "size": 1017479,
+    "width": 1051,
+    "height": 1486
+  }
+}

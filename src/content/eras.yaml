@@ -1,0 +1,67 @@
+- id: shanggu
+  label: 上古 · 神话志怪
+  labelEn: Antiquity · Myth & Marvels
+  start: -1000
+  end: 907
+  kind: myth
+  summary: 上古至唐的神话、志怪、奇器与异域想象，是中国人想象世界的源头。
+  summaryEn: >-
+    Myths, marvels, strange machines and far-off lands from antiquity to the Tang:
+    the wellspring of the Chinese imagination.
+
+- id: song-ming-qing
+  label: 宋元明清 · 前科幻
+  labelEn: Song–Qing · Proto-SF
+  start: 960
+  end: 1840
+  kind: proto-sf
+  summary: 含机械、飞行、异域社会想象的叙事大量出现，但尚未建立现代科学框架。
+  summaryEn: >-
+    Tales of machinery, flight and utopian societies proliferate, yet without a
+    modern scientific framework.
+
+- id: wanqing
+  label: 晚清 · 科幻诞生
+  labelEn: Late Qing · The Birth
+  start: 1840
+  end: 1911
+  kind: sf
+  summary: >-
+    1903 年鲁迅引入"科学小说"概念，1904 年《月球殖民地小说》成为首部原创科幻长篇，
+    晚清形成第一次科幻热潮。
+  summaryEn: >-
+    Lu Xun introduced the concept of "science fiction" in 1903; Moon Colony
+    Novel (1904) became the first original Chinese science fiction novel.
+
+- id: minguo
+  label: 民国
+  labelEn: Republic of China
+  start: 1912
+  end: 1949
+  kind: sf
+  summary: 科幻创作与译介并行，老舍《猫城记》以寓言笔法写社会批判。
+  summaryEn: >-
+    Original writing and translation advanced in parallel; Lao She's Cat Country
+    used allegory for social critique.
+
+- id: xinzhongguo
+  label: 新中国
+  labelEn: New China
+  start: 1949
+  end: 1990
+  kind: sf
+  summary: 1978 年后科幻复苏，《珊瑚岛上的死光》《小灵通漫游未来》影响一代读者。
+  summaryEn: >-
+    Science fiction revived after 1978; Death Ray on a Coral Island and
+    Xiao Lingtong Travels to the Future shaped a generation.
+
+- id: dangdai
+  label: 当代
+  labelEn: Contemporary
+  start: 1991
+  end: null
+  kind: sf
+  summary: 刘慈欣、郝景芳接连获雨果奖，中国科幻进入国际视野与影视化时代。
+  summaryEn: >-
+    Liu Cixin and Hao Jingfang won Hugo Awards in succession, carrying Chinese
+    science fiction onto the world stage.

@@ -1,0 +1,77 @@
+[
+  {
+    "slug": "mutianzizhuan",
+    "status": "no_match",
+    "candidates": [
+      "山海经"
+    ]
+  },
+  {
+    "slug": "shenyijing",
+    "status": "no_result"
+  },
+  {
+    "slug": "shiyiji",
+    "status": "no_match",
+    "candidates": [
+      "野客丛书"
+    ]
+  },
+  {
+    "slug": "shizhouji",
+    "status": "no_result"
+  },
+  {
+    "slug": "bowuzhi",
+    "status": "no_match",
+    "candidates": [
+      "酉阳杂俎"
+    ]
+  },
+  {
+    "slug": "soushenji",
+    "status": "no_match",
+    "candidates": [
+      "龙文鞭影",
+      "日记故事大成"
+    ]
+  },
+  {
+    "slug": "youyangzazu",
+    "status": "ok",
+    "file": "youyangzazu.jpg",
+    "title": "酉阳杂俎",
+    "page": "https://www.shuge.org/view/you_yang_za_zu/",
+    "direct": "https://www.shuge.org/wp-content/uploads/2021/03/you_yang_za_zu01-768x1421.jpg",
+    "size": 249967
+  },
+  {
+    "slug": "taipingguangji",
+    "status": "no_match",
+    "candidates": [
+      "狐媚丛谈",
+      "永乐大典",
+      "分类补注李太白诗"
+    ]
+  },
+  {
+    "slug": "jinghuayuan",
+    "status": "no_result"
+  },
+  {
+    "slug": "xinzhongguo-weilaiji",
+    "status": "no_result"
+  },
+  {
+    "slug": "yuejie-lvxing",
+    "status": "no_result"
+  },
+  {
+    "slug": "xinshitouji",
+    "status": "no_result"
+  },
+  {
+    "slug": "xinfaluo",
+    "status": "no_result"
+  }
+]

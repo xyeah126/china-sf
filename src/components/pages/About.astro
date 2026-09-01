@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ui, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const zh = lang === 'zh';
+---
+
+<BaseLayout lang={lang} title={t.navAbout}>
+  <section class="section">
+    <h1 class="section-title">{zh ? '关于 · 方法论' : 'About & Method'}</h1>
+
+    {
+      zh ? (
+        <>
+          <p>
+            本站是一部按时间线与作者双维度组织的中国科幻 / 想象文学图文谱系，
+            覆盖从上古神话到当代科幻的完整脉络，并关联影视作品成果。
+          </p>
+
+          <h2 class="subhead">三个内容层级</h2>
+          <p>
+            为了不混淆历史，站内把收录内容分为三层，并在每张卡片上以徽标显式标注：
+          </p>
+          <ul>
+            <li><strong>神话源流</strong>：上古至魏晋的神怪、奇器与异域想象。</li>
+            <li><strong>前科幻</strong>：唐宋至清中期的机械、飞行、异域社会想象，尚未建立现代科学框架。</li>
+            <li><strong>科幻</strong>：晚清至今，现代科学框架下的想象文学。</li>
+          </ul>
+          <p>
+            上古作品不是科幻，而是科学想象的<em>源流</em>。这是本站的学术底线。
+          </p>
+
+          <h2 class="subhead">关于"中国科幻起点"</h2>
+          <ul>
+            <li>1903 年，鲁迅在《月界旅行·辨言》中引入"科学小说"概念。</li>
+            <li>1904 年，荒江钓叟《月球殖民地小说》被公认为中国第一部原创科幻长篇。</li>
+            <li>晚清之前没有 genre 意义上的科幻，只有科学想象的萌芽。</li>
+          </ul>
+
+          <h2 class="subhead">收录标准</h2>
+          <p>一部作品入库需至少满足两项：中国作者或中文首发；具备科学 / 技术 / 未来社会想象成分；
+            有可查证的出版记录；在文学史、口碑或影视作品上具备影响力。每条数据均标注资料出处。</p>
+
+          <h2 class="subhead">图片政策：公版优先</h2>
+          <p>配图来源分为四级，并在图片上显式标注：</p>
+          <ul>
+            <li><strong>公有领域</strong>：古籍书影、版画、明确进入公有领域的历史照片（记录来源以便复核）。</li>
+            <li><strong>已授权</strong>：获得出版社、作者或图库的正式授权。</li>
+            <li><strong>AI 生成</strong>：仅在公版资源无解时使用，为示意图而非真实封面。</li>
+            <li><strong>占位图</strong>：尚未配图时的临时态。</li>
+          </ul>
+          <p>
+            公版图优先于 AI 图：古籍书影本身就是一手史料，其价值高于任何生成图。
+            AI 补位主要集中于当代作品封面——那一层几乎没有公版资源可用。
+          </p>
+          <p>
+            <strong>关于肖像权</strong>：作者照片的版权属于摄影者，不属于作者本人。
+            本站仅使用明确标注为公有领域或 CC0 的历史照片；在世作者一律不使用真实照片。
+          </p>
+
+          <h2 class="subhead">多语言与翻译</h2>
+          <p>
+            本站提供中英双语界面，默认依据访问者系统语言选择。
+            英文条目尚未完成时，页面会显示中文原文并明确标注，<strong>不使用机器翻译填充</strong>。
+          </p>
+
+          <h2 class="subhead">数据纠错</h2>
+          <p>
+            存疑字段在页面上以问号标注。若发现错漏，欢迎通过仓库 Issue 指正——
+            一个数据可信度存疑的资料站是没有价值的，宁可少收，不可错收。
+          </p>
+        </>
+      ) : (
+        <>
+          <p>
+            This archive is a chronological and author-indexed illustrated record of
+            Chinese science fiction and the literature of imagination, spanning
+            antiquity to the present and linked to film and television works.
+          </p>
+
+          <h2 class="subhead">Three tiers</h2>
+          <p>
+            To keep the record honest, every entry is assigned one of three tiers,
+            shown as a badge on each card:
+          </p>
+          <ul>
+            <li><strong>Myth</strong>: supernatural beings, marvellous machines and distant lands, from antiquity to the Wei–Jin period.</li>
+            <li><strong>Proto-SF</strong>: machinery, flight and utopian societies from the Song to the mid-Qing, without a modern scientific framework.</li>
+            <li><strong>Science fiction</strong>: from the Late Qing onward, imagination within a modern scientific framework.</li>
+          </ul>
+          <p>
+            Works of antiquity are not science fiction; they are its <em>sources</em>.
+            That distinction is this archive's scholarly baseline.
+          </p>
+
+          <h2 class="subhead">On the origin of Chinese SF</h2>
+          <ul>
+            <li>In 1903 Lu Xun introduced the concept of “science fiction” in his preface to the translation of De la Terre à la Lune.</li>
+            <li>Moon Colony Novel (1904) is recognised as the first original Chinese science fiction novel.</li>
+            <li>Before the Late Qing there was no science fiction as a genre — only seeds of scientific imagination.</li>
+          </ul>
+
+          <h2 class="subhead">Inclusion criteria</h2>
+          <p>
+            A work is included when it meets at least two of the following: a Chinese
+            author or first publication in Chinese; scientific, technological or
+            futuristic content; a verifiable publication record; and recognised
+            significance. Every entry cites its sources.
+          </p>
+
+          <h2 class="subhead">Image policy: public domain first</h2>
+          <p>Images are labelled with one of four provenance levels:</p>
+          <ul>
+            <li><strong>Public domain</strong>: facsimiles of classical books, woodblock prints, and historical photographs clearly in the public domain (sources recorded for verification).</li>
+            <li><strong>Licensed</strong>: formally licensed from a publisher, author or image library.</li>
+            <li><strong>AI-generated</strong>: used only when no public-domain image exists; an illustration, not a reproduction of the real cover.</li>
+            <li><strong>Placeholder</strong>: a temporary state pending an image.</li>
+          </ul>
+          <p>
+            Public-domain material outranks generated art: a facsimile of a classical
+            edition is itself primary evidence. AI fills a gap that is concentrated
+            almost entirely in contemporary book covers, where no public-domain
+            imagery exists.
+          </p>
+          <p>
+            <strong>On portrait rights</strong>: copyright in a photograph belongs to
+            the photographer, not to the subject. Only photographs explicitly marked
+            public domain or CC0 are used; no photographs of living authors are used
+            at all.
+          </p>
+
+          <h2 class="subhead">Languages and translation</h2>
+          <p>
+            The site is bilingual. The language is chosen from the visitor's system
+            setting. Where an English entry is not yet written, the Chinese original
+            is shown with a clear notice — <strong>never a machine translation</strong>.
+          </p>
+
+          <h2 class="subhead">Corrections</h2>
+          <p>
+            Uncertain fields are marked on the page. Corrections are welcome via the
+            repository's issue tracker. A reference site whose data cannot be trusted
+            has no value: better to list less than to list wrong.
+          </p>
+        </>
+      )
+    }
+  </section>
+</BaseLayout>

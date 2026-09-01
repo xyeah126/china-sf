@@ -1,0 +1,17 @@
+---
+import type { GetStaticPaths } from 'astro';
+import PublisherDetail from '../../../components/pages/PublisherDetail.astro';
+import { getPublishers } from '../../../lib/content';
+
+export const getStaticPaths = (async () => {
+  const items = await getPublishers();
+  return items.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+---
+
+<PublisherDetail entry={entry} lang="en" />

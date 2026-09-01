@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout lang="en" title="Page Not Found">
+  <section class="section notfound">
+    <p class="notfound-code">404</p>
+    <h1 class="section-title">This page is not on the star chart</h1>
+    <p class="detail-meta">
+      The address you requested has no content. The link may be broken, or the entry may have been renamed.
+    </p>
+    <div class="notfound-links">
+      <a class="back-link" href="/en/">← Back to home</a>
+      <a class="back-link" href="/en/works">Browse works</a>
+      <a class="back-link" href="/en/search">Search the site</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    text-align: center;
+    padding: 40px 0;
+  }
+  .notfound-code {
+    font-family: var(--font-mono);
+    font-size: 72px;
+    line-height: 1;
+    color: var(--accent);
+    margin: 0 0 12px;
+  }
+  .notfound-links {
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 26px;
+  }
+  .notfound-links .back-link {
+    margin-top: 0;
+  }
+</style>

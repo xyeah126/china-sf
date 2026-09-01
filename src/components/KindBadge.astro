@@ -1,0 +1,19 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+
+type Kind = 'myth' | 'proto-sf' | 'sf';
+
+interface Props {
+  kind: Kind;
+  lang: Lang;
+}
+const { kind, lang } = Astro.props;
+
+const map: Record<Kind, keyof (typeof ui)['zh']> = {
+  myth: 'kindMyth',
+  'proto-sf': 'kindProtoSf',
+  sf: 'kindSf',
+};
+---
+
+<span class={`badge badge-${kind}`}>{ui[lang][map[kind]]}</span>

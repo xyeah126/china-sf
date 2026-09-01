@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ui, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const ph = t.searchPlaceholder;
+const zero = t.searchZero;
+---
+
+<BaseLayout lang={lang} title={t.navSearch}>
+  <section class="section">
+    <h1 class="section-title">{t.navSearch}</h1>
+    <div id="search" class="pagefind-ui" data-ph={ph} data-zero={zero}></div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var el = document.getElementById('search');
+    if (!el || !window.PagefindUI) return;
+    new PagefindUI({
+      element: '#search',
+      showSubResults: true,
+      translations: { placeholder: el.dataset.ph, zero_results: el.dataset.zero },
+    });
+  });
+</script>

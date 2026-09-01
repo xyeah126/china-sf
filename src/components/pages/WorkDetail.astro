@@ -1,0 +1,196 @@
+---
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CreditBadge from '../CreditBadge.astro';
+import KindBadge from '../KindBadge.astro';
+import TranslationNotice from '../TranslationNotice.astro';
+import { ui, type Lang } from '../../i18n/ui';
+import { getAdaptationsFor, getAuthor, fmtYear } from '../../lib/content';
+
+interface Props {
+  entry: CollectionEntry<'works'>;
+  lang: Lang;
+  slug: string;
+  isFallback: boolean;
+}
+const { entry, lang, slug, isFallback } = Astro.props;
+const d = entry.data;
+const T = ui[lang] as unknown as Record<string, string>;
+const prefix = lang === 'en' ? '/en' : '';
+
+const { Content } = await render(entry);
+const adaptations = await getAdaptationsFor(slug, lang);
+const authorHit = d.authorSlug ? await getAuthor(d.authorSlug, lang) : null;
+
+const glyph = d.title.replace(/[《》]/g, '').trim().charAt(0) || '书';
+
+const typeKey: Record<string, string> = {
+  film: 'typeFilm',
+  tv: 'typeTv',
+  animation: 'typeAnimation',
+  'web-series': 'typeWebSeries',
+  documentary: 'typeDocumentary',
+  other: 'typeOther',
+};
+const statusKey: Record<string, string> = {
+  released: 'statusReleased',
+  upcoming: 'statusUpcoming',
+  'in-development': 'statusInDevelopment',
+  cancelled: 'statusCancelled',
+};
+// 无对应文学条目时，按来源类型显示说明
+const sourceKey: Record<string, string> = {
+  novel: 'sourceNovel',
+  original: 'sourceOriginal',
+  comic: 'sourceComic',
+  game: 'sourceGame',
+};
+// 豆瓣回链：使用公开搜索页，不依赖精确条目 ID
+const doubanSearch = (title: string) =>
+  'https://search.douban.com/movie/subject_search?search_text=' +
+  encodeURIComponent(title);
+
+// 英文站：回退到中文条目，或条目未完整翻译 → 提示
+const effectiveStatus: 'full' | 'partial' | 'none' =
+  isFallback ? 'none' : (d.translationStatus as 'full' | 'partial' | 'none');
+// OG 描述：作者 · 年份 · 时期
+const ogDesc = [d.author, d.year ? String(d.year) : '', d.publisher]
+  .filter(Boolean)
+  .join(' · ');
+
+---
+
+<BaseLayout lang={lang} title={d.title} description={ogDesc || undefined} image={d.cover ?? undefined}>
+  <article class="detail">
+    <div>
+      <div class="cover">
+        {
+          d.cover ? (
+            <img src={d.cover} alt={d.title} />
+          ) : (
+            <span class="cover-glyph">{glyph}</span>
+          )
+        }
+        <CreditBadge credit={d.coverCredit} lang={lang} />
+      </div>
+
+      {
+        authorHit && (
+          <p class="card-meta">
+            {lang === 'zh' ? '作者' : 'Author'}：
+            <br />
+            <a class="author-link" href={`${prefix}/authors/${d.authorSlug}`}>
+              {authorHit.entry.data.name}
+            </a>
+            {authorHit.entry.data.birthYear
+              ? `（${authorHit.entry.data.birthYear}–${authorHit.entry.data.deathYear ?? ''}）`
+              : ''}
+          </p>
+        )
+      }
+    </div>
+
+    <div>
+      <TranslationNotice lang={lang} status={effectiveStatus} />
+
+      <h1 class="detail-title">{d.title}</h1>
+      <p class="detail-meta">
+        {
+          d.author ? (
+            <>
+              {d.authorSlug ? (
+                <a class="author-link" href={`${prefix}/authors/${d.authorSlug}`}>{d.author}</a>
+              ) : (
+                d.author
+              )}
+              {' · '}
+            </>
+          ) : ''
+        }<span class="year">{fmtYear(d.year, lang)}</span>{
+          d.publisher ? ` · ${d.publisher}` : ''
+        }
+      </p>
+
+      <div class="badges">
+        <KindBadge kind={d.kind} lang={lang} />
+        {d.tags.map((tag) => <span class="badge">{tag}</span>)}
+      </div>
+
+      <div class="detail-body">
+        <Content />
+      </div>
+
+      {
+        d.awards && d.awards.length > 0 && (
+          <>
+            <h2 class="subhead">{T.sectionAwards}</h2>
+            <ul class="sources awards">
+              {d.awards.map((a) => <li>{a}</li>)}
+            </ul>
+          </>
+        )
+      }
+
+      {
+        adaptations.length > 0 && (
+          <>
+            <h2 class="subhead">{T.sectionAdaptations}</h2>
+            {adaptations.map((a) => (
+              <div class="adaptation">
+                <div class="adaptation-poster" />
+                <div>
+                  <div class="adaptation-title">{a.data.title}</div>
+                  <div class="adaptation-meta">
+                    {T[typeKey[a.data.type] ?? 'typeOther']} ·{' '}
+                    <span class="year">{a.data.year}</span>
+                    {a.data.platform ? ` · ${a.data.platform}` : ''}
+                    {` · ${T[statusKey[a.data.status] ?? 'statusReleased']}`}
+                  </div>
+                  {a.data.director && (
+                    <div class="card-meta">{T.labelDirector}：{a.data.director}</div>
+                  )}
+                  {a.data.cast.length > 0 && (
+                    <div class="card-meta">
+                      {T.labelCast}：{a.data.cast.join(lang === 'zh' ? '、' : ', ')}
+                    </div>
+                  )}
+                  {a.data.doubanRating != null && (
+                    <div class="card-meta">
+                      {T.labelDouban}{' '}
+                      <a
+                        href={doubanSearch(a.data.title)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {a.data.doubanRating.toFixed(1)}
+                      </a>
+                      {a.data.doubanRatingAt
+                        ? ` · ${T.ratingAsOf} ${a.data.doubanRatingAt}`
+                        : ''}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </>
+        )
+      }
+
+      {
+        d.sources.length > 0 && (
+          <>
+            <h2 class="subhead">{T.sectionSources}</h2>
+            <ul class="sources">
+              {d.sources.map((s) => (
+                <li>{s}</li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+
+      <a class="back-link" href={`${prefix}/works`}>← {T.navWorks}</a>
+    </div>
+  </article>
+</BaseLayout>

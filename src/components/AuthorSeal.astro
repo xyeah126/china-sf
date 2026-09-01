@@ -1,0 +1,141 @@
+---
+/**
+ * 姓名印章式作者头像（SVG，零版权风险、零图片额度）
+ * - 中文：竖排姓名字，朱砂印底白字（阴文印）
+ * - 英文：姓名首字母横排
+ * - 印章外点缀星图纹（呼应全站科幻调性），星点位置由姓名哈希决定（每位作者稳定唯一）
+ */
+interface Props {
+  name: string;
+  lang?: 'zh' | 'en';
+  /** card: 3:4 封面位图；hero: 方形详情页大图 */
+  variant?: 'card' | 'hero';
+  class?: string;
+}
+
+const { name, lang = 'zh', variant = 'card', class: cls } = Astro.props;
+
+const isCard = variant === 'card';
+const W = isCard ? 300 : 260;
+const H = isCard ? 400 : 260;
+
+// 印文：中文取姓名汉字（≤4），英文取各词首字母（≤3）
+const chars =
+  lang === 'zh'
+    ? [...name].filter((c) => /\S/.test(c)).slice(0, 4)
+    : name.split(/\s+/).map((w) => w[0]?.toUpperCase() ?? '').slice(0, 3);
+
+// 印章几何
+const seal = isCard ? 186 : 205;
+const sx = (W - seal) / 2;
+const sy = (H - seal) / 2;
+
+// 行距系数：相邻两字基线间距 = fs * LINE
+const LINE = 1.04;
+// 内框可用高度 = (印章 − 内框内缩 18) × 留白系数，确保 3/4 字姓名不溢出边缘
+const usable = (seal - 18) * 0.86;
+const n = Math.max(chars.length, 1);
+// 总高 = fs × (1 + LINE×(n−1)) ≤ usable
+let fs = usable / (1 + LINE * (n - 1));
+fs = Math.min(fs, lang === 'zh' ? 96 : 78); // 单字不过大
+
+// 姓名哈希 → 星点伪随机（每位作者图案稳定）
+let h = 2166136261;
+for (let i = 0; i < name.length; i++) {
+  h ^= name.charCodeAt(i);
+  h = Math.imul(h, 16777619);
+}
+const rnd = () => {
+  h ^= h << 13; h ^= h >>> 17; h ^= h << 5;
+  return ((h >>> 0) % 1000) / 1000;
+};
+
+const stars = Array.from({ length: 9 }, () => ({
+  x: 14 + rnd() * (W - 28),
+  y: 14 + rnd() * (H - 28),
+  r: 1.1 + rnd() * 1.7,
+  o: 0.22 + rnd() * 0.4,
+}));
+// 连线取相邻星点成一条"星座线"
+const link = stars.slice(0, 5);
+---
+
+<svg
+  class={cls ? `author-seal ${cls}` : 'author-seal'}
+  viewBox={`0 0 ${W} ${H}`}
+  width="100%"
+  height="100%"
+  role="img"
+  aria-label={name}
+  xmlns="http://www.w3.org/2000/svg"
+>
+  {/* 星图纹（低透明度，避开印章区域视觉干扰） */}
+  <g stroke="var(--accent)" stroke-width="1" fill="none" opacity="0.35">
+    <polyline
+      points={link.map((s) => `${s.x.toFixed(1)},${s.y.toFixed(1)}`).join(' ')}
+      stroke-dasharray="2 4"
+    />
+  </g>
+  {stars.map((s) => (
+    <circle cx={s.x.toFixed(1)} cy={s.y.toFixed(1)} r={s.r.toFixed(1)} fill="var(--accent)" opacity={s.o.toFixed(2)} />
+  ))}
+
+  {/* 印章：朱砂底 + 白字 + 内框 */}
+  <g>
+    <rect
+      x={sx}
+      y={sy}
+      width={seal}
+      height={seal}
+      rx="12"
+      fill="#b03a2c"
+    />
+    <rect
+      x={sx + 9}
+      y={sy + 9}
+      width={seal - 18}
+      height={seal - 18}
+      rx="7"
+      fill="none"
+      stroke="#f7ece4"
+      stroke-width="2.5"
+      opacity="0.85"
+    />
+    {lang === 'zh' ? (
+      // 中文竖排
+      chars.map((c, i) => (
+        <text
+          x={W / 2}
+          y={H / 2 + (i - (chars.length - 1) / 2) * fs * 1.04 + fs * 0.34}
+          text-anchor="middle"
+          font-family="var(--font-seal)"
+          font-size={fs}
+          fill="#f7ece4"
+        >
+          {c}
+        </text>
+      ))
+    ) : (
+      // 英文首字母横排
+      <text
+        x={W / 2}
+        y={H / 2 + fs * 0.18}
+        text-anchor="middle"
+        font-family="var(--font-seal)"
+        font-size={chars.length > 2 ? fs * 0.62 : fs * 0.78}
+        letter-spacing="2"
+        fill="#f7ece4"
+      >
+        {chars.join('')}
+      </text>
+    )}
+  </g>
+</svg>
+
+<style>
+  .author-seal {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>

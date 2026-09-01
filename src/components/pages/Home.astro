@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../WorkCard.astro';
+import { ui, type Lang } from '../../i18n/ui';
+import { getWorks, getEras, fmtEraRange } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const prefix = lang === 'en' ? '/en' : '';
+
+const works = await getWorks(lang);
+const eras = await getEras();
+const featured = works.filter((w) => w.entry.data.featured);
+
+const allAuthors = await getCollection('authors');
+const allAdaptations = await getCollection('adaptations');
+const authorCount = new Set(allAuthors.map((a) => a.id.split('/')[1])).size;
+const adaptationCount = new Set(allAdaptations.map((a) => a.id.split('/')[1])).size;
+---
+
+<BaseLayout lang={lang}>
+  <section class="hero">
+    <h1 class="hero-title">{t.siteName}</h1>
+    <p class="hero-tagline">{t.tagline}</p>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-num">{works.length}</span>
+        <span class="stat-label">{t.statWorks}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">{authorCount}</span>
+        <span class="stat-label">{t.statAuthors}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">{adaptationCount}</span>
+        <span class="stat-label">{t.statAdaptations}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">{t.sectionTimeline}</h2>
+    <div class="entries">
+      {
+        eras.map((era) => (
+          <a class="entry" href={`${prefix}/timeline#${era.id}`}>
+            {lang === 'zh' ? era.data.label : era.data.labelEn}
+            <span>{fmtEraRange(era.data.start, era.data.end, lang)}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">{t.sectionFeatured}</h2>
+    <div class="grid">
+      {
+        featured.map((w) => (
+          <WorkCard entry={w.entry} lang={lang} href={`${prefix}/works/${w.slug}`} />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">{t.sectionEntries}</h2>
+    <div class="entries">
+      <a class="entry" href={`${prefix}/works`}>{t.labelWorks}</a>
+      <a class="entry" href={`${prefix}/timeline`}>{t.navTimeline}</a>
+      <a class="entry" href={`${prefix}/about`}>{t.navAbout}</a>
+    </div>
+  </section>
+</BaseLayout>

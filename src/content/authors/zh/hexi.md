@@ -1,0 +1,13 @@
+---
+name: "何夕"
+birthYear: 1971
+deathYear: null
+era: "dangdai"
+photoCredit: "placeholder"
+translationStatus: "full"
+awards:
+  - "中国科幻银河奖"
+  - "全球华语科幻星云奖"
+
+---
+本名何宏伟，九十年代崛起的科幻代表作家之一。以「伤感科幻」见长，关注科学与人性的张力，《伤心者》《六道众生》《天年》等将数学、物理与深情叙述结合，在硬核设定中寄托对文明与个体的温情关怀。

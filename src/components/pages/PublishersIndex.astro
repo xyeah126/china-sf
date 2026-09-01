@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ui, type Lang } from '../../i18n/ui';
+import { getPublishers } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const prefix = lang === 'en' ? '/en' : '';
+const publishers = await getPublishers();
+
+const typeLabel: Record<string, string> = {
+  press: t.typePress,
+  magazine: t.typeMagazine,
+  series: t.typeSeries,
+  platform: t.typePlatform,
+};
+---
+
+<BaseLayout lang={lang} title={t.navPublishers}>
+  <section class="section">
+    <h1 class="section-title">{t.navPublishers}</h1>
+    <div class="grid">
+      {
+        publishers.map((p) => (
+          <a class="card" href={`${prefix}/publishers/${p.id}`}>
+            <div class="cover">
+              {p.data.logo ? (
+                <img src={p.data.logo} alt={p.data.name} loading="lazy" />
+              ) : (
+                <span class="cover-glyph">{p.data.name.charAt(0)}</span>
+              )}
+            </div>
+            <div class="card-title">
+              {lang === 'en' && p.data.nameEn ? p.data.nameEn : p.data.name}
+            </div>
+            <div class="card-meta">
+              <span class="badge">{typeLabel[p.data.type] ?? p.data.type}</span>
+              {p.data.founded != null && <span class="year"> · {p.data.founded}</span>}
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

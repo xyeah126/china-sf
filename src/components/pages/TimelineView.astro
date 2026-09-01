@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../WorkCard.astro';
+import KindBadge from '../KindBadge.astro';
+import { ui, type Lang } from '../../i18n/ui';
+import { getWorksByEra, fmtEraRange } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const prefix = lang === 'en' ? '/en' : '';
+const groups = await getWorksByEra(lang);
+---
+
+<BaseLayout lang={lang} title={t.navTimeline}>
+  <section class="section">
+    <h1 class="section-title">{t.sectionTimeline}</h1>
+
+    {
+      groups.map(({ era, works }) => (
+        <div class="era-block" id={era.id}>
+          <div class="era-head">
+            <h2 class="era-title">{lang === 'zh' ? era.data.label : era.data.labelEn}</h2>
+            <span class="era-range">{fmtEraRange(era.data.start, era.data.end, lang)}</span>
+            <KindBadge kind={era.data.kind} lang={lang} />
+          </div>
+          <p class="era-summary">
+            {lang === 'zh' ? era.data.summary : (era.data.summaryEn ?? era.data.summary)}
+          </p>
+          {works.length > 0 ? (
+            <div class="grid">
+              {works.map((w) => (
+                <WorkCard entry={w.entry} lang={lang} href={`${prefix}/works/${w.slug}`} />
+              ))}
+            </div>
+          ) : (
+            <p class="era-summary">
+              {lang === 'zh' ? '本时期暂无收录条目。' : 'No entries yet for this period.'}
+            </p>
+          )}
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>

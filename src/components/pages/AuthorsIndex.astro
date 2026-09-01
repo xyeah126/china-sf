@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuthorSeal from '../AuthorSeal.astro';
+import { ui, type Lang } from '../../i18n/ui';
+import { getAuthors, getWorksByAuthor } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang] as unknown as Record<string, string>;
+const prefix = lang === 'en' ? '/en' : '';
+const authors = await getAuthors(lang);
+
+// 每位作者名下的作品数（纯内存查询，量小可循环）
+const counts = new Map<string, number>();
+for (const a of authors) {
+  counts.set(a.slug, (await getWorksByAuthor(a.slug, lang)).length);
+}
+
+function lifeText(d: { birthYear: number | null; deathYear: number | null }): string {
+  if (d.birthYear === null || d.birthYear === undefined) {
+    return lang === 'zh' ? '生卒不详' : 'dates unknown';
+  }
+  return `${d.birthYear}–${d.deathYear ?? ''}`;
+}
+---
+
+<BaseLayout lang={lang} title={t.navAuthors}>
+  <section class="section">
+    <h1 class="section-title">{t.navAuthors}</h1>
+    <div class="grid">
+      {
+        authors.map((a) => (
+          <a class="card" href={`${prefix}/authors/${a.slug}`}>
+            <div class="cover author-cover">
+              <AuthorSeal name={a.entry.data.name} lang={lang} variant="card" />
+            </div>
+            <div class="card-title">{a.entry.data.name}</div>
+            <div class="card-meta">
+              <span class="year">{lifeText(a.entry.data)}</span>
+            </div>
+            <div class="card-tags">
+              {counts.get(a.slug)} {lang === 'zh' ? '部作品' : 'works'}
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

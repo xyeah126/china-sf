@@ -1,0 +1,21 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+
+type Credit = 'public-domain' | 'licensed' | 'ai-generated' | 'placeholder';
+
+interface Props {
+  credit: Credit;
+  lang: Lang;
+}
+const { credit, lang } = Astro.props;
+
+const map: Record<Credit, keyof (typeof ui)['zh']> = {
+  'public-domain': 'creditPublicDomain',
+  licensed: 'creditLicensed',
+  'ai-generated': 'creditAi',
+  placeholder: 'creditPlaceholder',
+};
+const label = ui[lang][map[credit] ?? 'creditPlaceholder'];
+---
+
+<span class="credit-badge" data-credit={credit}>{label}</span>

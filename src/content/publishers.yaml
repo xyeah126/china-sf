@@ -1,0 +1,43 @@
+- id: kehuan-shijie
+  name: 科幻世界
+  nameEn: Science Fiction World
+  type: magazine
+  founded: 1979
+  summary: 中国发行量最大的科幻杂志，当代中文科幻作家的主要发表阵地。
+  summaryEn: >-
+    China's largest-circulation science fiction magazine and the main venue for
+    contemporary Chinese SF writers.
+
+- id: chongqing
+  name: 重庆出版社
+  nameEn: Chongqing Publishing House
+  type: press
+  founded: 1953
+  summary: 出版了《三体》三部曲，是中国科幻出版的重要力量。
+  summaryEn: Publisher of the Remembrance of Earth's Past trilogy.
+
+- id: renmin-wenxue
+  name: 人民文学出版社
+  nameEn: People's Literature Publishing House
+  type: press
+  founded: 1951
+  summary: 国家级文学出版机构，出版大量当代科幻文学作品。
+  summaryEn: National literature press with an extensive science fiction list.
+
+- id: xiaoshuolin
+  name: 小说林
+  nameEn: Forest of Fiction
+  type: magazine
+  founded: 1907
+  summary: 晚清重要文学月刊，徐念慈主编，刊载早期科学小说。
+  summaryEn: >-
+    A key Late Qing monthly edited by Xu Nianci, which carried early science
+    fiction.
+
+- id: shaonian-ertong
+  name: 中国少年儿童出版社
+  nameEn: China Children's Press
+  type: press
+  founded: 1956
+  summary: 出版《小灵通漫游未来》等少儿科幻经典。
+  summaryEn: Publisher of children's science fiction classics.

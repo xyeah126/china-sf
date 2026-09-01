@@ -1,0 +1,49 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const code = lang === 'zh' ? '中' : 'EN';
+const target = lang === 'zh' ? 'en' : 'zh';
+const label = ui[lang].langSwitch;
+---
+
+<button
+  class="lang-toggle"
+  data-lang={target}
+  aria-label={label}
+  title={label}
+>
+  <svg
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="9.5"></circle>
+    <path d="M12 2.5a14 14 0 0 1 0 19a14 14 0 0 1 0-19z"></path>
+    <path d="M2.8 9h18.4M2.8 15h18.4"></path>
+  </svg>
+  <span class="lang-code">{code}</span>
+</button>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-lang]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-lang');
+      if (!target) return;
+      localStorage.setItem('csf-lang', target);
+      const path = location.pathname;
+      const isEn = path === '/en' || path.startsWith('/en/');
+      const bare = isEn ? path.replace(/^\/en/, '') || '/' : path;
+      location.assign(target === 'en' ? '/en' + (bare === '/' ? '/' : bare) : bare);
+    });
+  });
+</script>

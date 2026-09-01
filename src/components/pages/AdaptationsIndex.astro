@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ui, type Lang } from '../../i18n/ui';
+import { getAdaptations, getWorks } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const T = ui[lang] as unknown as Record<string, string>;
+const prefix = lang === 'en' ? '/en' : '';
+
+const adaptations = await getAdaptations(lang);
+const works = await getWorks(lang);
+const workTitle = new Map(works.map((w) => [w.slug, w.entry.data.title]));
+
+const typeKey: Record<string, string> = {
+  film: 'typeFilm',
+  tv: 'typeTv',
+  animation: 'typeAnimation',
+  'web-series': 'typeWebSeries',
+  documentary: 'typeDocumentary',
+  other: 'typeOther',
+};
+const statusKey: Record<string, string> = {
+  released: 'statusReleased',
+  upcoming: 'statusUpcoming',
+  'in-development': 'statusInDevelopment',
+  cancelled: 'statusCancelled',
+};
+// 无对应文学条目时，按来源类型显示说明
+const sourceKey: Record<string, string> = {
+  novel: 'sourceNovel',
+  original: 'sourceOriginal',
+  comic: 'sourceComic',
+  game: 'sourceGame',
+};
+// 豆瓣回链：使用公开搜索页，不依赖精确条目 ID
+const doubanSearch = (title: string) =>
+  'https://search.douban.com/movie/subject_search?search_text=' +
+  encodeURIComponent(title);
+
+const yearVal = (a: { entry: { data: { year?: number } } }) => a.entry.data.year ?? -1;
+
+// 按类型分组，组内按年份倒序（最新在前，年份缺失排最后）
+const order = ['film', 'tv', 'animation', 'web-series', 'documentary', 'other'];
+const groups = order
+  .map((t) => ({
+    type: t,
+    items: adaptations
+      .filter((a) => (a.entry.data.type ?? 'other') === t)
+      .sort((x, y) => yearVal(y) - yearVal(x)),
+  }))
+  .filter((g) => g.items.length > 0);
+
+const monogram = (title: string) => (title.trim()[0] ?? '?');
+---
+
+<BaseLayout lang={lang} title={T.navAdaptations}>
+  <section class="section">
+    <h1 class="section-title">{T.navAdaptations}</h1>
+    <p class="section-sub">{T.adaptationsIntro}</p>
+
+    {
+      groups.map((g) => (
+        <div class="adaptation-group">
+          <div class="adaptation-group-head">
+            <h2>{T[typeKey[g.type]]}</h2>
+            <span class="adaptation-group-count">{g.items.length}</span>
+          </div>
+          <div class="adaptation-grid">
+            {g.items.map((a) => (
+              <article class="adaptation-card">
+                <div class="adaptation-card-poster">{monogram(a.entry.data.title)}</div>
+                <div class="adaptation-card-body">
+                  <div class="adaptation-card-title">{a.entry.data.title}</div>
+                  <div class="adaptation-line">
+                    <span class="year">
+                      {a.entry.data.year ?? (lang === 'zh' ? '待定' : 'TBA')}
+                    </span>
+                    {a.entry.data.platform ? ` · ${a.entry.data.platform}` : ''}
+                    <span class={`status-badge status-${a.entry.data.status}`}>
+                      {T[statusKey[a.entry.data.status] ?? 'statusReleased']}
+                    </span>
+                  </div>
+                  {a.entry.data.director && (
+                    <div class="adaptation-line">
+                      {T.labelDirector}：{a.entry.data.director}
+                    </div>
+                  )}
+                  {a.entry.data.cast.length > 0 && (
+                    <div class="adaptation-line">
+                      {T.labelCast}：{a.entry.data.cast.join(lang === 'zh' ? '、' : ', ')}
+                    </div>
+                  )}
+                  {a.entry.data.doubanRating != null && (
+                    <div class="adaptation-line">
+                      {T.labelDouban}{' '}
+                      <a
+                        href={doubanSearch(a.entry.data.title)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {a.entry.data.doubanRating.toFixed(1)}
+                      </a>
+                      {a.entry.data.doubanRatingAt
+                        ? ` · ${T.ratingAsOf} ${a.entry.data.doubanRatingAt}`
+                        : ''}
+                    </div>
+                  )}
+                  {a.entry.data.workSlug ? (
+                    <div class="adaptation-line">
+                      {T.adaptedFrom}：
+                      <a href={`${prefix}/works/${a.entry.data.workSlug}`}>
+                        {workTitle.get(a.entry.data.workSlug) ?? a.entry.data.workSlug}
+                      </a>
+                    </div>
+                  ) : (
+                    <div class="adaptation-line">
+                      {T[sourceKey[a.entry.data.sourceType] ?? 'sourceOriginal']}
+                    </div>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>

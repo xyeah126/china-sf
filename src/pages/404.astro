@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout lang="zh" title="页面不存在">
+  <section class="section notfound">
+    <p class="notfound-code">404</p>
+    <h1 class="section-title">这一页不在星图上</h1>
+    <p class="detail-meta">
+      你访问的地址没有对应内容。也许是链接失效，或条目已更名。
+    </p>
+    <div class="notfound-links">
+      <a class="back-link" href="/">← 返回首页</a>
+      <a class="back-link" href="/works">浏览作品库</a>
+      <a class="back-link" href="/search">站内搜索</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    text-align: center;
+    padding: 40px 0;
+  }
+  .notfound-code {
+    font-family: var(--font-mono);
+    font-size: 72px;
+    line-height: 1;
+    color: var(--accent);
+    margin: 0 0 12px;
+  }
+  .notfound-links {
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 26px;
+  }
+  .notfound-links .back-link {
+    margin-top: 0;
+  }
+</style>

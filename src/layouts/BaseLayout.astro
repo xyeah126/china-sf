@@ -1,0 +1,127 @@
+---
+import '../styles/global.css';
+import { ui, type Lang } from '../i18n/ui';
+import LangToggle from '../components/LangToggle.astro';
+
+interface Props {
+  lang?: Lang;
+  title?: string;
+  description?: string;
+  /** 本页 og:image（站点绝对路径如 /covers/x.jpg），缺省用站图 */
+  image?: string;
+}
+
+const { lang = 'zh', title, description, image } = Astro.props;
+const t = ui[lang];
+const pageTitle = title ? `${title} · ${t.siteName}` : `${t.siteName} · ${t.tagline}`;
+const pageDesc = description ?? t.tagline;
+
+const prefix = lang === 'en' ? '/en' : '';
+const currentPath = Astro.url.pathname;
+const bare =
+  currentPath === '/en' || currentPath.startsWith('/en/')
+    ? currentPath.replace(/^\/en/, '') || '/'
+    : currentPath;
+
+const site = Astro.site ?? new URL('https://chinese-sf.example.com');
+const zhHref = new URL(bare, site).href;
+const enHref = new URL('/en' + (bare === '/' ? '/' : bare), site).href;
+const canonical = lang === 'en' ? enHref : zhHref;
+const ogImage = new URL(image ?? '/covers/shanhaijing.jpg', site).href;
+---
+
+<!doctype html>
+<html lang={lang === 'zh' ? 'zh-CN' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="zh-CN" href={zhHref} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="x-default" href={zhHref} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={t.siteName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDesc} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+
+    {/* 语言识别：必须在 head 最前，跳转发生在渲染前，用户几乎无感 */}
+    <script is:inline>
+      (function () {
+        try {
+          var path = location.pathname;
+          if (/\.(js|css|png|jpg|jpeg|webp|svg|ico|woff2?)$/i.test(path)) return;
+
+          var isEn = path === '/en' || path.indexOf('/en/') === 0;
+          var bare = isEn ? path.replace(/^\/en/, '') || '/' : path;
+
+          // ① 用户手动选择过 → 尊重选择
+          var chosen = localStorage.getItem('csf-lang');
+          if (chosen === 'en' && !isEn) {
+            location.replace('/en' + (bare === '/' ? '/' : bare));
+            return;
+          }
+          if (chosen === 'zh' && isEn) {
+            location.replace(bare);
+            return;
+          }
+          if (chosen) return;
+
+          // ② 未选择过 → 读系统语言；非 zh* 一律英文站
+          var nav = (
+            navigator.language ||
+            (navigator.languages && navigator.languages[0]) ||
+            ''
+          ).toLowerCase();
+          if (nav.indexOf('zh') !== 0 && !isEn) {
+            location.replace('/en' + (bare === '/' ? '/' : bare));
+          }
+        } catch (e) {
+          /* 异常时不跳转，保持当前语言 */
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href={prefix + '/'}>
+          <span class="brand-title">{t.siteName}</span>
+          <span class="brand-tag">{t.tagline}</span>
+        </a>
+        <nav class="site-nav">
+          <a href={prefix + '/timeline'}>{t.navTimeline}</a>
+          <a href={prefix + '/works'}>{t.navWorks}</a>
+          <a href={prefix + '/authors'}>{t.navAuthors}</a>
+          <a href={prefix + '/adaptations'}>{t.navAdaptations}</a>
+          <a href={prefix + '/about'}>{t.navAbout}</a>
+          <a href={prefix + '/search'}>{t.navSearch}</a>
+          <LangToggle lang={lang} />
+        </nav>
+      </div>
+    </header>
+
+    <main class="container" data-pagefind-body>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        {t.siteName} · {t.tagline}
+      </div>
+    </footer>
+
+    <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  </body>
+</html>

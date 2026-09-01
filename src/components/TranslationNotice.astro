@@ -1,0 +1,14 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  status: 'full' | 'partial' | 'none';
+}
+const { lang, status } = Astro.props;
+
+// 只在英文站、且条目未完整翻译时提示
+const show = lang === 'en' && status !== 'full';
+---
+
+{show && <div class="notice">{ui.en.noTranslation}</div>}

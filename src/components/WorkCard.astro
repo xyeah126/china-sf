@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import CreditBadge from './CreditBadge.astro';
+import KindBadge from './KindBadge.astro';
+
+interface Props {
+  entry: CollectionEntry<'works'>;
+  lang: Lang;
+  href: string;
+  /** 透传到 <a> 的 data-* 属性，供作品库筛选排序读取 */
+  dataAttrs?: Record<string, string>;
+}
+const { entry, lang, href, dataAttrs = {} } = Astro.props;
+const d = entry.data;
+
+const glyph = d.title.replace(/[《》]/g, '').trim().charAt(0) || '书';
+const prefix = lang === 'en' ? '/en' : '';
+// 作者有 slug 时，卡片上的作者名可点击直达作者页
+const authorHref = d.authorSlug ? `${prefix}/authors/${d.authorSlug}` : null;
+
+let yearText: string;
+if (d.year === null || d.year === undefined) {
+  yearText = lang === 'zh' ? '年代不详' : 'undated';
+} else if (d.year < 0) {
+  yearText = lang === 'zh' ? `前 ${-d.year}` : `${-d.year} BCE`;
+} else {
+  yearText = String(d.year);
+}
+if (d.yearUncertain) yearText += lang === 'zh' ? '？' : '?';
+---
+
+<article class="card" {...dataAttrs}>
+  <div class="cover">
+    {d.cover ? <img src={d.cover} alt={d.title} loading="lazy" /> : <span class="cover-glyph">{glyph}</span>}
+    <CreditBadge credit={d.coverCredit} lang={lang} />
+  </div>
+  {/* stretched link：::after 铺满整卡，卡片任意处点击都进作品详情 */}
+  <div class="card-title"><a class="stretched" href={href}>{d.title}</a></div>
+  <div class="card-meta">
+    {
+      d.author ? (
+        <>
+          {authorHref ? (
+            <a class="author-link" href={authorHref}>{d.author}</a>
+          ) : (
+            d.author
+          )}
+          {' · '}
+        </>
+      ) : ''
+    }<span class="year">{yearText}</span>
+  </div>
+  <div class="badges"><KindBadge kind={d.kind} lang={lang} /></div>
+  {d.tags.length > 0 && <div class="card-tags">{d.tags.slice(0, 3).map((tag) => '#' + tag).join(' ')}</div>}
+</article>

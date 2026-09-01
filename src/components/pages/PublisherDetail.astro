@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ui, type Lang } from '../../i18n/ui';
+import { getPublishers, getWorks, fmtYear, type PublisherEntry } from '../../lib/content';
+
+interface Props {
+  entry: PublisherEntry;
+  lang: Lang;
+}
+const { entry, lang } = Astro.props;
+const t = ui[lang];
+const prefix = lang === 'en' ? '/en' : '';
+const d = entry.data;
+
+const name = lang === 'en' && d.nameEn ? d.nameEn : d.name;
+const summary = lang === 'en' && d.summaryEn ? d.summaryEn : d.summary;
+const typeLabel: Record<string, string> = {
+  press: t.typePress,
+  magazine: t.typeMagazine,
+  series: t.typeSeries,
+  platform: t.typePlatform,
+};
+const typeText = typeLabel[d.type] ?? d.type;
+
+// 反向关联：本站作品中 publisher 字段与该社名称（中文名，作品侧统一存中文）一致者
+const works = await getWorks(lang);
+const related = works.filter((w) => w.entry.data.publisher && w.entry.data.publisher === d.name);
+---
+
+<BaseLayout lang={lang} title={name}>
+  <section class="section">
+    <div class="detail">
+      <div class="detail-aside">
+        <div class="cover cover-square">
+          {
+            d.logo ? (
+              <img src={d.logo} alt={d.name} loading="lazy" />
+            ) : (
+              <span class="cover-glyph">{d.name.charAt(0)}</span>
+            )
+          }
+        </div>
+      </div>
+      <div class="detail-body">
+        <h1 class="detail-title">{name}</h1>
+        <div class="detail-meta">
+          <span class="badge">{typeText}</span>
+          {d.founded != null && <span> · {t.pubFounded} {d.founded}</span>}
+        </div>
+        {summary && <p>{summary}</p>}
+
+        <h2 class="subhead">{t.pubWorks}</h2>
+        {
+          related.length > 0 ? (
+            <div class="work-list">
+              {related.map((w) => (
+                <a class="work-row" href={`${prefix}/works/${w.slug}`}>
+                  <span class="work-row-title">{w.entry.data.title}</span>
+                  <span class="work-row-year year">{fmtYear(w.entry.data.year, lang)}</span>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p class="pub-none">{t.pubNone}</p>
+          )
+        }
+
+        <a class="back-link" href={`${prefix}/publishers`}>← {t.navPublishers}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

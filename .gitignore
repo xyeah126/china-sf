@@ -1,0 +1,32 @@
+# 构建产物
+dist/
+.astro/
+
+# 依赖
+node_modules/
+
+# Pagefind 索引产物（构建时生成）
+src/pagefind/
+public/pagefind/
+
+# 环境变量 / 密钥
+.env
+.env.*
+!.env.example
+
+# 封面原图（optimize_covers.py 转 WebP 后的备份，体积大约 190MB，不入库）
+public/covers_source/
+
+# 日志与临时文件
+*.log
+build_log.txt
+tmp_*/
+build_all.log
+scripts/*.log
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+covers_backup
