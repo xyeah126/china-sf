@@ -13,7 +13,9 @@ interface Props {
 
 const { lang = 'zh', title, description, image } = Astro.props;
 const t = ui[lang];
-const pageTitle = title ? `${title} · ${t.siteName}` : `${t.siteName} · ${t.tagline}`;
+// 标签页标题用短名（"三体 · 中国科幻" / "The Three-Body Problem · China S-F"），
+// 站名全称留给 hero、导航栏品牌位、页脚与 og:site_name
+const pageTitle = title ? `${title} · ${t.siteNameShort}` : `${t.siteName} · ${t.tagline}`;
 const pageDesc = description ?? t.tagline;
 
 const prefix = lang === 'en' ? '/en' : '';
@@ -23,7 +25,7 @@ const bare =
     ? currentPath.replace(/^\/en/, '') || '/'
     : currentPath;
 
-const site = Astro.site ?? new URL('https://chinese-sf.example.com');
+const site = Astro.site ?? new URL('https://china-sf.example.com');
 const zhHref = new URL(bare, site).href;
 const enHref = new URL('/en' + (bare === '/' ? '/' : bare), site).href;
 const canonical = lang === 'en' ? enHref : zhHref;

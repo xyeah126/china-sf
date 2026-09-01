@@ -9,10 +9,10 @@
 
 ### ① 域名
 
-`astro.config.mjs` 的 `site` **已设为 Cloudflare Pages 默认域名 `https://chinese-sf.pages.dev`**，  
+`astro.config.mjs` 的 `site` **已设为 Cloudflare Pages 默认域名 `https://china-sf.pages.dev`**，  
 部署后即可直接用 `<project>.pages.dev` 访问，sitemap / robots / OG / canonical 全部正确。
 
-> 若要绑定自定义域名（如 `chinesesf.org`），改这一处即可全站同步：
+> 若要绑定自定义域名（如 `chinasf.org`），改这一处即可全站同步：
 >
 > ```js
 > // astro.config.mjs
@@ -28,7 +28,8 @@
 
 | 域名                  | 特点                                          |
 | ------------------- | ------------------------------------------- |
-| `chinesesf.org`     | .org 国际感强，利于英文站传播（推荐主选）                     |
+| `chinasf.org`       | 对应英文站名 China S-F，短、好记（推荐主选）                     |
+| `china-sf.org`      | 带连字符，与项目名 `china-sf` / 默认域 `china-sf.pages.dev` 一致 |
 | `kehuanpulu.cn`     | 中文站名「科幻谱录」，.cn 需备案才能用国内 CDN，但 Pages 境外节点免备案 |
 | `zhongguokehuan.cn` | 直白，同上                                       |
 
@@ -44,11 +45,11 @@
 ## 一、本地初始化 Git（我可以代做）
 
 ```bash
-cd chinese-sf
+cd china-sf
 
 git init
 git add .
-git commit -m "feat: 中国科幻小说网 首版（84 作品 / 31 作者 / 双语）"
+git commit -m "feat: 中国科幻作品网 首版（84 作品 / 31 作者 / 双语）"
 ```
 
 > 已配好 `.gitignore`，会忽略 `dist/`、`.astro/`、`node_modules/`、日志与临时文件。  
@@ -77,22 +78,22 @@ git commit -m "feat: 中国科幻小说网 首版（84 作品 / 31 作者 / 双�
    选 GitHub.com → 选 HTTPS → 选 "Login with a web browser" → 按提示粘贴一次性码。
 2. 授权成功后，一条命令建仓并推送：
    ```bash
-   cd chinese-sf
-   /c/gh/bin/gh.exe repo create chinese-sf --public --source=. --remote=origin --push --branch=master
+   cd china-sf
+   /c/gh/bin/gh.exe repo create china-sf --public --source=. --remote=origin --push --branch=master
    ```
-   > 这条命令会：在 GitHub 建 `chinese-sf` 仓库 → 加 `origin` 远程 → 推 `master` 分支。  
+   > 这条命令会：在 GitHub 建 `china-sf` 仓库 → 加 `origin` 远程 → 推 `master` 分支。  
    > 若想用私有仓库，把 `--public` 换成 `--private`。
 
 ### 方式 A：用 GitHub 网页（最省事）
 
 1. 打开 <https://github.com/new>
-2. Repository name 填 `chinese-sf`，**选 Public**（Pages 免费版对私有仓库也支持，Public 便于后续开源）
+2. Repository name 填 `china-sf`，**选 Public**（Pages 免费版对私有仓库也支持，Public 便于后续开源）
 3. **不要**勾选 "Add a README file"（本地已有）
 4. 点 Create repository
 5. 页面会给出推送命令，复制执行：
 
 ```bash
-git remote add origin https://github.com/<你的用户名>/chinese-sf.git
+git remote add origin https://github.com/<你的用户名>/china-sf.git
 git push -u origin master
 ```
 
@@ -103,7 +104,7 @@ git push -u origin master
 ### 方式 B：用 SSH（配过密钥的话）
 
 ```bash
-git remote add origin git@github.com:<你的用户名>/chinese-sf.git
+git remote add origin git@github.com:<你的用户名>/china-sf.git
 git push -u origin master
 ```
 
@@ -113,12 +114,12 @@ git push -u origin master
 
 1. 注册/登录 <https://dash.cloudflare.com>
 2. 左侧 **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**
-3. 授权 GitHub，选中 `chinese-sf` 仓库 → **Begin setup**
+3. 授权 GitHub，选中 `china-sf` 仓库 → **Begin setup**
 4. 填写构建配置：
 
 | 配置项                    | 值                                 |
 | ---------------------- | --------------------------------- |
-| Project name           | `chinese-sf`                      |
+| Project name           | `china-sf`                      |
 | Production branch      | `master`                          |
 | Framework preset       | **Astro**                         |
 | Build command          | `npm run build`                   |
@@ -142,15 +143,15 @@ git push -u origin master
    - **API Token**（推荐，非交互）：Cloudflare 控制台 → My Profile → API Tokens →
      Create Token → 模板选 **Cloudflare Pages: Edit** → 复制 Token。
    - 或浏览器登录：`node_modules/.bin/wrangler login`（开浏览器授权）。
-2. 一键部署（首次会自动创建 `chinese-sf` 项目）：
+2. 一键部署（首次会自动创建 `china-sf` 项目）：
    ```bash
-   cd chinese-sf
+   cd china-sf
    # 用 API Token：
-   CLOUDFLARE_API_TOKEN=<你的token> node_modules/.bin/wrangler pages deploy dist --project-name=chinese-sf
+   CLOUDFLARE_API_TOKEN=<你的token> node_modules/.bin/wrangler pages deploy dist --project-name=china-sf
    # 或用 wrangler login 后：
-   node_modules/.bin/wrangler pages deploy dist --project-name=chinese-sf
+   node_modules/.bin/wrangler pages deploy dist --project-name=china-sf
    ```
-3. 部署完终端会给出 `https://chinese-sf.pages.dev` 预览地址；后续改内容后重跑同一条命令即可更新。
+3. 部署完终端会给出 `https://china-sf.pages.dev` 预览地址；后续改内容后重跑同一条命令即可更新。
 
 > 直传方式跳过 Git 自动构建，因此**不会**根据 `main` 分支自动触发；每次更新需手动重跑上面命令
 > （或之后在 Cloudflare 控制台把项目改成「Connect to Git」接回 GitHub 也能恢复自动构建）。
@@ -167,7 +168,7 @@ git push -u origin master
      ```
      类型: CNAME
      主机: @ (或 www)
-     值:   chinese-sf.pages.dev
+     值:   china-sf.pages.dev
      ```
 4. 等 SSL 证书自动签发（通常 5–15 分钟，状态变 Active 即生效）
 
@@ -196,7 +197,7 @@ git push -u origin master
 后续改内容或加作品后：
 
 ```bash
-cd chinese-sf
+cd china-sf
 # 本地预览确认（禁缓存服务器）
 python scripts/preview_server.py 4550 dist
 

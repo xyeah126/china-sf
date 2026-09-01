@@ -1,6 +1,7 @@
 export const ui = {
   zh: {
-    siteName: '中国科幻小说网',
+    siteName: '中国科幻作品网',
+    siteNameShort: '中国科幻',
     tagline: '从《山海经》到《三体》',
     navTimeline: '时间线',
     navWorks: '作品库',
@@ -86,7 +87,8 @@ export const ui = {
     pubNone: '（暂无收录作品）',
   },
   en: {
-    siteName: 'Chinese Science Fiction Archive',
+    siteName: 'China Science Fiction',
+    siteNameShort: 'China S-F',
     tagline: 'From Classic of Mountains and Seas to The Three-Body Problem',
     navTimeline: 'Timeline',
     navWorks: 'Works',

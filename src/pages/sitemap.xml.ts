@@ -25,7 +25,7 @@ function xmlEscape(s: string): string {
 }
 
 export const GET: APIRoute = async ({ site }) => {
-  const base = (site ?? new URL('https://chinese-sf.example.com')).href.replace(/\/$/, '');
+  const base = (site ?? new URL('https://china-sf.example.com')).href.replace(/\/$/, '');
 
   const [zhWorks, enWorks, zhAuthors, enAuthors, publishers] = await Promise.all([
     getWorks('zh'),

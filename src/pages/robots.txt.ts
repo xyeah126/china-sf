@@ -5,7 +5,7 @@ import type { APIRoute } from 'astro';
  * 部署换域名时无需手动同步。
  */
 export const GET: APIRoute = async ({ site }) => {
-  const base = (site ?? new URL('https://chinese-sf.example.com')).href.replace(/\/$/, '');
+  const base = (site ?? new URL('https://china-sf.example.com')).href.replace(/\/$/, '');
   const body = `User-agent: *
 Allow: /
 
