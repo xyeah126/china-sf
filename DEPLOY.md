@@ -8,17 +8,18 @@
 ## 零、部署前必须定的两件事
 
 ### ① 域名
-当前 `astro.config.mjs` 里是占位值，**上线前必须改成真实域名**：
+`astro.config.mjs` 的 `site` **已设为 Cloudflare Pages 默认域名 `https://chinese-sf.pages.dev`**，
+部署后即可直接用 `<project>.pages.dev` 访问，sitemap / robots / OG / canonical 全部正确。
 
-```js
-// astro.config.mjs
-export default defineConfig({
-  site: 'https://你的域名.com',   // ← 改成真实域名
-  ...
-});
-```
-
-> 这个 `site` 决定：sitemap 里的绝对 URL、`robots.txt` 的 Sitemap 地址、OG 标签的 og:url / og:image、canonical。改一处即可全站同步。
+> 若要绑定自定义域名（如 `chinesesf.org`），改这一处即可全站同步：
+> ```js
+> // astro.config.mjs
+> export default defineConfig({
+>   site: 'https://你的域名.com',   // ← 改成真实域名后重新构建部署
+>   ...
+> });
+> ```
+> 这个 `site` 决定：sitemap 里的绝对 URL、`robots.txt` 的 Sitemap 地址、OG 标签的 og:url / og:image、canonical。
 
 设计文档里的候选：
 
@@ -55,9 +56,26 @@ git commit -m "feat: 中国科幻小说网 首版（84 作品 / 31 作者 / 双�
 
 ---
 
-## 二、在 GitHub 建仓库并推送（需你操作）
+## 二、在 GitHub 建仓库并推送（需你授权 GitHub 账号）
 
-### 方式 A：用 GitHub 网页（推荐，最省事）
+> 本机已装好 `gh` CLI（v2.98.0，路径 `/c/gh/bin/gh.exe`，或 `winget install GitHub.cli`）。
+> 本地仓库已 `git init` 并提交了首个 commit，分支为 **`master`**（不是 `main`）。
+
+### 方式 C（推荐）：用 `gh` CLI 一键建仓 + 推送
+1. **你先授权**（打开浏览器登录你的 GitHub 账号，这一步必须你本人操作）：
+   ```bash
+   /c/gh/bin/gh.exe auth login        # 或 winget 装的：gh auth login
+   ```
+   选 GitHub.com → 选 HTTPS → 选 "Login with a web browser" → 按提示粘贴一次性码。
+2. 授权成功后，一条命令建仓并推送：
+   ```bash
+   cd chinese-sf
+   /c/gh/bin/gh.exe repo create chinese-sf --public --source=. --remote=origin --push --branch=master
+   ```
+   > 这条命令会：在 GitHub 建 `chinese-sf` 仓库 → 加 `origin` 远程 → 推 `master` 分支。
+   > 若想用私有仓库，把 `--public` 换成 `--private`。
+
+### 方式 A：用 GitHub 网页（最省事）
 1. 打开 https://github.com/new
 2. Repository name 填 `chinese-sf`，**选 Public**（Pages 免费版对私有仓库也支持，Public 便于后续开源）
 3. **不要**勾选 "Add a README file"（本地已有）
@@ -66,8 +84,7 @@ git commit -m "feat: 中国科幻小说网 首版（84 作品 / 31 作者 / 双�
 
 ```bash
 git remote add origin https://github.com/<你的用户名>/chinese-sf.git
-git branch -M main
-git push -u origin main
+git push -u origin master
 ```
 
 > 若提示输入密码：GitHub 已不支持密码推送，需用 **Personal Access Token**：
@@ -77,7 +94,7 @@ git push -u origin main
 ### 方式 B：用 SSH（配过密钥的话）
 ```bash
 git remote add origin git@github.com:<你的用户名>/chinese-sf.git
-git push -u origin main
+git push -u origin master
 ```
 
 ---
@@ -92,7 +109,7 @@ git push -u origin main
 | 配置项 | 值 |
 |---|---|
 | Project name | `chinese-sf` |
-| Production branch | `main` |
+| Production branch | `master` |
 | Framework preset | **Astro** |
 | Build command | `npm run build` |
 | Build output directory | `dist` |

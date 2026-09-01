@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://chinese-sf.example.com',
+  site: 'https://chinese-sf.pages.dev',
   i18n: {
     defaultLocale: 'zh',
     locales: ['zh', 'en'],
