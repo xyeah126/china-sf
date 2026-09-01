@@ -16,6 +16,7 @@ tags:
 translationStatus: "full"
 awards:
   - "全球华语科幻星云奖"
+  - "2009 全球华语科幻星云奖 最佳中篇"
 
 ---
 

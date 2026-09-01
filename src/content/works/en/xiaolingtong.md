@@ -19,6 +19,8 @@ translationStatus: "full"
 awards:
   - "National Excellent Children's Book Award"
   - "National Children's Literature & Art Creation Award"
+  - "1985 National Outstanding Children's Reading Award (China)"
+  - "1985 National Youth Literary Creation Award (China)"
 
 ---
 

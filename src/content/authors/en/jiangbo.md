@@ -8,6 +8,7 @@ translationStatus: "full"
 awards:
   - "Galaxy Award (China)"
   - "Xingyun Award (China)"
+  - "2015 Chinese Nebula Award for Best Novella"
 
 ---
 

@@ -1,0 +1,12 @@
+# Seal-script webfont attribution
+
+Font: 余繁新语 (YuFanXinYu)
+Author: chilingg
+Repository: https://github.com/chilingg/yufanxinyu
+License: MIT (Copyright (c) 2022 chilingg)
+Source file: YuFanXinYu-Regular.ttf
+Subsetting: limited to author surnames, author names, work titles, and basic ASCII.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction.

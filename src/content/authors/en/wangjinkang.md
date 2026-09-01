@@ -8,6 +8,8 @@ translationStatus: "full"
 awards:
   - "Galaxy Award (China, multiple)"
   - "Xingyun Award (China)"
+  - "1997 Galaxy Award for Best Novella (China)"
+  - "2010 Chinese Nebula Award for Best Short Fiction"
 
 ---
 

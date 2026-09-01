@@ -8,6 +8,7 @@ translationStatus: "full"
 awards:
   - "2016 Hugo Award for Best Novelette (Folding Beijing)"
   - "Nebula Award (China)"
+  - "2014 Chinese Nebula Award for Best Novella (Folding Beijing)"
 
 ---
 

@@ -17,6 +17,7 @@ tags:
 translationStatus: "full"
 awards:
   - "中国科幻银河奖"
+  - "2018 中国科幻银河奖 最佳短篇"
 
 ---
 

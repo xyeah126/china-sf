@@ -16,6 +16,7 @@ tags:
 translationStatus: "full"
 awards:
   - "全球华语科幻星云奖（续作）"
+  - "2011 全球华语科幻星云奖 最佳长篇"
 
 ---
 

@@ -20,6 +20,8 @@ translationStatus: "full"
 awards:
   - "Galaxy Award (China)"
   - "Selected for Chinese-language textbook"
+  - "2001 Galaxy Award for Best Short Fiction (China)"
+  - "2001 Chinese Nebula Award for Best Short Fiction"
 
 ---
 

@@ -24,6 +24,7 @@ translationStatus: "full"
 awards:
   - "2000 Galaxy Award (China)"
   - "Selected for PEP Chinese textbook"
+  - "2000 Galaxy Award (Readers' Choice, China)"
 
 ---
 

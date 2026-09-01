@@ -16,6 +16,7 @@ tags:
 translationStatus: "full"
 awards:
   - "Xingyun Award (China) (continuation)"
+  - "2011 Chinese Nebula Award for Best Novel"
 
 ---
 

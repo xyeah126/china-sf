@@ -16,6 +16,8 @@ tags:
 translationStatus: "full"
 awards:
   - "Galaxy Award (China) / Xingyun Award (China)"
+  - "2015 Chinese Nebula Award for Best Novel"
+  - "2016 Galaxy Award for Best Novel (China)"
 
 ---
 

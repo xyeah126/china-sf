@@ -16,6 +16,7 @@ tags:
 translationStatus: "full"
 awards:
   - "Galaxy Award (China)"
+  - "2016 Chinese Nebula Award for Best Novella"
 
 ---
 

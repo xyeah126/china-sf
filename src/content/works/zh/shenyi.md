@@ -16,6 +16,7 @@ tags:
 translationStatus: "full"
 awards:
   - "全国优秀少儿读物奖"
+  - "1990 全国优秀少儿读物奖"
 
 ---
 

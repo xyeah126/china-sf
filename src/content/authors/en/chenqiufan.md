@@ -8,6 +8,7 @@ translationStatus: "full"
 awards:
   - "Xingyun Award (China)"
   - "Science Fiction & Fantasy Translation Award (SFFT)"
+  - "2013 Chinese Nebula Award for Best Short Fiction"
 
 ---
 

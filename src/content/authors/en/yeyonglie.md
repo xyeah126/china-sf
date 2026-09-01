@@ -7,6 +7,7 @@ photoCredit: "placeholder"
 translationStatus: "full"
 awards:
   - "National Excellent Children's Book Award"
+  - "1990 National Outstanding Children's Reading Award (China)"
 
 ---
 

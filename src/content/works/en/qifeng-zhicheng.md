@@ -16,6 +16,7 @@ tags:
 translationStatus: "full"
 awards:
   - "Galaxy Award (China)"
+  - "2013 Galaxy Award for Best Novel (China)"
 
 ---
 

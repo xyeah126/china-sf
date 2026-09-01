@@ -18,6 +18,7 @@ translationStatus: "full"
 awards:
   - "Xingyun Award (China) for Best Novel"
   - "Hugo Award (Finalist, translated)"
+  - "2019 Chinese Nebula Award for Best Novel"
 
 ---
 

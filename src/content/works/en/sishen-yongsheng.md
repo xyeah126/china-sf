@@ -19,6 +19,8 @@ translationStatus: "full"
 awards:
   - "Galaxy Award (China)"
   - "Xihu Biennial Award for Genre Fiction (Gold)"
+  - "2010 Chinese Nebula Award for Best Novel"
+  - "2011 Galaxy Award for Best Novel (China)"
 
 ---
 

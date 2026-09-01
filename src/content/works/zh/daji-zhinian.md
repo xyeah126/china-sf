@@ -16,6 +16,7 @@ tags:
 translationStatus: "full"
 awards:
   - "中国科幻银河奖"
+  - "2014 全球华语科幻星云奖 最佳长篇"
 
 ---
 

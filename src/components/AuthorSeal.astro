@@ -33,11 +33,14 @@ const sy = (H - seal) / 2;
 // 行距系数：相邻两字基线间距 = fs * LINE
 const LINE = 1.04;
 // 内框可用高度 = (印章 − 内框内缩 18) × 留白系数，确保 3/4 字姓名不溢出边缘
-const usable = (seal - 18) * 0.86;
+const usable = (seal - 18) * 0.94;
 const n = Math.max(chars.length, 1);
 // 总高 = fs × (1 + LINE×(n−1)) ≤ usable
 let fs = usable / (1 + LINE * (n - 1));
 fs = Math.min(fs, lang === 'zh' ? 96 : 78); // 单字不过大
+// 篆体笔画圆润、单字宽高比近 1:1，3/4 字姓名给个最小值防过小
+const MIN_FS: Record<number, number> = { 1: 60, 2: 60, 3: 48, 4: 38 };
+fs = Math.max(fs, MIN_FS[n] ?? 36);
 
 // 姓名哈希 → 星点伪随机（每位作者图案稳定）
 let h = 2166136261;
@@ -106,9 +109,9 @@ const link = stars.slice(0, 5);
       chars.map((c, i) => (
         <text
           x={W / 2}
-          y={H / 2 + (i - (chars.length - 1) / 2) * fs * 1.04 + fs * 0.34}
+          y={H / 2 + (i - (chars.length - 1) / 2) * fs * 1.04 + fs * 0.36}
           text-anchor="middle"
-          font-family="var(--font-seal)"
+          class="seal-zh"
           font-size={fs}
           fill="#f7ece4"
         >
@@ -121,7 +124,7 @@ const link = stars.slice(0, 5);
         x={W / 2}
         y={H / 2 + fs * 0.18}
         text-anchor="middle"
-        font-family="var(--font-seal)"
+        class="seal-en"
         font-size={chars.length > 2 ? fs * 0.62 : fs * 0.78}
         letter-spacing="2"
         fill="#f7ece4"
@@ -137,5 +140,16 @@ const link = stars.slice(0, 5);
     display: block;
     width: 100%;
     height: 100%;
+  }
+  /* 印章印文样式：CSS 接管 font-family（SVG 表现属性不支持 var()） */
+  .author-seal .seal-zh {
+    font-family: 'ZhuanZhi', 'YuFanXinYu', '方正小篆体', 'STZhongsong',
+      'STLiti', '华文隶书', 'STKaiti', 'Songti SC', 'Noto Serif SC', serif;
+    font-weight: 400;
+    font-feature-settings: "kern" 1;
+  }
+  .author-seal .seal-en {
+    font-family: 'STKaiti', 'KaiTi', 'Georgia', serif;
+    font-weight: 600;
   }
 </style>

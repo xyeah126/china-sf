@@ -13,10 +13,11 @@
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
     "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  /* 印章字体：小篆优先（若本机安装），逐级回落到隶书（最接近汉印缪篆的系统自带体）、楷体、宋体 */
-  --font-seal: "方正小篆体", "FZXiaoZhuanTi-M04S", "FZXiaoZhuan", "汉仪篆书繁",
-    "STZhongsong", "STLiti", "LiSu", "华文隶书", "STKaiti", "KaiTi", "STKaiti SC",
-    "Songti SC", "SimSun", "Noto Serif SC", serif;
+  /* 印章字体：先尝试子集化 webfont「ZhuanZhi」（余繁新语·篆书·MIT·38KB），
+     再回落到本机可能安装的篆体/隶书/楷体/宋体 */
+  --font-seal: "ZhuanZhi", "YuFanXinYu", "方正小篆体", "FZXiaoZhuanTi-M04S", "FZXiaoZhuan",
+    "汉仪篆书繁", "STZhongsong", "STLiti", "LiSu", "华文隶书",
+    "STKaiti", "KaiTi", "STKaiti SC", "Songti SC", "SimSun", "Noto Serif SC", serif;
 
   --radius: 10px;
   --maxw: 1120px;
@@ -726,5 +727,15 @@ h3 {
     width: 96px;
     height: 96px;
   }
+}
+
+/* ---------- 印章 webfont：余繁新语（篆书）子集 ---------- */
+@font-face {
+  font-family: "ZhuanZhi";
+  src: url("/fonts/seal-zhuan-subset.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+  size-adjust: 100%;
 }
 

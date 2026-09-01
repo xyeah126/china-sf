@@ -8,6 +8,7 @@ translationStatus: "full"
 awards:
   - "Galaxy Award (China)"
   - "Works adapted for film/TV"
+  - "1983 National Outstanding Short Story Award (Death Ray on Coral Island, China)"
 
 ---
 

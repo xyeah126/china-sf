@@ -17,6 +17,7 @@ tags:
 translationStatus: "full"
 awards:
   - "1999 Galaxy Award (China)"
+  - "1999 Galaxy Award for Best Short Fiction (China)"
 
 ---
 

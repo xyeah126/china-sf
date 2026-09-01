@@ -17,6 +17,7 @@ tags:
 translationStatus: "full"
 awards:
   - "1957 Moscow World Youth Festival SF Prize"
+  - "1957 Moscow World Festival of Youth & Students Science Fiction Grand Prize (first international SF award won by a Chinese author)"
 
 ---
 

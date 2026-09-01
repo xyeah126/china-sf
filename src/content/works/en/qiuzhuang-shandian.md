@@ -17,6 +17,7 @@ tags:
 translationStatus: "full"
 awards:
   - "Galaxy Award (China)"
+  - "2007 Chinese Nebula Award for Best Novel"
 
 ---
 

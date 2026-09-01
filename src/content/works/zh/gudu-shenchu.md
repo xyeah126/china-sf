@@ -16,6 +16,7 @@ tags:
 translationStatus: "full"
 awards:
   - "全球华语科幻星云奖（含《北京折叠》）"
+  - "2014 中国科幻银河奖 最佳中篇"
 
 ---
 

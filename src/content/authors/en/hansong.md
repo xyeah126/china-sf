@@ -8,6 +8,7 @@ translationStatus: "full"
 awards:
   - "Galaxy Award (China)"
   - "Xingyun Award (China)"
+  - "2003 Galaxy Award for Best Novella (China)"
 
 ---
 

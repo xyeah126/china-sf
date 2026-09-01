@@ -19,6 +19,7 @@ translationStatus: "full"
 awards:
   - "2016 Hugo Award for Best Novelette"
   - "2015 Nebula Award (China)"
+  - "2014 Chinese Nebula Award for Best Novella"
 
 ---
 

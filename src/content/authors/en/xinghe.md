@@ -8,6 +8,7 @@ translationStatus: "full"
 awards:
   - "Galaxy Award (China)"
   - "National Book Award (Children's)"
+  - "2005 Galaxy Award for Best Short Fiction (China)"
 
 ---
 

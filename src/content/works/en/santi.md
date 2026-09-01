@@ -34,6 +34,8 @@ awards:
   - "2017 Locus Award for Best SF Novel (Finalist)"
   - "2020 Seiun Award (Best Translated Long Form)"
   - "Galaxy Award (China)"
+  - "2006 Galaxy Award for Best Novel (China)"
+  - "2010 Chinese Nebula Award for Best Novel"
 
 ---
 

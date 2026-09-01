@@ -30,3 +30,8 @@ scripts/*.log
 .DS_Store
 Thumbs.db
 covers_backup
+
+# 字体子集化工具（tmp_font/：含 2.3MB 原字体 + Python 脚本与预览图，运行时按需用）
+tmp_font/
+public/fonts/seal-zhuan.woff2  # 部署用 seal-zhuan-subset.woff2；多放一份以防子集化失败时回退
+
