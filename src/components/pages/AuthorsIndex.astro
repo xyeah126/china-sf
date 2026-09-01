@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import AuthorSeal from '../AuthorSeal.astro';
 import { ui, type Lang } from '../../i18n/ui';
 import { getAuthors, getWorksByAuthor } from '../../lib/content';
+import { getEntry } from 'astro:content';
 
 interface Props {
   lang: Lang;
@@ -11,6 +12,15 @@ const { lang } = Astro.props;
 const t = ui[lang] as unknown as Record<string, string>;
 const prefix = lang === 'en' ? '/en' : '';
 const authors = await getAuthors(lang);
+
+// 英文页印章统一使用中文姓名：缓存中文原名以保持与中文页一致
+const zhNameMap = new Map<string, string>();
+if (lang === 'en') {
+  for (const a of authors) {
+    const zh = await getEntry('authors', `zh/${a.slug}`);
+    if (zh?.data?.name) zhNameMap.set(a.slug, zh.data.name);
+  }
+}
 
 // 每位作者名下的作品数（纯内存查询，量小可循环）
 const counts = new Map<string, number>();
@@ -34,7 +44,12 @@ function lifeText(d: { birthYear: number | null; deathYear: number | null }): st
         authors.map((a) => (
           <a class="card" href={`${prefix}/authors/${a.slug}`}>
             <div class="cover author-cover">
-              <AuthorSeal name={a.entry.data.name} lang={lang} variant="card" />
+              <AuthorSeal
+                name={a.entry.data.name}
+                nameZh={zhNameMap.get(a.slug)}
+                lang={lang}
+                variant="card"
+              />
             </div>
             <div class="card-title">{a.entry.data.name}</div>
             <div class="card-meta">

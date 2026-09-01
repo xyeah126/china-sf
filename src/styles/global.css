@@ -471,6 +471,70 @@ h3 {
   color: rgba(0, 0, 0, 0.22);
   background: linear-gradient(150deg, #e3f0ee 0%, #c9e3dd 100%);
 }
+.adaptation-card-poster.placeholder {
+  position: relative;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 64px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+.adaptation-card-poster.placeholder::after {
+  /* 细斜纹，提示「占位 / pending」语义 */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0) 12px,
+    rgba(255, 255, 255, 0.04) 12px,
+    rgba(255, 255, 255, 0.04) 24px
+  );
+  pointer-events: none;
+}
+.poster-abbr {
+  position: relative;
+  z-index: 1;
+}
+.poster-pending {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-family: var(--font-sans);
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+  z-index: 1;
+}
+.external-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--line);
+}
+.ext-link {
+  font-size: 11px;
+  color: var(--text-3);
+  text-decoration: none;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+}
+.ext-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  text-decoration: none;
+}
 .adaptation-card-body {
   display: flex;
   flex-direction: column;

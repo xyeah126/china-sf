@@ -9,23 +9,63 @@ const { lang } = Astro.props;
 const t = ui[lang];
 const ph = t.searchPlaceholder;
 const zero = t.searchZero;
+const notice = lang === 'zh'
+  ? '若未出现搜索框，请重新构建站点：`npx astro build && npx pagefind --site dist`。'
+  : 'If the search box is missing, rebuild the site: `npx astro build && npx pagefind --site dist`.';
 ---
 
 <BaseLayout lang={lang} title={t.navSearch}>
   <section class="section">
     <h1 class="section-title">{t.navSearch}</h1>
+    <p id="search-fallback" class="search-fallback" hidden>{notice}</p>
     <div id="search" class="pagefind-ui" data-ph={ph} data-zero={zero}></div>
   </section>
 </BaseLayout>
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', function () {
+<script>
+  // 仅在 /search 页加载 Pagefind UI：仅当索引存在时再动态加载脚本与样式
+  (function () {
     var el = document.getElementById('search');
-    if (!el || !window.PagefindUI) return;
-    new PagefindUI({
-      element: '#search',
-      showSubResults: true,
-      translations: { placeholder: el.dataset.ph, zero_results: el.dataset.zero },
-    });
-  });
+    if (!el) return;
+
+    function showFallback() {
+      var fb = document.getElementById('search-fallback');
+      if (fb) fb.hidden = false;
+    }
+
+    // 1) 检测 pagefind 索引是否存在（HEAD 请求 /pagefind/pagefind-entry.json）
+    fetch('/pagefind/pagefind-entry.json', { method: 'HEAD' })
+      .then(function (r) {
+        if (!r.ok) {
+          showFallback();
+          return;
+        }
+        // 2) 索引存在：注入 CSS + JS
+        if (!document.querySelector('link[data-pagefind-css]')) {
+          var link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = '/pagefind/pagefind-ui.css';
+          link.setAttribute('data-pagefind-css', '1');
+          document.head.appendChild(link);
+        }
+        var s = document.createElement('script');
+        s.src = '/pagefind/pagefind-ui.js';
+        s.async = true;
+        s.onerror = showFallback;
+        s.onload = function () {
+          if (!window.PagefindUI) return showFallback();
+          new PagefindUI({
+            element: '#search',
+            showSubResults: true,
+            translations: {
+              placeholder: el.dataset.ph,
+              zero_results: el.dataset.zero,
+            },
+          });
+        };
+        document.body.appendChild(s);
+      })
+      .catch(showFallback);
+  })();
 </script>
+

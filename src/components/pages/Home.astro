@@ -71,8 +71,9 @@ const adaptationCount = new Set(allAdaptations.map((a) => a.id.split('/')[1])).s
     <h2 class="section-title">{t.sectionEntries}</h2>
     <div class="entries">
       <a class="entry" href={`${prefix}/works`}>{t.labelWorks}</a>
+      <a class="entry" href={`${prefix}/authors`}>{t.labelAuthors}</a>
       <a class="entry" href={`${prefix}/timeline`}>{t.navTimeline}</a>
-      <a class="entry" href={`${prefix}/about`}>{t.navAbout}</a>
+      <a class="entry" href={`${prefix}/adaptations`}>{t.labelAdaptations}</a>
     </div>
   </section>
 </BaseLayout>

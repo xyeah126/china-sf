@@ -53,7 +53,8 @@ const ogImage = new URL(image ?? '/covers/shanhaijing.jpg', site).href;
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDesc} />
     <meta name="twitter:image" content={ogImage} />
-    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="/pagefind/pagefind-ui.css" /></noscript>
 
     {/* 语言识别：必须在 head 最前，跳转发生在渲染前，用户几乎无感 */}
     <script is:inline>
@@ -122,6 +123,5 @@ const ogImage = new URL(image ?? '/covers/shanhaijing.jpg', site).href;
       </div>
     </footer>
 
-    <script is:inline src="/pagefind/pagefind-ui.js"></script>
   </body>
 </html>

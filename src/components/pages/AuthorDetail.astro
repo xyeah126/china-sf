@@ -1,5 +1,5 @@
 ---
-import { render } from 'astro:content';
+import { render, getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AuthorSeal from '../AuthorSeal.astro';
@@ -18,6 +18,17 @@ const { entry, lang, slug, isFallback } = Astro.props;
 const d = entry.data;
 const T = ui[lang] as unknown as Record<string, string>;
 const prefix = lang === 'en' ? '/en' : '';
+
+// 英文页印章统一使用中文原名（与中文页一致）
+let nameZh: string | undefined;
+if (lang === 'en') {
+  if (isFallback) {
+    nameZh = d.name;
+  } else {
+    const zhEntry = await getEntry('authors', `zh/${slug}`);
+    nameZh = zhEntry?.data?.name;
+  }
+}
 
 const { Content } = await render(entry);
 const works = await getWorksByAuthor(slug, lang);
@@ -39,7 +50,7 @@ const lifeText =
 
     <div class="author-head">
       <div class="author-seal-wrap">
-        <AuthorSeal name={d.name} lang={lang} variant="hero" />
+        <AuthorSeal name={d.name} nameZh={nameZh} lang={lang} variant="hero" />
       </div>
       <div>
         <h1 class="section-title">{d.name}</h1>

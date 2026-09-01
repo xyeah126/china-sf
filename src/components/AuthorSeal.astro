@@ -7,22 +7,28 @@
  */
 interface Props {
   name: string;
+  /**
+   * 中文原名（英文页面用）：印章里始终用中文姓名以保持与中文页一致。
+   * - 不传时：中文页用 `name`；英文页用 `name` 的首字母作回退
+   */
+  nameZh?: string;
   lang?: 'zh' | 'en';
   /** card: 3:4 封面位图；hero: 方形详情页大图 */
   variant?: 'card' | 'hero';
   class?: string;
 }
 
-const { name, lang = 'zh', variant = 'card', class: cls } = Astro.props;
+const { name, nameZh, lang = 'zh', variant = 'card', class: cls } = Astro.props;
 
 const isCard = variant === 'card';
 const W = isCard ? 300 : 260;
 const H = isCard ? 400 : 260;
 
-// 印文：中文取姓名汉字（≤4），英文取各词首字母（≤3）
+// 印文：印章永远以中文姓名为主，英文页若未提供中文名则回退到首字母
+const sealText = nameZh && nameZh.length > 0 ? nameZh : name;
 const chars =
-  lang === 'zh'
-    ? [...name].filter((c) => /\S/.test(c)).slice(0, 4)
+  lang === 'zh' || (nameZh && nameZh.length > 0)
+    ? [...sealText].filter((c) => /\S/.test(c)).slice(0, 4)
     : name.split(/\s+/).map((w) => w[0]?.toUpperCase() ?? '').slice(0, 3);
 
 // 印章几何
@@ -118,7 +124,7 @@ const link = stars.slice(0, 5);
       stroke-width="2.5"
       opacity="0.85"
     />
-    {lang === 'zh' ? (
+    {lang === 'zh' || (nameZh && nameZh.length > 0) ? (
       // 中文竖排：基线 y_i = baseline0 + i·LINE·fs；ink 顶在 baseline 上方 INK_TOP_EM·fs
       chars.map((c, i) => (
         <text
@@ -133,7 +139,7 @@ const link = stars.slice(0, 5);
         </text>
       ))
     ) : (
-      // 英文首字母横排
+      // 英文首字母横排（无中文名时回退）
       <text
         x={W / 2}
         y={H / 2 + fs * 0.18}

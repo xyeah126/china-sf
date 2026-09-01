@@ -46,27 +46,62 @@ const zh = lang === 'zh';
           <p>一部作品入库需至少满足两项：中国作者或中文首发；具备科学 / 技术 / 未来社会想象成分；
             有可查证的出版记录；在文学史、口碑或影视作品上具备影响力。每条数据均标注资料出处。</p>
 
-          <h2 class="subhead">图片政策：公版优先</h2>
-          <p>配图来源分为四级，并在图片上显式标注：</p>
-          <ul>
-            <li><strong>公有领域</strong>：古籍书影、版画、明确进入公有领域的历史照片（记录来源以便复核）。</li>
-            <li><strong>已授权</strong>：获得出版社、作者或图库的正式授权。</li>
-            <li><strong>AI 生成</strong>：仅在公版资源无解时使用，为示意图而非真实封面。</li>
-            <li><strong>占位图</strong>：尚未配图时的临时态。</li>
-          </ul>
+          <h2 class="subhead">图片政策：诚实优先</h2>
           <p>
-            公版图优先于 AI 图：古籍书影本身就是一手史料，其价值高于任何生成图。
-            AI 补位主要集中于当代作品封面——那一层几乎没有公版资源可用。
+            全站所有图片均明确标注四级来源之一，徽标显示在每张图右下角。
+            目前 84 部作品中实际分布如下：
+          </p>
+          <ul>
+            <li><strong>公有领域（16 部）</strong>：古籍书影、清末民初石印本扫描、明清版画等已进入公有领域的图像。
+              每张都附带 <code>coverSource</code> 字段记录书名、版本与扫描来源，便于复核。</li>
+            <li><strong>AI 生成示意图（68 部）</strong>：当代作品封面——这一层几乎没有公版资源可用。
+              全部为「示意图」而非真实封面重制，每张图保留生成 prompt（<code>coverPrompt</code> 字段）以便他人复现或替换。</li>
+            <li><strong>已授权：暂无</strong>。本站未与任何出版社、作者、图库签订授权协议。
+              若未来获得正式授权，将在原图位显式标注并附授权来源。</li>
+            <li><strong>占位图：仅用于影视海报（35 部）与作者头像（31 位）</strong>，
+              见下方专项说明。</li>
+          </ul>
+
+          <h2 class="subhead">作者头像：印章而非照片</h2>
+          <p>
+            作者照片的版权属于摄影者，<em>不属于作者本人</em>。
+            本站 31 位作者中既有已故历史人物，也有健在当代作家，
+            后者的照片在大多数司法管辖区下受肖像权与摄影著作权双重保护。
+            <strong>本站不托管任何作者照片</strong>——
+            所有人名位以朱砂印章形式渲染：白文篆体姓名 + 哈希生成的星图纹点缀，
+            既保持视觉一致性，又彻底回避肖像权与摄影版权风险。
           </p>
           <p>
-            <strong>关于肖像权</strong>：作者照片的版权属于摄影者，不属于作者本人。
-            本站仅使用明确标注为公有领域或 CC0 的历史照片；在世作者一律不使用真实照片。
+            印章里的字统一使用篆体（在 <code>/fonts/seal-zhuan-subset.woff2</code>，
+            MIT 协议「余繁新语」子集化部署），中英文页面都用中文姓名，
+            因此英文页面不出现拉丁字母首字母缩写。
+          </p>
+
+          <h2 class="subhead">影视海报：版权与替代方案</h2>
+          <p>
+            电影/电视/动画海报的版权属于制片方或发行方，<strong>不进入公有领域</strong>，
+            也不适用合理使用——海报不是文字资料，不属于新闻报道或学术引用的范围。
+            因此本站<strong>不抓取、不转存、不热链豆瓣 / IMDb / TMDB 等任何第三方平台的图片</strong>。
+          </p>
+          <p>
+            当前的替代方案（35 部影视作品均采用）：
+          </p>
+          <ul>
+            <li>海报位为<strong>类型色 + 类型缩写</strong>的占位图，角标注明「海报待补」。</li>
+            <li>每张卡片附<strong>豆瓣 / IMDb 外链按钮</strong>，链接到对方公开搜索页——
+              外链本身不构成侵权，读者可自行到原站查看真实海报与评分。</li>
+            <li>已有正式豆瓣评分快照的，在卡片正文以文字形式列出（<code>doubanRating</code> + <code>doubanRatingAt</code> 字段注明抓取日期）。</li>
+          </ul>
+          <p>
+            未来若获得制片方或版权方的正式授权，将按真实海报替换占位，
+            并在下方追加来源与授权号。读者若发现可用的公有领域 / CC 授权海报，欢迎通过 Issue 推荐。
           </p>
 
           <h2 class="subhead">多语言与翻译</h2>
           <p>
-            本站提供中英双语界面，默认依据访问者系统语言选择。
-            英文条目尚未完成时，页面会显示中文原文并明确标注，<strong>不使用机器翻译填充</strong>。
+            本站提供中英双语界面，默认依据访问者系统语言选择（仅当用户未在本站手动切换过时生效）。
+            英文条目尚未完成时，页面会显示中文原文并明确标注，<strong>不使用机器翻译填充</strong>——
+            机翻的「假英文」对中外读者都是误导，宁可缺。
           </p>
 
           <h2 class="subhead">数据纠错</h2>
@@ -113,32 +148,69 @@ const zh = lang === 'zh';
             significance. Every entry cites its sources.
           </p>
 
-          <h2 class="subhead">Image policy: public domain first</h2>
-          <p>Images are labelled with one of four provenance levels:</p>
-          <ul>
-            <li><strong>Public domain</strong>: facsimiles of classical books, woodblock prints, and historical photographs clearly in the public domain (sources recorded for verification).</li>
-            <li><strong>Licensed</strong>: formally licensed from a publisher, author or image library.</li>
-            <li><strong>AI-generated</strong>: used only when no public-domain image exists; an illustration, not a reproduction of the real cover.</li>
-            <li><strong>Placeholder</strong>: a temporary state pending an image.</li>
-          </ul>
+          <h2 class="subhead">Image policy: honesty first</h2>
           <p>
-            Public-domain material outranks generated art: a facsimile of a classical
-            edition is itself primary evidence. AI fills a gap that is concentrated
-            almost entirely in contemporary book covers, where no public-domain
-            imagery exists.
+            Every image on the site is labelled with one of four provenance levels,
+            shown as a badge on the card. The current distribution across 84 works:
+          </p>
+          <ul>
+            <li><strong>Public domain (16)</strong>: facsimiles of classical editions, late-Qing / early-Republic lithographs, Ming–Qing woodblock prints. Each carries a <code>coverSource</code> field naming the book, edition and scanning source for verification.</li>
+            <li><strong>AI-generated illustrations (68)</strong>: contemporary book covers, where no public-domain imagery exists. Every AI image is recorded as a <em>schematic illustration</em>, not a reproduction of the real cover; the prompt is preserved (<code>coverPrompt</code> field) so it can be re-rendered or replaced.</li>
+            <li><strong>Licensed: none</strong>. The archive holds no licensing agreements with any publisher, author or image library. If formal licenses are obtained in the future, the real cover will replace the placeholder with a clear credit.</li>
+            <li><strong>Placeholder</strong>: only used for film / TV posters (35 entries) and author portraits (31 entries) — see the dedicated sections below.</li>
+          </ul>
+
+          <h2 class="subhead">Author portraits: seals, not photos</h2>
+          <p>
+            Copyright in a photograph belongs to the photographer, not the subject.
+            The 31 authors range from long-deceased historical figures to living
+            contemporary writers, and a living person's portrait is, in most
+            jurisdictions, protected by both copyright and personality rights.
+            <strong>No author photos are hosted on this site</strong>.
+            Every name slot is rendered as a vermilion seal — a vertical Chinese
+            name in seal script, with a small starfield derived from a hash of the
+            name. Visually consistent, and zero legal exposure.
           </p>
           <p>
-            <strong>On portrait rights</strong>: copyright in a photograph belongs to
-            the photographer, not to the subject. Only photographs explicitly marked
-            public domain or CC0 are used; no photographs of living authors are used
-            at all.
+            The seal font is <code>/fonts/seal-zhuan-subset.woff2</code>,
+            a 38 KB subset of the MIT-licensed typeface <em>Yu Fan Xin Yu</em>.
+            Chinese and English pages both use the Chinese name, so no Latin
+            initials appear on the English side.
+          </p>
+
+          <h2 class="subhead">Film &amp; TV posters: copyright and the workaround</h2>
+          <p>
+            A film or TV poster is copyright of the producer or distributor.
+            <strong>Posters do not enter the public domain</strong>, and
+            fair use / fair dealing generally does not cover them: a poster
+            is not the kind of text-based material that news reporting or
+            academic citation exists to protect. The site therefore
+            <strong>does not scrape, mirror, or hot-link any image from
+            Douban, IMDb, TMDB, or any other third-party platform</strong>.
+          </p>
+          <p>
+            Current substitute (used for all 35 entries):
+          </p>
+          <ul>
+            <li>The poster slot is a <strong>type-coloured placeholder with a type abbreviation</strong>, with a “Poster pending” tag in the corner.</li>
+            <li>Each card carries <strong>Douban and IMDb external links</strong> pointing at the public search page of the other site — a hyperlink is not infringement, and lets the reader see the real poster where they already have an account.</li>
+            <li>Where a Douban rating has been snapshotted, it is shown as plain text (<code>doubanRating</code> + <code>doubanRatingAt</code> with the capture date).</li>
+          </ul>
+          <p>
+            If a formal license is later obtained from the rights holder, the
+            placeholder will be replaced and a credit line appended.
+            Public-domain or CC-licensed posters are welcome via the issue
+            tracker.
           </p>
 
           <h2 class="subhead">Languages and translation</h2>
           <p>
-            The site is bilingual. The language is chosen from the visitor's system
-            setting. Where an English entry is not yet written, the Chinese original
-            is shown with a clear notice — <strong>never a machine translation</strong>.
+            The site is bilingual. The language follows the visitor's system
+            setting (unless the visitor has already made a manual choice on
+            this site). Where an English entry is not yet written, the
+            Chinese original is shown with a clear notice —
+            <strong>never a machine translation</strong>. Fake English is a
+            disservice to both English and Chinese readers; better to be absent.
           </p>
 
           <h2 class="subhead">Corrections</h2>
