@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/guanglian.webp"
 sources:
-  - "《光恋》何夕，1999"
+  - "Love of Light by He Xi, 1999"
 tags:
   - "physics"
   - "emotion"

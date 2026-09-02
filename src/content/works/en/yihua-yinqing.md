@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/yihua-yinqing.webp"
 sources:
-  - "《异化引擎》陈楸帆，2022"
+  - "The Alienation Engine by Chen Qiufan, 2022"
 tags:
   - "artificial-intelligence"
   - "consciousness"

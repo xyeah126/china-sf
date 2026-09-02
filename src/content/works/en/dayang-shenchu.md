@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/dayang-shenchu.webp"
 sources:
-  - "《大洋深处》郑文光，1979"
+  - "In the Depths of the Ocean by Zheng Wenguang, 1979"
 tags:
   - "ocean"
   - "exploration"

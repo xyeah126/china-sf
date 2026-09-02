@@ -8,11 +8,11 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/taiyang-zhuiluo.webp"
 sources:
-  - "《太阳坠落之时》张冉，2015"
+  - "When the Sun Falls by Zhang Ran, 2015"
 tags:
   - "sun"
   - "disaster"
-  - "科幻"
+  - "science-fiction"
 translationStatus: "full"
 awards:
   - "Galaxy Award (China) / Xingyun Award (China)"

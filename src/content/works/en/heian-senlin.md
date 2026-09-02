@@ -7,10 +7,10 @@ year: 2008
 era: "dangdai"
 kind: "sf"
 coverCredit: "ai-generated"
-publisher: "重庆出版社"
+publisher: "Chongqing Publishing House"
 coverPrompt: "Chinese science fiction paperback book cover for '黑暗森林' (The Dark Forest). A vast dark cosmic forest filled with barely visible hidden civilizations and dormant stars; a lone spaceship drifts between silhouetted leaf-like space habitats. Retro-futuristic, ink-wash meets cosmic noir, muted teal and amber palette, dramatic lighting. Vertical poster, title text '黑暗森林' clearly visible near top."
 sources:
-  - "《黑暗森林》重庆出版社 2008"
+  - "The Dark Forest, Chongqing Publishing House, 2008"
 tags:
   - "dark-forest"
   - "deterrence"

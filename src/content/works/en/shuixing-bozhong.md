@@ -8,10 +8,10 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/shuixing-bozhong.webp"
 sources:
-  - "《水星播种》王晋康，2002"
+  - "Sowing on Mercury by Wang Jinkang, 2002"
 tags:
   - "space"
-  - "生命"
+  - "life"
   - "hard-sf"
 translationStatus: "full"
 awards:

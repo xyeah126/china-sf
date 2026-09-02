@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/yiyuan.webp"
 sources:
-  - "《医院》韩松，2016"
+  - "Hospital by Han Song, 2016"
 tags:
   - "medical"
   - "body"

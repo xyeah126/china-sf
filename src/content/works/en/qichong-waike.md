@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/qichong-waike.webp"
 sources:
-  - "《七重外壳》王晋康，1997"
+  - "Seven-Layer Shell by Wang Jinkang, 1997"
 featured: true
 tags:
   - "virtual-reality"

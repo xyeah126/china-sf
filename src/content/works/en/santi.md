@@ -18,13 +18,13 @@ adaptations:
   - "santi-film"
   - "santi-tv-s2"
 sources:
-  - "重庆出版社 2008 年版"
-  - "2015 年雨果奖最佳长篇小说"
+  - "Chongqing Publishing House, 2008 edition"
+  - "2015 Hugo Award for Best Novel"
 featured: true
 tags:
   - "hard-sf"
   - "alien-civilisation"
-  - "宇宙社会学"
+  - "cosmic-sociology"
   - "hugo-award"
 translationStatus: "full"
 awards:

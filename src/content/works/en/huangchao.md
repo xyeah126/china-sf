@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/huangchao.webp"
 sources:
-  - "《荒潮》陈楸帆，2013"
+  - "Waste Tide by Chen Qiufan, 2013"
 featured: true
 tags:
   - "cyberpunk"

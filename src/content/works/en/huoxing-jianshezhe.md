@@ -7,9 +7,9 @@ era: "xinzhongguo"
 kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/huoxing-jianshezhe.webp"
-publisher: "中国青年出版社"
+publisher: "China Youth Press"
 sources:
-  - "《火星建设者》郑文光，1957"
+  - "The Builders of Mars by Zheng Wenguang, 1957"
 tags:
   - "mars"
   - "construction"

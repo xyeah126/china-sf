@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/shipo-zhiwu.webp"
 sources:
-  - "《湿婆之舞》江波，2009"
+  - "The Dance of Shiva by Jiang Bo, 2009"
 tags:
   - "artificial-intelligence"
   - "religion"

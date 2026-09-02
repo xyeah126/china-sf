@@ -9,7 +9,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 coverPrompt: "Chinese science fiction paperback book cover for '带上她的眼睛' (With Her Eyes). An astronaut's gloved hand gently holding a small luminous camera-eye, planet Earth reflected in its lens, soft starfield behind. Retro-futuristic, ink-wash meets poetic sci-fi, muted teal and amber palette, dramatic lighting. Vertical poster, title text '带上她的眼睛' clearly visible near top."
 sources:
-  - "《带上她的眼睛》刘慈欣，1999"
+  - "With Her Eyes by Liu Cixin, 1999"
 tags:
   - "earths-interior"
   - "loneliness"

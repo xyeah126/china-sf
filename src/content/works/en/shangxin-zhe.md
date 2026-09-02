@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/shangxin-zhe.webp"
 sources:
-  - "《伤心者》何夕，2003"
+  - "The Heartbroken by He Xi, 2003"
 featured: true
 tags:
   - "mathematics"

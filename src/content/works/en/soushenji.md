@@ -10,7 +10,7 @@ cover: "/covers/soushenji.webp"
 coverSource: "https://commons.wikimedia.org/wiki/File:CADAL06200830_%E5%8F%A4%E6%9C%AC%E5%B0%8F%E8%AA%AA%E9%9B%86%E6%88%90%EF%BC%9A%E5%B0%81%E7%A5%9E%E6%BC%94%E7%BE%A9%C2%B7%E4%B8%80.djvu"
 yearUncertain: true
 sources:
-  - "《搜神记》干宝撰，汪绍楹校注"
+  - "In Search of the Supernatural by Gan Bao, annotated by Wang Shaoying"
 tags:
   - "supernatural"
   - "ghosts-and-gods"

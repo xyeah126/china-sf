@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/santi-x.webp"
 sources:
-  - "《三体X：观想之宙》宝树，2010"
+  - "Three-Body X: Contemplating the Universe by Baoshu, 2010"
 tags:
   - "fan-fiction"
   - "cosmos"

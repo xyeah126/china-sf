@@ -7,7 +7,7 @@ era: "shanggu"
 kind: "myth"
 coverCredit: "public-domain"
 sources:
-  - "《淮南子》刘安主持编撰，中华书局"
+  - "Huainanzi, compiled under the direction of Liu An; Zhonghua Book Company"
 tags:
   - "myth"
   - "astronomy"

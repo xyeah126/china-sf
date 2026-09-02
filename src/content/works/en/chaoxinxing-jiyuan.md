@@ -9,10 +9,10 @@ kind: "sf"
 coverCredit: "ai-generated"
 coverPrompt: "Chinese science fiction paperback book cover for '超新星纪元' (The Era of Supernova). A world of children under a sky torn by supernova light, abandoned city playground bathed in gold and violet aurora. Retro-futuristic, ink-wash meets apocalyptic dawn, muted teal and amber palette, dramatic lighting. Vertical poster, title text '超新星纪元' clearly visible near top."
 sources:
-  - "《超新星纪元》刘慈欣，2003"
+  - "Supernova Era by Liu Cixin, 2003"
 tags:
   - "disaster"
-  - "儿童"
+  - "childrens-sf"
   - "society"
 translationStatus: "full"
 awards:

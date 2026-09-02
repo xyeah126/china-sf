@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/yinhe-zhixin-3.webp"
 sources:
-  - "《银河之心·逐影追光》江波，2016"
+  - "Heart of the Galaxy: Chasing Light by Jiang Bo, 2016"
 tags:
   - "space-opera"
   - "galaxy"

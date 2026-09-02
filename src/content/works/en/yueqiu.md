@@ -7,9 +7,9 @@ era: "wanqing"
 kind: "sf"
 cover: "/covers/yueqiu.webp"
 coverCredit: "ai-generated"
-publisher: "绣像小说"
+publisher: "Illustrated Fiction (Xiuxiang Xiaoshuo)"
 sources:
-  - "《绣像小说》1904 年连载"
+  - "Illustrated Fiction (Xiuxiang Xiaoshuo), serialised 1904"
 featured: true
 tags:
   - "moon"

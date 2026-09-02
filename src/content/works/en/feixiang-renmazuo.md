@@ -7,9 +7,9 @@ era: "xinzhongguo"
 kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/feixiang-renmazuo.webp"
-publisher: "人民文学出版社"
+publisher: "People's Literature Publishing House"
 sources:
-  - "《飞向人马座》郑文光，人民文学出版社 1979"
+  - "Flight to Sagittarius by Zheng Wenguang, People's Literature Publishing House, 1979"
 featured: true
 tags:
   - "space"

@@ -11,7 +11,7 @@ coverPrompt: "Chinese science fiction paperback book cover for '乡村教师' (T
 adaptations:
   - "fengkuang-de-waixingren"
 sources:
-  - "《乡村教师》刘慈欣，2001"
+  - "The Rural Teacher by Liu Cixin, 2001"
 tags:
   - "alien-civilisation"
   - "education"

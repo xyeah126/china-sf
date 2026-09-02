@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/qifeng-zhicheng.webp"
 sources:
-  - "《起风之城》张冉，2013"
+  - "City of Rising Wind by Zhang Ran, 2013"
 tags:
   - "city"
   - "climate"

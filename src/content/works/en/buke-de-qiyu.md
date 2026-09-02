@@ -7,9 +7,9 @@ era: "xinzhongguo"
 kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/buke-de-qiyu.webp"
-publisher: "中国少年儿童出版社"
+publisher: "China Children's Press"
 sources:
-  - "《布克的奇遇》萧建亨，1962"
+  - "The Adventure of Booker by Xiao Jianheng, 1962"
 tags:
   - "childrens-sf"
   - "animals"

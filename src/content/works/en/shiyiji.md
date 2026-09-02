@@ -10,7 +10,7 @@ cover: "/covers/shiyiji.webp"
 coverSource: "https://commons.wikimedia.org/wiki/File:CADAL09010602_%E7%BE%A4%E6%9B%B8%E6%8B%BE%E8%A3%9C%C2%B7%E4%B8%80.djvu"
 yearUncertain: true
 sources:
-  - "《拾遗记》王嘉撰，萧绮录，中华书局"
+  - "Researches into Lost Records by Wang Jia, transcribed by Xiao Qi; Zhonghua Book Company"
 featured: true
 tags:
   - "supernatural"

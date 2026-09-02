@@ -7,9 +7,9 @@ era: "minguo"
 kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/maochengji.webp"
-publisher: "现代书局"
+publisher: "Modern Book Company"
 sources:
-  - "《猫城记》老舍，现代书局 1933"
+  - "Cat Country by Lao She, Modern Book Company, 1933"
 featured: true
 tags:
   - "allegory"

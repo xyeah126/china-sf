@@ -7,10 +7,10 @@ year: 2010
 era: "dangdai"
 kind: "sf"
 coverCredit: "ai-generated"
-publisher: "重庆出版社"
+publisher: "Chongqing Publishing House"
 coverPrompt: "Chinese science fiction paperback book cover for '死神永生' (Death's End). A universe dissolving into crystalline fragments, a lone figure standing at the edge of a collapsing dimension, pale dying stars. Retro-futuristic, ink-wash meets cosmic horror, muted teal and amber palette, dramatic lighting. Vertical poster, title text '死神永生' clearly visible near top."
 sources:
-  - "《死神永生》重庆出版社 2010"
+  - "Death's End, Chongqing Publishing House, 2010"
 tags:
   - "dimensions"
   - "cosmos"

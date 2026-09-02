@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/shengming-zhige.webp"
 sources:
-  - "《生命之歌》王晋康，1997"
+  - "Song of Life by Wang Jinkang, 1997"
 featured: true
 tags:
   - "genetics"

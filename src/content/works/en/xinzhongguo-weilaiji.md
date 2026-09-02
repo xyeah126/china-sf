@@ -8,9 +8,9 @@ kind: "sf"
 coverCredit: "public-domain"
 cover: "/covers/xinzhongguo-weilaiji.webp"
 coverSource: "https://commons.wikimedia.org/wiki/File:CADAL09009582_%E4%B8%AD%E5%9C%8B%E6%AD%B7%E5%8F%B2%E7%A0%94%E7%A9%B6%E6%B3%95.djvu"
-publisher: "新小说"
+publisher: "New Fiction (Xin Xiaoshuo)"
 sources:
-  - "《新小说》1902 年创刊号连载"
+  - "New Fiction (Xin Xiaoshuo), serialised from the inaugural issue, 1902"
 tags:
   - "future-history"
   - "political-novel"

@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/feixiang-mingwangxing.webp"
 sources:
-  - "《飞向冥王星的人》叶永烈，1979"
+  - "The Man Who Flew to Pluto by Ye Yonglie, 1979"
 tags:
   - "space"
   - "pluto"

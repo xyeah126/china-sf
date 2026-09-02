@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/daoxuan-de-tiankong.webp"
 sources:
-  - "《倒悬的天空》程婧波，2009"
+  - "The Inverted Sky by Cheng Jingbo, 2009"
 featured: true
 tags:
   - "space"

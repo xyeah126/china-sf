@@ -9,7 +9,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 coverPrompt: "Chinese science fiction paperback book cover for '球状闪电' (Ball Lightning). Electric-blue ball lightning hovering above a night city, energy tendrils crackling, stormy sky reflected in glass towers. Retro-futuristic, ink-wash meets plasma energy, muted teal and amber palette, dramatic lighting. Vertical poster, title text '球状闪电' clearly visible near top."
 sources:
-  - "《球状闪电》刘慈欣，2004"
+  - "Ball Lightning by Liu Cixin, 2004"
 tags:
   - "quantum"
   - "weapons"

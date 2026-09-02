@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/gulao-de-diqiu-zhige.webp"
 sources:
-  - "《古老的地球之歌》宝树，2015"
+  - "The Ancient Song of Earth by Baoshu, 2015"
 tags:
   - "civilisation"
   - "history"

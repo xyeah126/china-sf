@@ -8,11 +8,11 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/gudu-shenchu.webp"
 sources:
-  - "《孤独深处》郝景芳，2016"
+  - "The Depths of Loneliness by Hao Jingfang, 2016"
 tags:
   - "short-story-collection"
   - "society"
-  - "心理"
+  - "psychology"
 translationStatus: "full"
 awards:
   - "Xingyun Award (China) (includes 'Folding Beijing')"

@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/shijian-zhixu.webp"
 sources:
-  - "《时间之墟》宝树，2013"
+  - "The Ruins of Time by Baoshu, 2013"
 featured: true
 tags:
   - "time-loop"

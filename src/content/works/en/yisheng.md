@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/yisheng.webp"
 sources:
-  - "《蚁生》王晋康，2002"
+  - "Ant Life by Wang Jinkang, 2002"
 tags:
   - "society"
   - "collective"

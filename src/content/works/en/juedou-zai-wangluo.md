@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/juedou-zai-wangluo.webp"
 sources:
-  - "《决斗在网络》星河，1996"
+  - "Duel on the Network by Xinghe, 1996"
 featured: true
 tags:
   - "network"

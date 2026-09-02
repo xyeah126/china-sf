@@ -9,7 +9,7 @@ coverCredit: "public-domain"
 cover: "/covers/jinghuayuan.webp"
 coverSource: "https://commons.wikimedia.org/wiki/File:%E9%8F%A1%E8%8A%B1%E7%B7%A3(%E4%B8%83).djvu"
 sources:
-  - "《镜花缘》人民文学出版社"
+  - "Flowers in the Mirror, People's Literature Publishing House"
 featured: true
 tags:
   - "overseas-realms"

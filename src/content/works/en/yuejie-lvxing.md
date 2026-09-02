@@ -8,9 +8,9 @@ kind: "sf"
 coverCredit: "public-domain"
 cover: "/covers/yuejie-lvxing.webp"
 coverSource: "https://commons.wikimedia.org/wiki/File:%27From_the_Earth_to_the_Moon%27_by_Henri_de_Montaut_01.jpg"
-publisher: "日本东京进化社"
+publisher: "Jinhua Society, Tokyo"
 sources:
-  - "《月界旅行》鲁迅译，1903 年进化社版"
+  - "Journey to the Moon, translated by Lu Xun; Jinhua Society edition, Tokyo, 1903"
 tags:
   - "translation"
   - "jules-verne"

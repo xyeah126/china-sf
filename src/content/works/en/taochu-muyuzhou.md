@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/taochu-muyuzhou.webp"
 sources:
-  - "《逃出母宇宙》王晋康，2013"
+  - "Escape from the Mother Universe by Wang Jinkang, 2013"
 tags:
   - "cosmology"
   - "apocalypse"

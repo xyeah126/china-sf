@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/shimengmo.webp"
 sources:
-  - "《食梦貘》程婧波，2011"
+  - "The Dream-Eating Tapir by Cheng Jingbo, 2011"
 tags:
   - "dreams"
   - "fantasy"

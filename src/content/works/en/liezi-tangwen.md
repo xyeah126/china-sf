@@ -8,11 +8,11 @@ kind: "myth"
 coverCredit: "public-domain"
 yearUncertain: true
 sources:
-  - "《列子·汤问》杨伯峻《列子集释》"
+  - "Liezi: King Tang's Questions; Yang Bojun, Collected Commentaries on the Liezi"
 featured: true
 tags:
   - "machinery"
-  - "偃师"
+  - "yanshi"
   - "daoism"
 translationStatus: "full"
 cover: "/covers/liezi-tangwen.webp"

@@ -10,7 +10,7 @@ coverCredit: "public-domain"
 coverSource: "https://commons.wikimedia.org/wiki/File:NLC892-411999000232-305676_%E7%A5%9E%E7%95%B0%E7%B6%93.pdf"
 yearUncertain: true
 sources:
-  - "《神异经》旧题东方朔撰，实为汉魏间作品"
+  - "Classic of Divine Marvels, traditionally attributed to Dongfang Shuo; in fact a Han–Wei period work"
 tags:
   - "supernatural"
   - "faraway-lands"

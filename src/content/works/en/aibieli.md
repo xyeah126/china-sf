@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/aibieli.webp"
 sources:
-  - "《爱别离》何夕，2005"
+  - "Parting by He Xi, 2005"
 tags:
   - "emotion"
   - "parting"

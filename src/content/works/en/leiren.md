@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/leiren.webp"
 sources:
-  - "《类人》王晋康，2000"
+  - "Human Clones by Wang Jinkang, 2000"
 tags:
   - "cloning"
   - "ethics"

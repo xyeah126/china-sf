@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/canque-de-cihen.webp"
 sources:
-  - "《残缺的磁痕》星河，1997"
+  - "The Incomplete Magnetic Trace by Xinghe, 1997"
 tags:
   - "archaeology"
   - "magnetism"

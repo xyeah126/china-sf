@@ -8,7 +8,7 @@ kind: "sf"
 cover: "/covers/xinzhongguo-lu.webp"
 coverCredit: "ai-generated"
 sources:
-  - "《新中国》陆士谔，1910"
+  - "New China by Lu Shi'e, 1910"
 featured: true
 tags:
   - "future-history"

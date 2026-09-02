@@ -9,7 +9,7 @@ cover: "/covers/youyangzazu.webp"
 coverCredit: "public-domain"
 coverSource: "https://www.shuge.org/view/you_yang_za_zu/"
 sources:
-  - "《酉阳杂俎》段成式撰，中华书局"
+  - "Miscellaneous Morsels from Youyang by Duan Chengshi, Zhonghua Book Company"
 featured: true
 tags:
   - "supernatural"

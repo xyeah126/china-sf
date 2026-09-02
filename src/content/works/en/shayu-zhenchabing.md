@@ -8,10 +8,10 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/shayu-zhenchabing.webp"
 sources:
-  - "《鲨鱼侦察兵》郑文光，1979"
+  - "The Shark Scout by Zheng Wenguang, 1979"
 tags:
   - "animals"
-  - "军事"
+  - "military"
   - "ocean"
 translationStatus: "full"
 ---

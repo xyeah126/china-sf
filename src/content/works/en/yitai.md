@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/yitai.webp"
 sources:
-  - "《以太》张冉，2012"
+  - "Ether by Zhang Ran, 2012"
 featured: true
 tags:
   - "information"

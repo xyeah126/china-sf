@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/liudao-zhongsheng.webp"
 sources:
-  - "《六道众生》何夕，2002"
+  - "Six Paths of Existence by He Xi, 2002"
 featured: true
 tags:
   - "physics"

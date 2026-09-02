@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/yinhe-zhixin-1.webp"
 sources:
-  - "《银河之心·天垂日暮》江波，2012"
+  - "Heart of the Galaxy: Dusk of the Heavens by Jiang Bo, 2012"
 featured: true
 tags:
   - "space-opera"

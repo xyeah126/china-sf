@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/tiannian.webp"
 sources:
-  - "《天年》何夕，2015"
+  - "The Cosmic Year by He Xi, 2015"
 tags:
   - "apocalypse"
   - "astronomy"

@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/suzhu.webp"
 sources:
-  - "《宿主》程婧波，2012"
+  - "The Host by Cheng Jingbo, 2012"
 tags:
   - "symbiosis"
   - "body"

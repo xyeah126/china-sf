@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/shengyu-1984.webp"
 sources:
-  - "《生于一九八四》郝景芳，2018"
+  - "Born in 1984 by Hao Jingfang, 2018"
 tags:
   - "society"
   - "coming-of-age"

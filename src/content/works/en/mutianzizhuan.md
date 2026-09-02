@@ -10,7 +10,7 @@ coverCredit: "public-domain"
 coverSource: "https://commons.wikimedia.org/wiki/File:NCL-08482_%E7%A9%86%E5%A4%A9%E5%AD%90%E5%82%B3.pdf"
 yearUncertain: true
 sources:
-  - "《穆天子传》晋代汲冢出土，郭璞注"
+  - "Tale of King Mu, recovered from the Ji Tomb in the Jin dynasty, annotated by Guo Pu"
 tags:
   - "myth"
   - "king-mu"

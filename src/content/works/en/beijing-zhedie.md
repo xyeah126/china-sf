@@ -9,7 +9,7 @@ coverCredit: "ai-generated"
 cover: "/covers/beijing-zhedie.webp"
 coverPrompt: "折叠变形的城市空间，冷色调水墨质感，几何化结构"
 sources:
-  - "《北京折叠》郝景芳，2016 年雨果奖最佳中短篇小说"
+  - "Folding Beijing by Hao Jingfang — 2016 Hugo Award for Best Novelette"
 featured: true
 tags:
   - "stratification"

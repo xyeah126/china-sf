@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/qumo.webp"
 sources:
-  - "《驱魔》韩松，2017"
+  - "Exorcism by Han Song, 2017"
 tags:
   - "medical"
   - "reality"

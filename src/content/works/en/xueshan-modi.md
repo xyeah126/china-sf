@@ -8,10 +8,10 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/xueshan-modi.webp"
 sources:
-  - "《雪山魔笛》童恩正，1978"
+  - "The Magic Flute of the Snow Mountain by Tong Enzheng, 1978"
 tags:
   - "archaeology"
-  - "雪山"
+  - "snow-mountain"
   - "mystery"
 translationStatus: "full"
 ---

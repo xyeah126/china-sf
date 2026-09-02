@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/rensheng-suanfa.webp"
 sources:
-  - "《人生算法》陈楸帆，2019"
+  - "Algorithms for Life by Chen Qiufan, 2019"
 tags:
   - "artificial-intelligence"
   - "algorithms"

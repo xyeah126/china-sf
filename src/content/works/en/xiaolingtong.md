@@ -7,9 +7,9 @@ era: "xinzhongguo"
 kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/xiaolingtong.webp"
-publisher: "中国少年儿童出版社"
+publisher: "China Children's Press"
 sources:
-  - "《小灵通漫游未来》叶永烈，少年儿童出版社 1978"
+  - "Xiao Lingtong Travels to the Future by Ye Yonglie, China Children's Press, 1978"
 featured: true
 tags:
   - "childrens-sf"

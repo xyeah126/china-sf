@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/hongse-haiyang.webp"
 sources:
-  - "《红色海洋》韩松，2004"
+  - "Red Ocean by Han Song, 2004"
 tags:
   - "ocean"
   - "civilisation"

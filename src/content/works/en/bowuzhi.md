@@ -10,7 +10,7 @@ cover: "/covers/bowuzhi.webp"
 coverSource: "https://commons.wikimedia.org/wiki/File:CADAL09011374_%E7%BA%8C%E5%8D%9A%E7%89%A9%E5%BF%97.djvu"
 yearUncertain: true
 sources:
-  - "《博物志》张华撰，范宁校证"
+  - "Record of Diverse Matters by Zhang Hua, collated by Fan Ning"
 tags:
   - "natural-history"
   - "supernatural"

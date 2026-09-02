@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/jiqi-zhidao.webp"
 sources:
-  - "《机器之道》江波，2015"
+  - "The Way of Machines by Jiang Bo, 2015"
 tags:
   - "artificial-intelligence"
   - "evolution"

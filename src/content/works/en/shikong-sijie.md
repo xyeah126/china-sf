@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/shikong-sijie.webp"
 sources:
-  - "《时空死结》星河，1999"
+  - "Deadlock in Spacetime by Xinghe, 1999"
 tags:
   - "time-travel"
   - "paradox"

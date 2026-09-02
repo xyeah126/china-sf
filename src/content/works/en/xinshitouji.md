@@ -8,9 +8,9 @@ kind: "sf"
 coverCredit: "public-domain"
 cover: "/covers/xinshitouji.webp"
 coverSource: "https://commons.wikimedia.org/wiki/File:CADAL09010628_%E7%9F%B3%E9%A0%AD%E8%A8%98%C2%B7%EF%BC%88%E4%BA%8C%EF%BC%89.djvu"
-publisher: "改良小说社"
+publisher: "Reformed Fiction Society"
 sources:
-  - "《新石头记》吴趼人，改良小说社 1908"
+  - "New Story of the Stone by Wu Jianren, Reformed Fiction Society, 1908"
 tags:
   - "utopia"
   - "technological-marvels"

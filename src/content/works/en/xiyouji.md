@@ -6,9 +6,9 @@ year: 1592
 era: "song-ming-qing"
 kind: "proto-sf"
 coverCredit: "public-domain"
-publisher: "世德堂本"
+publisher: "Shidetang edition (Ming dynasty)"
 sources:
-  - "《西游记》明世德堂本，人民文学出版社整理本"
+  - "Journey to the West, Ming-dynasty Shidetang edition; People's Literature Publishing House critical edition"
 tags:
   - "gods-and-demons"
   - "transformation"

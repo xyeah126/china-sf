@@ -7,9 +7,9 @@ era: "song-ming-qing"
 kind: "proto-sf"
 cover: "/covers/taipingguangji.webp"
 coverCredit: "ai-generated"
-publisher: "太平兴国官修"
+publisher: "Imperially commissioned, Taiping Xingguo era"
 sources:
-  - "《太平广记》李昉等编，中华书局"
+  - "Extensive Records of the Taiping Era, compiled by Li Fang and others, Zhonghua Book Company"
 tags:
   - "leishu"
   - "supernatural"

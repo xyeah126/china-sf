@@ -7,14 +7,14 @@ year: 2000
 era: "dangdai"
 kind: "sf"
 coverCredit: "ai-generated"
-publisher: "科幻世界"
+publisher: "Science Fiction World"
 coverPrompt: "Chinese science fiction paperback book cover for '流浪地球' (The Wandering Earth). Planet Earth equipped with colossal glowing thrusters leaving a frozen blue-white surface behind, drifting through a starfield with Jupiter looming in the distance. Retro-futuristic, ink-wash meets cosmic, muted teal and amber palette, dramatic lighting. Vertical poster, title text '流浪地球' clearly visible near top."
 adaptations:
   - "liulang-diqiu-film-2019"
   - "liulang-diqiu-2"
   - "liulang-diqiu-3"
 sources:
-  - "《科幻世界》2000 年第 7 期"
+  - "Science Fiction World, Issue 7, 2000"
 featured: true
 tags:
   - "solar-crisis"

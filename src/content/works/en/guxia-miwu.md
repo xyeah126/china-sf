@@ -7,13 +7,13 @@ era: "xinzhongguo"
 kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/guxia-miwu.webp"
-publisher: "中国少年儿童出版社"
+publisher: "China Children's Press"
 sources:
-  - "《古峡迷雾》童恩正，1960"
+  - "Mist in the Ancient Gorge by Tong Enzheng, 1960"
 tags:
   - "archaeology"
   - "exploration"
-  - "科幻"
+  - "science-fiction"
 translationStatus: "full"
 ---
 

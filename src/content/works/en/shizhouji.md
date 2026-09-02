@@ -10,7 +10,7 @@ cover: "/covers/shizhouji.webp"
 coverSource: "https://commons.wikimedia.org/wiki/File:CADAL06386245_%E9%B8%9A%E9%B5%A1%E6%B4%B2.djvu"
 yearUncertain: true
 sources:
-  - "《十洲记》旧题东方朔撰，汉魏六朝作品"
+  - "Record of the Ten Continents, traditionally attributed to Dongfang Shuo; a work of the Han to Six Dynasties period"
 tags:
   - "supernatural"
   - "immortal-isles"

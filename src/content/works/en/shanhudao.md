@@ -7,11 +7,11 @@ era: "xinzhongguo"
 kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/shanhudao.webp"
-publisher: "人民文学出版社"
+publisher: "People's Literature Publishing House"
 adaptations:
   - "shanhudao-film-1980"
 sources:
-  - "《人民文学》1978 年第 5 期"
+  - "People's Literature, Issue 5, 1978"
 featured: true
 tags:
   - "laser-weapon"

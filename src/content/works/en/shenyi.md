@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/shenyi.webp"
 sources:
-  - "《神翼》郑文光，1982"
+  - "The Divine Wings by Zheng Wenguang, 1982"
 tags:
   - "childrens-sf"
   - "flight"

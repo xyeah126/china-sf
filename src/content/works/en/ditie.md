@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/ditie.webp"
 sources:
-  - "《地铁》韩松，2010"
+  - "Subway by Han Song, 2010"
 featured: true
 tags:
   - "urban"

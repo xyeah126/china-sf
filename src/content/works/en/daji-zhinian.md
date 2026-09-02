@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/daji-zhinian.webp"
 sources:
-  - "《大饥之年》张冉，2014"
+  - "The Year of Great Hunger by Zhang Ran, 2014"
 tags:
   - "disaster"
   - "famine"

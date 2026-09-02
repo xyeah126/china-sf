@@ -9,7 +9,7 @@ coverCredit: "public-domain"
 yearUncertain: true
 coverSource: "https://commons.wikimedia.org/wiki/File:Nine-headed_phoenix,_from_a_color_edition_of_Shan_Hai_Jing.jpg"
 sources:
-  - "《山海经》中华书局点校本"
+  - "Classic of Mountains and Seas, Zhonghua Book Company punctuated edition"
 featured: true
 tags:
   - "myth"

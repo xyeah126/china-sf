@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/chaoxiao-ruqiang.webp"
 sources:
-  - "《潮啸如枪》星河，2001"
+  - "Tidal Roar Like Spears by Xinghe, 2001"
 tags:
   - "environment"
   - "disaster"

@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/meng.webp"
 sources:
-  - "《梦》萧建亨，1979"
+  - "Dream by Xiao Jianheng, 1979"
 tags:
   - "dreams"
   - "psychology"

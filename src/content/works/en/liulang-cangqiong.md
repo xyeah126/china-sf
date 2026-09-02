@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/liulang-cangqiong.webp"
 sources:
-  - "《流浪苍穹》郝景芳，2011"
+  - "Wandering the Vault of Heaven by Hao Jingfang, 2011"
 tags:
   - "mars"
   - "civilisation"

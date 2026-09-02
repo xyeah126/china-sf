@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/hepingdemeng.webp"
 sources:
-  - "《和平的梦》顾均正，文化生活出版社 1940"
+  - "Dream of Peace by Gu Junzheng, Culture and Life Publishing House, 1940"
 tags:
   - "popular-science"
   - "wartime"

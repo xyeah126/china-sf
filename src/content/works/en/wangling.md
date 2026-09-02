@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/wangling.webp"
 sources:
-  - "《亡灵》韩松，2019"
+  - "The Departed by Han Song, 2019"
 tags:
   - "death"
   - "digital"

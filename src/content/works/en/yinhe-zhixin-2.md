@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/yinhe-zhixin-2.webp"
 sources:
-  - "《银河之心·暗黑深渊》江波，2013"
+  - "Heart of the Galaxy: The Dark Abyss by Jiang Bo, 2013"
 tags:
   - "space-opera"
   - "galaxy"

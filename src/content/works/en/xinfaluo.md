@@ -8,9 +8,9 @@ kind: "sf"
 coverCredit: "public-domain"
 cover: "/covers/xinfaluo.webp"
 coverSource: "https://commons.wikimedia.org/wiki/File:CADAL09009315_%E6%BD%9B%E7%A0%94%E5%A0%82%E6%96%87%E9%9B%86%C2%B7%EF%BC%88%E5%85%AB%EF%BC%89.djvu"
-publisher: "小说林"
+publisher: "Fiction Forest Press (Xiaoshuolin)"
 sources:
-  - "《新法螺先生谭》徐念慈，小说林社 1905"
+  - "New Tales of Mr. Windbag by Xu Nianci, Fiction Forest Press, 1905"
 tags:
   - "soul"
   - "planets"
