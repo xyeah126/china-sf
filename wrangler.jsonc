@@ -1,0 +1,13 @@
+{
+  // Cloudflare Workers 部署配置（@astrojs/cloudflare 14.x + @cloudflare/vite-plugin）
+  // 构建产物：dist/client = 静态资源，dist/server = Worker 入口
+  // 部署：npx wrangler deploy（或 Workers Builds git 集成，构建命令 npm run build）
+  "name": "china-sf",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

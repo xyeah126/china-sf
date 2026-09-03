@@ -5,15 +5,16 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pagefind --site dist",
+    "build": "astro build && pagefind --site dist/client",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.3.0",
     "@astrojs/react": "^5.0.7",
     "@keystatic/astro": "^6.0.0",
     "@keystatic/core": "^0.6.9",
-    "astro": "^7.2.9",
+    "astro": "^7.3.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "wrangler": "^4.127.1"
