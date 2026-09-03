@@ -252,7 +252,8 @@ const publishersEntrySchema = {
 };
 
 export default config({
-  storage: { kind: 'local' },
+  // 阶段 B：生产走 GitHub 存储（编辑直接提交到仓库）；本地开发如需 local 模式可临时改回
+  storage: { kind: 'github', repo: 'xyeah126/china-sf' },
   ui: { brand: { name: '中国科幻作品网 · 内容管理', mark: 'C' } },
 
   singletons: {
