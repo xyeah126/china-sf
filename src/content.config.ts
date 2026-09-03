@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-import { glob, file } from 'astro/loaders';
+import { glob } from 'astro/loaders';
 
 /** 图片来源分级：公有领域 / 已授权 / AI 生成 / 占位图 */
 const credit = z.enum(['public-domain', 'licensed', 'ai-generated', 'placeholder']);
@@ -86,33 +86,66 @@ const adaptations = defineCollection({
   }),
 });
 
-/** 时期节点：不随语言拆分，条目内自带 label / labelEn */
+/** 时期节点：不随语言拆分，条目内自带 label / labelEn。
+ *  每时期一个 yaml 文件（src/content/eras/<id>.yaml），id = 文件名（glob loader 生成）。
+ *  约定：end 键缺省 = 延续至今。 */
 const eras = defineCollection({
-  loader: file('src/content/eras.yaml'),
+  loader: glob({ pattern: '*.yaml', base: './src/content/eras' }),
   schema: z.object({
-    id: z.string(),
     label: z.string(),
-    labelEn: z.string(),
+    labelEn: z.string().optional(),
     start: z.number(),
     end: z.number().nullable().default(null),
     kind,
-    summary: z.string(),
+    summary: z.string().optional(),
     summaryEn: z.string().optional(),
   }),
 });
 
 const publishers = defineCollection({
-  loader: file('src/content/publishers.yaml'),
+  loader: glob({ pattern: '*.yaml', base: './src/content/publishers' }),
   schema: z.object({
-    id: z.string(),
     name: z.string(),
-    nameEn: z.string(),
-    type: z.enum(['press', 'magazine', 'series', 'platform']),
+    nameEn: z.string().optional(),
+    type: z.enum(['press', 'magazine', 'series', 'platform']).default('press'),
     founded: z.number().nullable().default(null),
     logo: z.string().optional(),
     logoCredit: credit.default('placeholder'),
     summary: z.string().optional(),
+    summaryEn: z.string().optional(),
   }),
 });
 
-export const collections = { works, authors, adaptations, eras, publishers };
+/** 站点设置（zh.yaml / en.yaml，id = 语言）：站点身份字段，UI 词仍在 i18n/ui.ts */
+const settings = defineCollection({
+  loader: glob({ pattern: '*.yaml', base: './src/content/settings' }),
+  schema: z.object({
+    siteName: z.string().optional(),
+    siteNameShort: z.string().optional(),
+    tagline: z.string().optional(),
+    seoDescription: z.string().optional(),
+    footerNote: z.string().optional(),
+  }),
+});
+
+/** 独立页面（about 等），id = 文件名 */
+const pagesSchema = z.object({ title: z.string() });
+const pagesZh = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/pages/zh' }),
+  schema: pagesSchema,
+});
+const pagesEn = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/pages/en' }),
+  schema: pagesSchema,
+});
+
+export const collections = {
+  works,
+  authors,
+  adaptations,
+  eras,
+  publishers,
+  settings,
+  'pages-zh': pagesZh,
+  'pages-en': pagesEn,
+};

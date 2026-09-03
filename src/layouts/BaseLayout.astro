@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { getEntry } from 'astro:content';
 import { ui, type Lang } from '../i18n/ui';
 import LangToggle from '../components/LangToggle.astro';
 
@@ -13,10 +14,18 @@ interface Props {
 
 const { lang = 'zh', title, description, image } = Astro.props;
 const t = ui[lang];
+
+// 站点身份优先读后台设置（settings/<lang>.yaml），未填时回退 i18n/ui.ts 静态值
+const settings = (await getEntry('settings', lang))?.data;
+const siteName = settings?.siteName || t.siteName;
+const siteNameShort = settings?.siteNameShort || t.siteNameShort;
+const tagline = settings?.tagline || t.tagline;
+const seoDescription = settings?.seoDescription || tagline;
+
 // 标签页标题用短名（"三体 · 中国科幻" / "The Three-Body Problem · China S-F"），
 // 站名全称留给 hero、导航栏品牌位、页脚与 og:site_name
-const pageTitle = title ? `${title} · ${t.siteNameShort}` : `${t.siteName} · ${t.tagline}`;
-const pageDesc = description ?? t.tagline;
+const pageTitle = title ? `${title} · ${siteNameShort}` : `${siteName} · ${tagline}`;
+const pageDesc = description ?? seoDescription;
 
 const prefix = lang === 'en' ? '/en' : '';
 const currentPath = Astro.url.pathname;
@@ -45,7 +54,7 @@ const ogImage = new URL(image ?? '/covers/shanhaijing.jpg', site).href;
     <link rel="alternate" hreflang="en" href={enHref} />
     <link rel="alternate" hreflang="x-default" href={zhHref} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={t.siteName} />
+    <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDesc} />
     <meta property="og:url" content={canonical} />
@@ -100,8 +109,8 @@ const ogImage = new URL(image ?? '/covers/shanhaijing.jpg', site).href;
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href={prefix + '/'}>
-          <span class="brand-title">{t.siteName}</span>
-          <span class="brand-tag">{t.tagline}</span>
+          <span class="brand-title">{siteName}</span>
+          <span class="brand-tag">{tagline}</span>
         </a>
         <nav class="site-nav">
           <a href={prefix + '/timeline'}>{t.navTimeline}</a>
@@ -121,7 +130,7 @@ const ogImage = new URL(image ?? '/covers/shanhaijing.jpg', site).href;
 
     <footer class="site-footer">
       <div class="container">
-        {t.siteName} · {t.tagline}
+        {siteName} · {tagline}{settings?.footerNote ? ` · ${settings.footerNote}` : ''}
       </div>
     </footer>
 

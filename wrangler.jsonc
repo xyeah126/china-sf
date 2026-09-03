@@ -7,6 +7,12 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "3968f87d63754d21964522aae52c3556"
+    }
+  ],
   "observability": {
     "enabled": true
   }

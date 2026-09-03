@@ -1,4 +1,5 @@
 ---
+import { getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { ui, type Lang } from '../../i18n/ui';
 
@@ -7,220 +8,32 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = ui[lang];
-const zh = lang === 'zh';
+
+// 页面正文来自后台可编辑的独立页面（src/content/pages/<lang>/about.md）
+const entry = await getEntry(lang === 'zh' ? 'pages-zh' : 'pages-en', 'about');
+const { Content } = await render(entry!);
 ---
 
-<BaseLayout lang={lang} title={t.navAbout}>
+<BaseLayout lang={lang} title={entry?.data.title ?? t.navAbout}>
   <section class="section">
-    <h1 class="section-title">{zh ? '关于 · 方法论' : 'About & Method'}</h1>
+    <h1 class="section-title">{entry?.data.title ?? t.navAbout}</h1>
 
-    {
-      zh ? (
-        <>
-          <p>
-            本站是一部按时间线与作者双维度组织的中国科幻 / 想象文学图文谱系，
-            覆盖从上古神话到当代科幻的完整脉络，并关联影视作品成果。
-          </p>
-
-          <h2 class="subhead">三个内容层级</h2>
-          <p>
-            为了不混淆历史，站内把收录内容分为三层，并在每张卡片上以徽标显式标注：
-          </p>
-          <ul>
-            <li><strong>神话源流</strong>：上古至魏晋的神怪、奇器与异域想象。</li>
-            <li><strong>前科幻</strong>：唐宋至清中期的机械、飞行、异域社会想象，尚未建立现代科学框架。</li>
-            <li><strong>科幻</strong>：晚清至今，现代科学框架下的想象文学。</li>
-          </ul>
-          <p>
-            上古作品不是科幻，而是科学想象的<em>源流</em>。这是本站的学术底线。
-          </p>
-
-          <h2 class="subhead">关于"中国科幻起点"</h2>
-          <ul>
-            <li>1903 年，鲁迅在《月界旅行·辨言》中引入"科学小说"概念。</li>
-            <li>1904 年，荒江钓叟《月球殖民地小说》被公认为中国第一部原创科幻长篇。</li>
-            <li>晚清之前没有 genre 意义上的科幻，只有科学想象的萌芽。</li>
-          </ul>
-
-          <h2 class="subhead">收录标准</h2>
-          <p>一部作品入库需至少满足两项：中国作者或中文首发；具备科学 / 技术 / 未来社会想象成分；
-            有可查证的出版记录；在文学史、口碑或影视作品上具备影响力。每条数据均标注资料出处。</p>
-
-          <h2 class="subhead">图片政策：诚实优先</h2>
-          <p>
-            全站所有图片均明确标注四级来源之一，徽标显示在每张图右下角。
-            目前 84 部作品中实际分布如下：
-          </p>
-          <ul>
-            <li><strong>公有领域（16 部）</strong>：古籍书影、清末民初石印本扫描、明清版画等已进入公有领域的图像。
-              每张都附带 <code>coverSource</code> 字段记录书名、版本与扫描来源，便于复核。</li>
-            <li><strong>AI 生成示意图（68 部）</strong>：当代作品封面——这一层几乎没有公版资源可用。
-              全部为「示意图」而非真实封面重制，每张图保留生成 prompt（<code>coverPrompt</code> 字段）以便他人复现或替换。</li>
-            <li><strong>已授权：暂无</strong>。本站未与任何出版社、作者、图库签订授权协议。
-              若未来获得正式授权，将在原图位显式标注并附授权来源。</li>
-            <li><strong>占位图：仅用于影视海报（35 部）与作者头像（31 位）</strong>，
-              见下方专项说明。</li>
-          </ul>
-
-          <h2 class="subhead">作者头像：印章而非照片</h2>
-          <p>
-            作者照片的版权属于摄影者，<em>不属于作者本人</em>。
-            本站 31 位作者中既有已故历史人物，也有健在当代作家，
-            后者的照片在大多数司法管辖区下受肖像权与摄影著作权双重保护。
-            <strong>本站不托管任何作者照片</strong>——
-            所有人名位以朱砂印章形式渲染：白文篆体姓名 + 哈希生成的星图纹点缀，
-            既保持视觉一致性，又彻底回避肖像权与摄影版权风险。
-          </p>
-          <p>
-            印章里的字统一使用篆体（在 <code>/fonts/seal-zhuan-subset.woff2</code>，
-            MIT 协议「余繁新语」子集化部署），中英文页面都用中文姓名，
-            因此英文页面不出现拉丁字母首字母缩写。
-          </p>
-
-          <h2 class="subhead">影视海报：版权与替代方案</h2>
-          <p>
-            电影/电视/动画海报的版权属于制片方或发行方，<strong>不进入公有领域</strong>，
-            也不适用合理使用——海报不是文字资料，不属于新闻报道或学术引用的范围。
-            因此本站<strong>不抓取、不转存、不热链豆瓣 / IMDb / TMDB 等任何第三方平台的图片</strong>。
-          </p>
-          <p>
-            当前的替代方案（35 部影视作品均采用）：
-          </p>
-          <ul>
-            <li>海报位为<strong>类型色 + 类型缩写</strong>的占位图，角标注明「海报待补」。</li>
-            <li>每张卡片附<strong>豆瓣 / IMDb 外链按钮</strong>，链接到对方公开搜索页——
-              外链本身不构成侵权，读者可自行到原站查看真实海报与评分。</li>
-            <li>已有正式豆瓣评分快照的，在卡片正文以文字形式列出（<code>doubanRating</code> + <code>doubanRatingAt</code> 字段注明抓取日期）。</li>
-          </ul>
-          <p>
-            未来若获得制片方或版权方的正式授权，将按真实海报替换占位，
-            并在下方追加来源与授权号。读者若发现可用的公有领域 / CC 授权海报，欢迎通过 Issue 推荐。
-          </p>
-
-          <h2 class="subhead">多语言与翻译</h2>
-          <p>
-            本站提供中英双语界面，默认依据访问者系统语言选择（仅当用户未在本站手动切换过时生效）。
-            英文条目尚未完成时，页面会显示中文原文并明确标注，<strong>不使用机器翻译填充</strong>——
-            机翻的「假英文」对中外读者都是误导，宁可缺。
-          </p>
-
-          <h2 class="subhead">数据纠错</h2>
-          <p>
-            存疑字段在页面上以问号标注。若发现错漏，欢迎通过仓库 Issue 指正——
-            一个数据可信度存疑的资料站是没有价值的，宁可少收，不可错收。
-          </p>
-        </>
-      ) : (
-        <>
-          <p>
-            This archive is a chronological and author-indexed illustrated record of
-            Chinese science fiction and the literature of imagination, spanning
-            antiquity to the present and linked to film and television works.
-          </p>
-
-          <h2 class="subhead">Three tiers</h2>
-          <p>
-            To keep the record honest, every entry is assigned one of three tiers,
-            shown as a badge on each card:
-          </p>
-          <ul>
-            <li><strong>Myth</strong>: supernatural beings, marvellous machines and distant lands, from antiquity to the Wei–Jin period.</li>
-            <li><strong>Proto-SF</strong>: machinery, flight and utopian societies from the Song to the mid-Qing, without a modern scientific framework.</li>
-            <li><strong>Science fiction</strong>: from the Late Qing onward, imagination within a modern scientific framework.</li>
-          </ul>
-          <p>
-            Works of antiquity are not science fiction; they are its <em>sources</em>.
-            That distinction is this archive's scholarly baseline.
-          </p>
-
-          <h2 class="subhead">On the origin of Chinese SF</h2>
-          <ul>
-            <li>In 1903 Lu Xun introduced the concept of “science fiction” in his preface to the translation of De la Terre à la Lune.</li>
-            <li>Moon Colony Novel (1904) is recognised as the first original Chinese science fiction novel.</li>
-            <li>Before the Late Qing there was no science fiction as a genre — only seeds of scientific imagination.</li>
-          </ul>
-
-          <h2 class="subhead">Inclusion criteria</h2>
-          <p>
-            A work is included when it meets at least two of the following: a Chinese
-            author or first publication in Chinese; scientific, technological or
-            futuristic content; a verifiable publication record; and recognised
-            significance. Every entry cites its sources.
-          </p>
-
-          <h2 class="subhead">Image policy: honesty first</h2>
-          <p>
-            Every image on the site is labelled with one of four provenance levels,
-            shown as a badge on the card. The current distribution across 84 works:
-          </p>
-          <ul>
-            <li><strong>Public domain (16)</strong>: facsimiles of classical editions, late-Qing / early-Republic lithographs, Ming–Qing woodblock prints. Each carries a <code>coverSource</code> field naming the book, edition and scanning source for verification.</li>
-            <li><strong>AI-generated illustrations (68)</strong>: contemporary book covers, where no public-domain imagery exists. Every AI image is recorded as a <em>schematic illustration</em>, not a reproduction of the real cover; the prompt is preserved (<code>coverPrompt</code> field) so it can be re-rendered or replaced.</li>
-            <li><strong>Licensed: none</strong>. The archive holds no licensing agreements with any publisher, author or image library. If formal licenses are obtained in the future, the real cover will replace the placeholder with a clear credit.</li>
-            <li><strong>Placeholder</strong>: only used for film / TV posters (35 entries) and author portraits (31 entries) — see the dedicated sections below.</li>
-          </ul>
-
-          <h2 class="subhead">Author portraits: seals, not photos</h2>
-          <p>
-            Copyright in a photograph belongs to the photographer, not the subject.
-            The 31 authors range from long-deceased historical figures to living
-            contemporary writers, and a living person's portrait is, in most
-            jurisdictions, protected by both copyright and personality rights.
-            <strong>No author photos are hosted on this site</strong>.
-            Every name slot is rendered as a vermilion seal — a vertical Chinese
-            name in seal script, with a small starfield derived from a hash of the
-            name. Visually consistent, and zero legal exposure.
-          </p>
-          <p>
-            The seal font is <code>/fonts/seal-zhuan-subset.woff2</code>,
-            a 38 KB subset of the MIT-licensed typeface <em>Yu Fan Xin Yu</em>.
-            Chinese and English pages both use the Chinese name, so no Latin
-            initials appear on the English side.
-          </p>
-
-          <h2 class="subhead">Film &amp; TV posters: copyright and the workaround</h2>
-          <p>
-            A film or TV poster is copyright of the producer or distributor.
-            <strong>Posters do not enter the public domain</strong>, and
-            fair use / fair dealing generally does not cover them: a poster
-            is not the kind of text-based material that news reporting or
-            academic citation exists to protect. The site therefore
-            <strong>does not scrape, mirror, or hot-link any image from
-            Douban, IMDb, TMDB, or any other third-party platform</strong>.
-          </p>
-          <p>
-            Current substitute (used for all 35 entries):
-          </p>
-          <ul>
-            <li>The poster slot is a <strong>type-coloured placeholder with a type abbreviation</strong>, with a “Poster pending” tag in the corner.</li>
-            <li>Each card carries <strong>Douban and IMDb external links</strong> pointing at the public search page of the other site — a hyperlink is not infringement, and lets the reader see the real poster where they already have an account.</li>
-            <li>Where a Douban rating has been snapshotted, it is shown as plain text (<code>doubanRating</code> + <code>doubanRatingAt</code> with the capture date).</li>
-          </ul>
-          <p>
-            If a formal license is later obtained from the rights holder, the
-            placeholder will be replaced and a credit line appended.
-            Public-domain or CC-licensed posters are welcome via the issue
-            tracker.
-          </p>
-
-          <h2 class="subhead">Languages and translation</h2>
-          <p>
-            The site is bilingual. The language follows the visitor's system
-            setting (unless the visitor has already made a manual choice on
-            this site). Where an English entry is not yet written, the
-            Chinese original is shown with a clear notice —
-            <strong>never a machine translation</strong>. Fake English is a
-            disservice to both English and Chinese readers; better to be absent.
-          </p>
-
-          <h2 class="subhead">Corrections</h2>
-          <p>
-            Uncertain fields are marked on the page. Corrections are welcome via the
-            repository's issue tracker. A reference site whose data cannot be trusted
-            has no value: better to list less than to list wrong.
-          </p>
-        </>
-      )
-    }
+    <div class="detail-body about-body">
+      <Content />
+    </div>
   </section>
 </BaseLayout>
+
+<style is:global>
+  /* 迁移自原 About.astro 的 .subhead：小节标题保持原视觉 */
+  .about-body h2 {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin: 30px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+</style>

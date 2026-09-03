@@ -1,4 +1,4 @@
-import { config, collection, fields } from '@keystatic/core';
+import { config, collection, fields, singleton } from '@keystatic/core';
 
 /**
  * ⚠️ 重要约定（改动前请先读）
@@ -198,9 +198,77 @@ const adaptationsSchema = {
   }),
 };
 
+/** 站点设置（singleton · data-yaml）：只放"站点身份"字段，UI 词留在 i18n/ui.ts */
+const settingsSchema = {
+  siteName: fields.text({ label: '站点名称' }),
+  siteNameShort: fields.text({ label: '站点简称（页面标题后缀）' }),
+  tagline: fields.text({ label: '口号 / 副标题' }),
+  seoDescription: fields.text({
+    label: '默认 SEO 描述（留空则用口号）',
+    multiline: true,
+  }),
+  footerNote: fields.text({ label: '页脚附注（可留空）', multiline: true }),
+};
+
+/** 独立页面（About 等）：正文写 body */
+const pagesSchema = {
+  title: fields.text({ label: '页面标题', validation: { isRequired: true } }),
+  body: fields.document({
+    label: '页面内容（正文）',
+    formatting: true,
+    dividers: true,
+    links: true,
+  }),
+};
+
+/** 时期（每时期一个 yaml 文件，文件名 = era id，与 works.era 引用一致） */
+const erasEntrySchema = {
+  label: fields.text({ label: '中文名', validation: { isRequired: true } }),
+  labelEn: fields.text({ label: '英文名' }),
+  start: fields.integer({ label: '起始年（公元前用负数）' }),
+  end: fields.integer({ label: '结束年（留空 = 延续至今）' }),
+  kind: fields.text({ label: '内容层级（myth / proto-sf / sf）' }),
+  summary: fields.text({ label: '中文简介', multiline: true }),
+  summaryEn: fields.text({ label: '英文简介', multiline: true }),
+};
+
+/** 出版社 / 期刊（每条一个 yaml 文件，文件名 = id） */
+const publishersEntrySchema = {
+  name: fields.text({ label: '名称', validation: { isRequired: true } }),
+  nameEn: fields.text({ label: '英文名' }),
+  type: fields.select({
+    label: '类型',
+    options: [
+      { label: '出版社 press', value: 'press' },
+      { label: '杂志 magazine', value: 'magazine' },
+      { label: '丛书 series', value: 'series' },
+      { label: '平台 platform', value: 'platform' },
+    ],
+    defaultValue: 'press',
+  }),
+  founded: fields.integer({ label: '创办年' }),
+  summary: fields.text({ label: '中文简介', multiline: true }),
+  summaryEn: fields.text({ label: '英文简介', multiline: true }),
+};
+
 export default config({
   storage: { kind: 'local' },
   ui: { brand: { name: '中国科幻作品网 · 内容管理', mark: 'C' } },
+
+  singletons: {
+    'settings-zh': singleton({
+      label: '站点设置 · 中文',
+      path: 'src/content/settings/zh',
+      format: { data: 'yaml' },
+      schema: settingsSchema,
+    }),
+    'settings-en': singleton({
+      label: 'Site Settings · English',
+      path: 'src/content/settings/en',
+      format: { data: 'yaml' },
+      schema: settingsSchema,
+    }),
+  },
 
   collections: {
     'works-zh': collection({
@@ -244,6 +312,34 @@ export default config({
       format: { contentField: 'summary' },
       columns: ['title', 'year', 'type', 'status'],
       schema: adaptationsSchema,
+    }),
+    'eras': collection({
+      label: '时期（时间线）',
+      path: 'src/content/eras/*',
+      format: { data: 'yaml' },
+      columns: ['label', 'start', 'end', 'kind'],
+      schema: erasEntrySchema,
+    }),
+    'publishers': collection({
+      label: '出版社 · 期刊',
+      path: 'src/content/publishers/*',
+      format: { data: 'yaml' },
+      columns: ['name', 'type', 'founded'],
+      schema: publishersEntrySchema,
+    }),
+    'pages-zh': collection({
+      label: '独立页面 · 中文',
+      path: 'src/content/pages/zh/*',
+      format: { contentField: 'body' },
+      columns: ['title'],
+      schema: pagesSchema,
+    }),
+    'pages-en': collection({
+      label: '独立页面 · 英文',
+      path: 'src/content/pages/en/*',
+      format: { contentField: 'body' },
+      columns: ['title'],
+      schema: pagesSchema,
     }),
   },
 });

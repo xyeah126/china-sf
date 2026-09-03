@@ -116,10 +116,11 @@ export function fmtYear(n: number | null | undefined, lang: Lang): string {
   return String(n);
 }
 
-/** 时期区间文本，如 "960 – 1840"、"1840 – 今" */
-export function fmtEraRange(start: number, end: number | null, lang: Lang): string {
+/** 时期区间文本，如 "960 – 1840"、"1840 – 今"。
+ *  约定：end 为 null/undefined（含 YAML 中省略 end 键）均表示"延续至今"。 */
+export function fmtEraRange(start: number, end: number | null | undefined, lang: Lang): string {
   const s = fmtYear(start, lang);
-  const e = end === null ? (lang === 'zh' ? '今' : 'present') : fmtYear(end, lang);
+  const e = end == null ? (lang === 'zh' ? '今' : 'present') : fmtYear(end, lang);
   return `${s} – ${e}`;
 }
 
