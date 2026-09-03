@@ -2,6 +2,9 @@
 dist/
 .astro/
 
+# wrangler 本地状态（wrangler dev 的 KV/缓存）
+.wrangler/
+
 # 依赖
 node_modules/
 
