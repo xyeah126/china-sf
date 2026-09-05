@@ -3,10 +3,21 @@ import { config, collection, fields, singleton } from '@keystatic/core';
 /**
  * ⚠️ 重要约定（改动前请先读）
  *
- * 1. **不使用 slugField**：实测 Keystatic 的 `fields.slug({ name })` 会把「名字」
- *    以 `slug` 键写进 frontmatter（如 `slug: 刘慈欣`），而本站现有 340 个 md 文件
- *    都没有该键，一旦保存就会污染。去掉 slugField 后，Keystatic 仅用文件名作为
- *    条目标识，frontmatter 保持原样。新建条目时后台会直接要求输入文件名。
+ * 1. **slugField 必须配置，且指向 schema 里的 `fields.slug` 字段**：
+ *    2026-09-05 实测发现，collection 若省略 slugField，Keystatic UI 打开条目时
+ *    会在 getSlugFromState(collectionConfig, state) 里读 `collectionConfig.slugField`
+ *    → `schema[undefined].kind` 崩溃（报错 "Cannot read properties of undefined
+ *    (reading 'kind')"），所有条目都打不开。这是官方类型里 slugField 必填的原因。
+ *    本站做法：把每个 collection 的「标题/姓名」字段（title / name / label）
+ *    直接声明为 `fields.slug({ name: {...} })`：
+ *    - **frontmatter 仍是纯字符串**：Keystatic 的 slugField 在序列化时走
+ *      serializeWithSlug().value，只把 name 字符串写回原键（实测 342 文件
+ *      往返零改动），`slug` 部分取自文件名、永不落盘 —— 不会像早期担心的
+ *      那样注入 `slug: 刘慈欣` 之类的新键；
+ *    - UI 里该字段会显示为「名称 + slug」两个输入框，slug 框预填文件名。
+ *      改名（name）不会联动 slug（shouldGenerateSlug 仅新建条目时开启），
+ *      保存不会意外重命名文件；不要点 Regenerate / 手改 slug，否则保存会
+ *      按新 slug 移动文件（git mv）。
  *
  * 2. **schema 必须与 src/content.config.ts 一一对应**：Keystatic 保存时只回填
  *    schema 中存在的字段，缺失的键会被静默丢弃。新增 frontmatter 字段时两边要同步。
@@ -116,7 +127,7 @@ const markdown = ({ label, description }: MarkdownFieldProps) =>
 
 /** 作品集：中英文目录共用同一套 schema，正文写到 body */
 const worksSchema = {
-  title: fields.text({ label: '标题', validation: { isRequired: true } }),
+  title: fields.slug({ name: { label: '标题', validation: { isRequired: true } } }),
   titleEn: fields.text({ label: '英文标题' }),
   subtitle: fields.text({ label: '副标题' }),
   author: fields.text({ label: '作者' }),
@@ -155,7 +166,7 @@ const worksSchema = {
 
 /** 作者集 */
 const authorsSchema = {
-  name: fields.text({ label: '姓名', validation: { isRequired: true } }),
+  name: fields.slug({ name: { label: '姓名', validation: { isRequired: true } } }),
   nameEn: fields.text({ label: '英文名' }),
   alias: textArray('别名 / 笔名', '别名'),
   birthYear: fields.integer({ label: '出生年' }),
@@ -184,7 +195,7 @@ const authorsSchema = {
 
 /** 影视改编集 */
 const adaptationsSchema = {
-  title: fields.text({ label: '标题', validation: { isRequired: true } }),
+  title: fields.slug({ name: { label: '标题', validation: { isRequired: true } } }),
   titleEn: fields.text({ label: '英文标题' }),
   year: fields.integer({ label: '年份' }),
   type: fields.select({ label: '类型', options: ADAPT_TYPES, defaultValue: 'film' }),
@@ -245,7 +256,7 @@ const settingsSchema = {
 
 /** 独立页面（About 等）：正文写 body */
 const pagesSchema = {
-  title: fields.text({ label: '页面标题', validation: { isRequired: true } }),
+  title: fields.slug({ name: { label: '页面标题', validation: { isRequired: true } } }),
   body: markdown({
     label: '页面内容（正文）',
     formatting: true,
@@ -256,7 +267,9 @@ const pagesSchema = {
 
 /** 时期（每时期一个 yaml 文件，文件名 = era id，与 works.era 引用一致） */
 const erasEntrySchema = {
-  label: fields.text({ label: '中文名', validation: { isRequired: true } }),
+  label: fields.slug({
+    name: { label: '中文名', validation: { isRequired: true } },
+  }),
   labelEn: fields.text({ label: '英文名' }),
   start: fields.integer({ label: '起始年（公元前用负数）' }),
   end: fields.integer({ label: '结束年（留空 = 延续至今）' }),
@@ -267,7 +280,9 @@ const erasEntrySchema = {
 
 /** 出版社 / 期刊（每条一个 yaml 文件，文件名 = id） */
 const publishersEntrySchema = {
-  name: fields.text({ label: '名称', validation: { isRequired: true } }),
+  name: fields.slug({
+    name: { label: '名称', validation: { isRequired: true } },
+  }),
   nameEn: fields.text({ label: '英文名' }),
   type: fields.select({
     label: '类型',
@@ -309,6 +324,7 @@ export default config({
       label: '作品 · 中文',
       path: 'src/content/works/zh/*',
       format: { contentField: 'summary' },
+      slugField: 'title',
       columns: ['title', 'author', 'year', 'era'],
       schema: worksSchema,
     }),
@@ -316,6 +332,7 @@ export default config({
       label: '作品 · 英文',
       path: 'src/content/works/en/*',
       format: { contentField: 'summary' },
+      slugField: 'title',
       columns: ['title', 'author', 'year', 'era'],
       schema: worksSchema,
     }),
@@ -323,6 +340,7 @@ export default config({
       label: '作者 · 中文',
       path: 'src/content/authors/zh/*',
       format: { contentField: 'bio' },
+      slugField: 'name',
       columns: ['name', 'era'],
       schema: authorsSchema,
     }),
@@ -330,6 +348,7 @@ export default config({
       label: '作者 · 英文',
       path: 'src/content/authors/en/*',
       format: { contentField: 'bio' },
+      slugField: 'name',
       columns: ['name', 'era'],
       schema: authorsSchema,
     }),
@@ -337,6 +356,7 @@ export default config({
       label: '影视改编 · 中文',
       path: 'src/content/adaptations/zh/*',
       format: { contentField: 'summary' },
+      slugField: 'title',
       columns: ['title', 'year', 'type', 'status'],
       schema: adaptationsSchema,
     }),
@@ -344,6 +364,7 @@ export default config({
       label: '影视改编 · 英文',
       path: 'src/content/adaptations/en/*',
       format: { contentField: 'summary' },
+      slugField: 'title',
       columns: ['title', 'year', 'type', 'status'],
       schema: adaptationsSchema,
     }),
@@ -351,6 +372,7 @@ export default config({
       label: '时期（时间线）',
       path: 'src/content/eras/*',
       format: { data: 'yaml' },
+      slugField: 'label',
       columns: ['label', 'start', 'end', 'kind'],
       schema: erasEntrySchema,
     }),
@@ -358,6 +380,7 @@ export default config({
       label: '出版社 · 期刊',
       path: 'src/content/publishers/*',
       format: { data: 'yaml' },
+      slugField: 'name',
       columns: ['name', 'type', 'founded'],
       schema: publishersEntrySchema,
     }),
@@ -365,6 +388,7 @@ export default config({
       label: '独立页面 · 中文',
       path: 'src/content/pages/zh/*',
       format: { contentField: 'body' },
+      slugField: 'title',
       columns: ['title'],
       schema: pagesSchema,
     }),
@@ -372,6 +396,7 @@ export default config({
       label: '独立页面 · 英文',
       path: 'src/content/pages/en/*',
       format: { contentField: 'body' },
+      slugField: 'title',
       columns: ['title'],
       schema: pagesSchema,
     }),
