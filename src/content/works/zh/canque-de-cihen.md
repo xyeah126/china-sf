@@ -1,21 +1,24 @@
 ---
-title: "残缺的磁痕"
-author: "星河"
-authorSlug: "xinghe"
+title: 残缺的磁痕
+author: '星河 '
+authorSlug: xinghe
 year: 1997
-era: "dangdai"
-kind: "sf"
-coverCredit: "ai-generated"
-cover: "/covers/canque-de-cihen.webp"
-sources:
-  - "《残缺的磁痕》星河，1997"
+yearUncertain: false
+era: dangdai
+kind: sf
+cover: /covers/canque-de-cihen.webp
+coverCredit: ai-generated
 tags:
-  - "考古"
-  - "磁场"
-  - "悬疑"
-translationStatus: "full"
+  - 考古
+  - 磁场
+  - 悬疑
+adaptations: []
+sources:
+  - 《残缺的磁痕》星河，1997
+awards: []
+featured: false
+translationStatus: full
 ---
-
 《残缺的磁痕》是星河 1997 年前后发表的短篇代表作，以一次考古发掘中的异常磁痕为线索。作品融合了科学考察程序与悬疑叙事，体现了他所谓的「硬派推理」风格。
 
 小说叙考察队在遗址中发现无法用常规方式解释的磁记录，其信息残缺不全。队员们通过反复采样、比对与推理，逐步还原出一段被部分抹去的历史。
