@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 const isBuild = process.argv.includes('build');
 
 export default defineConfig({
-  site: 'https://china-sf.pages.dev',
+  site: 'https://china-sf.sinosf.workers.dev',
   output: 'static',
   adapter: isBuild
     ? cloudflare({
