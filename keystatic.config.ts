@@ -81,6 +81,25 @@ const textArray = (label: string, itemLabel: string) =>
     itemLabel: (props) => props.value || `新${itemLabel}`,
   });
 
+/**
+ * ⚠️ 关键补丁：让 Keystatic 读写本站的 `.md` 文件
+ *
+ * Keystatic 的 `fields.document()` 内部把 `contentExtension` 硬编码为 `.mdoc`
+ * （源码：dist/index-*.js 中 `contentExtension: '.mdoc'`，全包没有任何 `.md`），
+ * 而条目枚举时的过滤条件是 `if (entry.children || !key.endsWith(extension)) continue;`
+ * —— 本站 347 个内容文件全是 `.md`，扩展名不匹配会被**静默丢弃**，
+ * 表现就是后台所有 collection 恒显示 0 entries、且不报任何错。
+ *
+ * 这里用展开运算符覆盖 `contentExtension` 为 `.md`，其余（Input / parse /
+ * serialize / validate / reader）原样保留，属于纯配置层修复：
+ * 无需重命名任何文件，也无需改动 Astro 的内容管线。
+ */
+type DocumentFieldOptions = Parameters<typeof fields.document>[0];
+const markdown = (options: DocumentFieldOptions) =>
+  ({ ...fields.document(options), contentExtension: '.md' }) as ReturnType<
+    typeof fields.document
+  >;
+
 /** 作品集：中英文目录共用同一套 schema，正文写到 body */
 const worksSchema = {
   title: fields.text({ label: '标题', validation: { isRequired: true } }),
@@ -112,7 +131,7 @@ const worksSchema = {
     options: TRANSLATIONS,
     defaultValue: 'none',
   }),
-  summary: fields.document({
+  summary: markdown({
     label: '作品简介（正文）',
     formatting: true,
     dividers: true,
@@ -141,7 +160,7 @@ const authorsSchema = {
     defaultValue: 'none',
   }),
   awards: textArray('获奖记录', '奖项'),
-  bio: fields.document({
+  bio: markdown({
     label: '作者简介（正文）',
     formatting: true,
     dividers: true,
@@ -190,7 +209,7 @@ const adaptationsSchema = {
     options: TRANSLATIONS,
     defaultValue: 'none',
   }),
-  summary: fields.document({
+  summary: markdown({
     label: '改编简介（正文）',
     formatting: true,
     dividers: true,
@@ -213,7 +232,7 @@ const settingsSchema = {
 /** 独立页面（About 等）：正文写 body */
 const pagesSchema = {
   title: fields.text({ label: '页面标题', validation: { isRequired: true } }),
-  body: fields.document({
+  body: markdown({
     label: '页面内容（正文）',
     formatting: true,
     dividers: true,

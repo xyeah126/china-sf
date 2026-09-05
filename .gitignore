@@ -49,3 +49,6 @@ _tmp_sveltia/
 tmp_font/
 public/fonts/seal-zhuan.woff2  # 部署用 seal-zhuan-subset.woff2；多放一份以防子集化失败时回退
 
+
+# 本地诊断临时目录（沙箱回收站机制可能拦截删除，故改为忽略）
+tmp-diag/
