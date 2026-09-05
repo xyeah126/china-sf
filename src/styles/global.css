@@ -401,6 +401,13 @@ h3 {
   font-size: 30px;
   margin-bottom: 6px;
 }
+/* 双语原名行：详情页主标题下方的对译名（亦供跨语言搜索索引） */
+.title-x {
+  font-size: 15px;
+  color: var(--text-3);
+  margin: 0 0 10px;
+  line-height: 1.4;
+}
 .detail-meta {
   color: var(--text-3);
   font-size: 14px;

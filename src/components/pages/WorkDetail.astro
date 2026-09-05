@@ -1,5 +1,5 @@
 ---
-import { render } from 'astro:content';
+import { render, getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CreditBadge from '../CreditBadge.astro';
@@ -18,6 +18,20 @@ const { entry, lang, slug, isFallback } = Astro.props;
 const d = entry.data;
 const T = ui[lang] as unknown as Record<string, string>;
 const prefix = lang === 'en' ? '/en' : '';
+
+// 对译名：本页标题下方展示另一语言名称（同时供 pagefind 跨语言索引）
+// 约定：en 条目 title 为官方/通行英译；zh 条目 title 为中文原名。
+// zh 页显示英文译名（en 同 slug 条目的 title，缺失时回退 zh 条目自身的 titleEn）；
+// en 页（非回退）显示中文原名。回退页标题已是中文，不重复显示。
+let crossTitle: { text: string; code: 'zh' | 'en' } | null = null;
+if (lang === 'zh') {
+  const enEntry = await getEntry('works', `en/${slug}`);
+  const enTitle = enEntry?.data?.title ?? d.titleEn;
+  if (enTitle) crossTitle = { text: enTitle, code: 'en' };
+} else if (!isFallback) {
+  const zhEntry = await getEntry('works', `zh/${slug}`);
+  if (zhEntry?.data?.title) crossTitle = { text: zhEntry.data.title, code: 'zh' };
+}
 
 const { Content } = await render(entry);
 const adaptations = await getAdaptationsFor(slug, lang);
@@ -95,6 +109,9 @@ const ogDesc = [d.author, d.year ? String(d.year) : '', d.publisher]
       <TranslationNotice lang={lang} status={effectiveStatus} />
 
       <h1 class="detail-title">{d.title}</h1>
+      {crossTitle && (
+        <p class="title-x" lang={crossTitle.code}>{crossTitle.text}</p>
+      )}
       <p class="detail-meta">
         {
           d.author ? (

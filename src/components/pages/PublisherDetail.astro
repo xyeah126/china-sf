@@ -14,6 +14,13 @@ const d = entry.data;
 
 const name = lang === 'en' && d.nameEn ? d.nameEn : d.name;
 const summary = lang === 'en' && d.summaryEn ? d.summaryEn : d.summary;
+// 对译名行（亦供 pagefind 跨语言索引）：zh 页显示英文名，en 页显示中文名
+const crossName: { text: string; code: 'zh' | 'en' } | null =
+  lang === 'zh' && d.nameEn
+    ? { text: d.nameEn, code: 'en' }
+    : lang === 'en'
+      ? { text: d.name, code: 'zh' }
+      : null;
 const typeLabel: Record<string, string> = {
   press: t.typePress,
   magazine: t.typeMagazine,
@@ -43,6 +50,9 @@ const related = works.filter((w) => w.entry.data.publisher && w.entry.data.publi
       </div>
       <div class="detail-body">
         <h1 class="detail-title">{name}</h1>
+        {crossName && (
+          <p class="title-x" lang={crossName.code}>{crossName.text}</p>
+        )}
         <div class="detail-meta">
           <span class="badge">{typeText}</span>
           {d.founded != null && <span> · {t.pubFounded} {d.founded}</span>}

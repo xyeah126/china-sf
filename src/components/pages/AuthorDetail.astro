@@ -30,6 +30,16 @@ if (lang === 'en') {
   }
 }
 
+// 对译名行（亦供 pagefind 跨语言索引）：zh 页显示英文名，en 页显示中文原名
+let crossName: { text: string; code: 'zh' | 'en' } | null = null;
+if (lang === 'zh') {
+  const enEntry = await getEntry('authors', `en/${slug}`);
+  const enName = enEntry?.data?.name ?? d.nameEn;
+  if (enName) crossName = { text: enName, code: 'en' };
+} else if (!isFallback && nameZh) {
+  crossName = { text: nameZh, code: 'zh' };
+}
+
 const { Content } = await render(entry);
 const works = await getWorksByAuthor(slug, lang);
 
@@ -54,6 +64,9 @@ const lifeText =
       </div>
       <div>
         <h1 class="section-title">{d.name}</h1>
+        {crossName && (
+          <p class="title-x" lang={crossName.code}>{crossName.text}</p>
+        )}
         <p class="detail-meta">
           <span class="year">{lifeText}</span>{' '}
           {`· ${works.length} ${lang === 'zh' ? '部作品' : 'works'}`}

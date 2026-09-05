@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { ui, type Lang } from '../../i18n/ui';
 import { getAdaptations, getWorks } from '../../lib/content';
@@ -13,6 +14,20 @@ const prefix = lang === 'en' ? '/en' : '';
 const adaptations = await getAdaptations(lang);
 const works = await getWorks(lang);
 const workTitle = new Map(works.map((w) => [w.slug, w.entry.data.title]));
+
+// 对译名映射：slug -> 另一语言标题（供跨语言搜索索引；影视条目无详情页，索引在列表卡上）
+const otherTitle = new Map<string, string>();
+{
+  const all = await getCollection('adaptations');
+  const otherLang = lang === 'zh' ? 'en' : 'zh';
+  for (const e of all) {
+    const idx = e.id.indexOf('/');
+    const l = idx === -1 ? 'zh' : e.id.slice(0, idx);
+    const slug = idx === -1 ? e.id : e.id.slice(idx + 1);
+    if (l === otherLang && !otherTitle.has(slug)) otherTitle.set(slug, e.data.title);
+  }
+}
+const xCode = lang === 'zh' ? 'en' : 'zh';
 
 const typeKey: Record<string, string> = {
   film: 'typeFilm',
@@ -102,6 +117,9 @@ const typeAbbr: Record<string, string> = {
                   </div>
                   <div class="adaptation-card-body">
                     <div class="adaptation-card-title">{a.entry.data.title}</div>
+                    {otherTitle.get(a.slug) && (
+                      <div class="title-x" lang={xCode}>{otherTitle.get(a.slug)}</div>
+                    )}
                     <div class="adaptation-line">
                       <span class="year">
                         {a.entry.data.year ?? (lang === 'zh' ? '待定' : 'TBA')}
