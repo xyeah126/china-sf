@@ -85,6 +85,9 @@ export const ui = {
     pubFounded: '创办于',
     pubWorks: '本站收录作品',
     pubNone: '（暂无收录作品）',
+    // 页脚声明：托管位置与内容性质
+    footerDisclosure:
+      '公益性非营利资料库 · 无评论与用户投稿 · 服务器位于中国境外',
   },
   en: {
     siteName: 'China Science Fiction',
@@ -172,6 +175,9 @@ export const ui = {
     pubFounded: 'Founded',
     pubWorks: 'Works in this archive',
     pubNone: 'No works indexed yet',
+    // 页脚声明：托管位置与内容性质
+    footerDisclosure:
+      'Non-profit public archive · No comments or user submissions · Hosted outside mainland China',
   },
 } as const;
 

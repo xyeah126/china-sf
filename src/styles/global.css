@@ -767,6 +767,14 @@ h3 {
   font-size: 13px;
   color: var(--text-3);
 }
+.footer-line {
+  margin: 0;
+}
+.footer-disclosure {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
 
 /* ---------- 作者印章头像 ---------- */
 

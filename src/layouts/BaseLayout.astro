@@ -130,7 +130,10 @@ const ogImage = new URL(image ?? '/covers/shanhaijing.jpg', site).href;
 
     <footer class="site-footer">
       <div class="container">
-        {siteName} · {tagline}{settings?.footerNote ? ` · ${settings.footerNote}` : ''}
+        <p class="footer-line">
+          {siteName} · {tagline}{settings?.footerNote ? ` · ${settings.footerNote}` : ''}
+        </p>
+        <p class="footer-disclosure">{t.footerDisclosure}</p>
       </div>
     </footer>
 
