@@ -10,4 +10,4 @@ awards:
 
 ---
 
-A contemporary SF writer and scholar. The Ruins of Time builds an epic on a time loop; he has also written fan works such as Three-Body X: Contemplating the Universe.
+A contemporary SF writer and scholar. The Ruins of Time builds an epic on a time loop; he has also written fan works such as The Redemption of Time.

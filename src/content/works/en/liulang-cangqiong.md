@@ -1,5 +1,5 @@
 ---
-title: "Wandering the Vault of Heaven"
+title: "Vagabonds"
 author: "Hao Jingfang"
 authorSlug: "haojingfang"
 year: 2011
@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/liulang-cangqiong.webp"
 sources:
-  - "Wandering the Vault of Heaven by Hao Jingfang, 2011"
+  - "Vagabonds by Hao Jingfang, 2011"
 tags:
   - "mars"
   - "civilisation"

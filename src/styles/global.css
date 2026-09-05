@@ -417,6 +417,11 @@ h3 {
   max-width: 700px;
 }
 
+/* Chinese typography: first line of body paragraphs indented by two characters */
+.detail-body.cn-indent > p {
+  text-indent: 2em;
+}
+
 .subhead {
   font-family: var(--font-sans);
   font-size: 13px;

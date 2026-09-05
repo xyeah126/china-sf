@@ -1,5 +1,5 @@
 ---
-title: "Three-Body X: Contemplating the Universe"
+title: "The Redemption of Time"
 author: "Baoshu"
 authorSlug: "baoshu"
 year: 2010
@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/santi-x.webp"
 sources:
-  - "Three-Body X: Contemplating the Universe by Baoshu, 2010"
+  - "The Redemption of Time by Baoshu, 2010"
 tags:
   - "fan-fiction"
   - "cosmos"

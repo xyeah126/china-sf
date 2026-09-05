@@ -1,5 +1,5 @@
 ---
-title: "City of Rising Wind"
+title: "The Windy City"
 author: "Zhang Ran"
 authorSlug: "zhangran"
 year: 2013
@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/qifeng-zhicheng.webp"
 sources:
-  - "City of Rising Wind by Zhang Ran, 2013"
+  - "The Windy City by Zhang Ran, 2013"
 tags:
   - "city"
   - "climate"

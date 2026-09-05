@@ -1,5 +1,5 @@
 ---
-title: "The Year of Great Hunger"
+title: "The Year of Great Famine"
 author: "Zhang Ran"
 authorSlug: "zhangran"
 year: 2014
@@ -8,7 +8,7 @@ kind: "sf"
 coverCredit: "ai-generated"
 cover: "/covers/daji-zhinian.webp"
 sources:
-  - "The Year of Great Hunger by Zhang Ran, 2014"
+  - "The Year of Great Famine by Zhang Ran, 2014"
 tags:
   - "disaster"
   - "famine"
