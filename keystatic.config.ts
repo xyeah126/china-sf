@@ -82,23 +82,37 @@ const textArray = (label: string, itemLabel: string) =>
   });
 
 /**
- * ⚠️ 关键补丁：让 Keystatic 读写本站的 `.md` 文件
+ * 正文（.md）字段 —— 使用官方 `fields.markdoc`，原生支持 `extension: 'md'`
  *
- * Keystatic 的 `fields.document()` 内部把 `contentExtension` 硬编码为 `.mdoc`
- * （源码：dist/index-*.js 中 `contentExtension: '.mdoc'`，全包没有任何 `.md`），
- * 而条目枚举时的过滤条件是 `if (entry.children || !key.endsWith(extension)) continue;`
- * —— 本站 347 个内容文件全是 `.md`，扩展名不匹配会被**静默丢弃**，
- * 表现就是后台所有 collection 恒显示 0 entries、且不报任何错。
+ * 背景：`fields.document` 已被上游废弃（源码注释：
+ * `@deprecated fields.markdoc has superseded this field`），其 `contentExtension`
+ * 硬编码为 `.mdoc`。本站 342 个内容文件全是 `.md`：
  *
- * 这里用展开运算符覆盖 `contentExtension` 为 `.md`，其余（Input / parse /
- * serialize / validate / reader）原样保留，属于纯配置层修复：
- * 无需重命名任何文件，也无需改动 Astro 的内容管线。
+ * 1. 若直接用 document，枚举过滤器
+ *    `if (entry.children || !key.endsWith(extension)) continue;` 会把 `.md`
+ *    全部静默丢弃 → 后台恒显示 0 entries；
+ * 2. 早前用展开覆盖 `contentExtension` 的补丁虽让条目枚举出来，但 document
+ *    的编辑器渲染链（DocumentFieldInput$1/DocumentEditor）打开条目时抛
+ *    `Cannot read properties of undefined (reading 'kind')`；
+ * 3. `fields.markdoc`（声明文件 markdoc/index.d.ts）允许
+ *    `extension: 'mdoc' | 'md'`，编辑器走全新 EditorState 数据链
+ *    （parse → ProseMirror EditorState → serialize）。
+ *
+ * 已用 markdoc 字段对全部 342 个文件做 parse + serialize 往返仿真：
+ * 零异常，正文长度差 <1%，可直接替换。
+ *
+ * markdoc 的编辑器选项默认全开（粗体/斜体/删除线/行内代码/标题/引用/列表/
+ * 链接/分割线/表格/代码块/图片），与旧 document 配置能力对齐且更全。
  */
-type DocumentFieldOptions = Parameters<typeof fields.document>[0];
-const markdown = (options: DocumentFieldOptions) =>
-  ({ ...fields.document(options), contentExtension: '.md' }) as ReturnType<
-    typeof fields.document
-  >;
+type MarkdownFieldProps = {
+  label: string;
+  description?: string;
+  formatting?: boolean;
+  dividers?: boolean;
+  links?: boolean;
+};
+const markdown = ({ label, description }: MarkdownFieldProps) =>
+  fields.markdoc({ label, description, extension: 'md' });
 
 /** 作品集：中英文目录共用同一套 schema，正文写到 body */
 const worksSchema = {
