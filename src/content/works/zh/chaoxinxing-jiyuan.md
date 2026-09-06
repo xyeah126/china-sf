@@ -1,26 +1,33 @@
 ---
-cover: "/covers/chaoxinxing-jiyuan.webp"
-title: "超新星纪元"
-author: "刘慈欣"
-authorSlug: "liucixin"
+title: 超新星纪元
+author: 刘慈欣
+authorSlug: liucixin
 year: 2003
-era: "dangdai"
-kind: "sf"
-coverCredit: "ai-generated"
-coverPrompt: "Chinese science fiction paperback book cover for '超新星纪元' (The Era of Supernova). A world of children under a sky torn by supernova light, abandoned city playground bathed in gold and violet aurora. Retro-futuristic, ink-wash meets apocalyptic dawn, muted teal and amber palette, dramatic lighting. Vertical poster, title text '超新星纪元' clearly visible near top."
-sources:
-  - "《超新星纪元》刘慈欣，2003"
+yearUncertain: false
+era: dangdai
+kind: sf
+cover: /covers/chaoxinxing-jiyuan.webp
+coverUpload: /covers/chaoxinxing-jiyuan/coverUpload.jpeg
+coverCredit: ai-generated
+coverPrompt: >-
+  Chinese science fiction paperback book cover for '超新星纪元' (The Era of
+  Supernova). A world of children under a sky torn by supernova light, abandoned
+  city playground bathed in gold and violet aurora. Retro-futuristic, ink-wash
+  meets apocalyptic dawn, muted teal and amber palette, dramatic lighting.
+  Vertical poster, title text '超新星纪元' clearly visible near top.
 tags:
-  - "灾难"
-  - "儿童"
-  - "社会"
-translationStatus: "full"
+  - 灾难
+  - 儿童
+  - 社会
+adaptations: []
+sources:
+  - 《超新星纪元》刘慈欣，2003
 awards:
-  - "中国科幻银河奖"
-  - "2003 全球华语科幻星云奖 最佳长篇"
-
+  - 中国科幻银河奖
+  - 2003 全球华语科幻星云奖 最佳长篇
+featured: false
+translationStatus: full
 ---
-
 《超新星纪元》是刘慈欣 2003 年出版的长篇，设定极为极端：超新星爆发的高能辐射使地球上十三岁以上的人将在短时间内全部死亡，世界被完整地交给孩子。
 
 小说前半写大人们在最后的时间里如何尽可能地把知识与制度传递给下一代；后半则写孩子们接管世界后的状况——最初是狂欢，随后是混乱、战争，最终逐渐形成新的秩序。
