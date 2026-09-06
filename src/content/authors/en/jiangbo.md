@@ -9,6 +9,9 @@ awards:
   - "Galaxy Award (China)"
   - "Xingyun Award (China)"
   - "2015 Chinese Nebula Award for Best Novella"
+  - "2016 Galaxy Award (China) for Best Novella"
+  - "2019 Galaxy Award (China) for Best Novel (The Gate of Machines)"
+  - "2023 Xingyun Award (China) Silver Prize for Best Novel (The Red Stone)"
 
 ---
 
