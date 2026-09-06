@@ -27,6 +27,9 @@ const works = defineCollection({
     publisher: z.string().optional(),
     publisherEn: z.string().optional(),
     cover: z.string().optional(),
+    // 后台「上传封面」字段：Keystatic image 字段写入的绝对路径（/covers/<slug>/<file>）
+    // 存在时优先于 cover；cover 保留为手动填路径的兜底方式。
+    coverUpload: z.string().optional(),
     coverCredit: credit.default('placeholder'),
     coverSource: z.string().optional(),
     coverPrompt: z.string().optional(),

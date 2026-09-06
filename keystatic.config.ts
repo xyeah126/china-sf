@@ -139,6 +139,26 @@ const worksSchema = {
   publisher: fields.text({ label: '出版社 / 发表平台' }),
   publisherEn: fields.text({ label: '出版社英文名' }),
   cover: fields.text({ label: '封面路径（如 /covers/santi.webp）' }),
+  /**
+   * 封面上传：Keystatic 的 image 字段（AssetFormField）
+   *
+   * 行为要点（读 @keystatic/core 0.6.9 源码确认，改动前务必知道）：
+   * - frontmatter 里存的仍是**字符串**，值 = publicPath + 条目 slug + '/' + 文件名，
+   *   例：`/covers/santi/coverUpload.webp`；
+   * - 图片文件会被提交到 `directory/<条目 slug>/` 下（即 public/covers/santi/），
+   *   每次读取条目时 Keystatic 也只加载该条目子目录，不会拖慢后台；
+   * - 正因为路径会带 slug 子目录，**不能把现有的 `cover` 直接改成 image 字段**：
+   *   旧值 `/covers/santi.webp` 在 `public/covers/santi/` 下找不到 → 字段被判为空
+   *   → 一保存就把 100+ 已有封面清空。所以这里用独立字段，保留 `cover` 兜底；
+   * - 上传后前端优先用 coverUpload（见 WorkCard / WorkDetail）。
+   */
+  coverUpload: fields.image({
+    label: '上传 / 更换封面（优先于上方封面路径）',
+    description:
+      '选择图片文件即可，保存时会自动提交到 public/covers/<本条目 slug>/ 并在页面上生效。建议竖版 3:4（如 900×1200）。上传新封面后请同步修改下方「封面来源分级」与「封面来源说明」；AI 生成图需补写元数据，可让我来处理。',
+    directory: 'public/covers',
+    publicPath: '/covers/',
+  }),
   coverCredit: fields.select({
     label: '封面来源分级',
     options: CREDITS,

@@ -185,6 +185,31 @@ export async function getPublishers(): Promise<PublisherEntry[]> {
  * 背景：pagefind 对中文按词（jieba）分词建索引，单字如「猎」若不在词表
  * 边界内则搜不到；空格分隔会让 pagefind 把每个汉字当作独立词索引。
  */
+/**
+ * 解析作品封面最终 URL
+ *
+ * 优先级：
+ * 1. `coverUpload` —— 后台「上传 / 更换封面」字段（Keystatic image 字段写入的
+ *    绝对路径，形如 /covers/<slug>/<file>.webp）；
+ * 2. 英文条目若自己没上传，回退到中文同 slug 条目上传的封面（中英文站共用一张图）；
+ * 3. `cover` —— frontmatter 手填的封面路径（历史数据都在用这个）。
+ *
+ * 注意：不要直接在 .astro 组件里调 getEntry —— Cloudflare prerender 上下文下
+ * 组件内的 `astro:content` 值导入会报 "getEntry is not defined"，统一走这里。
+ */
+export async function resolveCover(entry: WorkEntry, lang: Lang): Promise<string> {
+  const data = entry.data as WorkEntry['data'] & { coverUpload?: string };
+  if (data.coverUpload) return data.coverUpload;
+  if (lang === 'en') {
+    const { slug } = splitId(entry.id);
+    const zh = await getEntry('works', `zh/${slug}`);
+    const zhCover = (zh?.data as (WorkEntry['data'] & { coverUpload?: string }) | undefined)
+      ?.coverUpload;
+    if (zhCover) return zhCover;
+  }
+  return data.cover || '';
+}
+
 export function splitHanziSpaced(text: string): string {
   const HANZI = /[\u3400-\u9fff\uf900-\ufaff]/;
   let out = '';

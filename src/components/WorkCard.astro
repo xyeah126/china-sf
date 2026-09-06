@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/ui';
 import CreditBadge from './CreditBadge.astro';
 import KindBadge from './KindBadge.astro';
+import { resolveCover } from '../lib/content';
 
 interface Props {
   entry: CollectionEntry<'works'>;
@@ -16,6 +17,9 @@ const d = entry.data;
 
 const glyph = d.title.replace(/[《》]/g, '').trim().charAt(0) || '书';
 const prefix = lang === 'en' ? '/en' : '';
+
+// 封面：后台上传的 coverUpload 优先，其次 frontmatter 手填的 cover
+const coverSrc = await resolveCover(entry, lang);
 // 作者有 slug 时，卡片上的作者名可点击直达作者页
 const authorHref = d.authorSlug ? `${prefix}/authors/${d.authorSlug}` : null;
 
@@ -32,7 +36,7 @@ if (d.yearUncertain) yearText += lang === 'zh' ? '？' : '?';
 
 <article class="card" {...dataAttrs}>
   <div class="cover">
-    {d.cover ? <img src={d.cover} alt={d.title} loading="lazy" /> : <span class="cover-glyph">{glyph}</span>}
+    {coverSrc ? <img src={coverSrc} alt={d.title} loading="lazy" /> : <span class="cover-glyph">{glyph}</span>}
     <CreditBadge credit={d.coverCredit} lang={lang} />
   </div>
   {/* stretched link：::after 铺满整卡，卡片任意处点击都进作品详情 */}

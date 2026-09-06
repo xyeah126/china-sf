@@ -7,7 +7,7 @@ import IndexHint from '../IndexHint.astro';
 import KindBadge from '../KindBadge.astro';
 import TranslationNotice from '../TranslationNotice.astro';
 import { ui, type Lang } from '../../i18n/ui';
-import { getAdaptationsFor, getAuthor, fmtYear, sortAwards } from '../../lib/content';
+import { getAdaptationsFor, getAuthor, fmtYear, sortAwards, resolveCover } from '../../lib/content';
 
 interface Props {
   entry: CollectionEntry<'works'>;
@@ -39,6 +39,10 @@ const adaptations = await getAdaptationsFor(slug, lang);
 const authorHit = d.authorSlug ? await getAuthor(d.authorSlug, lang) : null;
 
 const glyph = d.title.replace(/[《》]/g, '').trim().charAt(0) || '书';
+
+// 封面：后台上传的 coverUpload 优先，其次 frontmatter 手填的 cover
+// （英文条目会自动跟随中文条目上传的封面，见 lib/content.ts 的 resolveCover）
+const coverSrc = await resolveCover(entry, lang);
 
 const typeKey: Record<string, string> = {
   film: 'typeFilm',
@@ -81,8 +85,8 @@ const ogDesc = [d.author, d.year ? String(d.year) : '', d.publisher]
     <div>
       <div class="cover">
         {
-          d.cover ? (
-            <img src={d.cover} alt={d.title} />
+          coverSrc ? (
+            <img src={coverSrc} alt={d.title} />
           ) : (
             <span class="cover-glyph">{glyph}</span>
           )
