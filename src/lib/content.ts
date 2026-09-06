@@ -177,3 +177,44 @@ export async function getPublishers(): Promise<PublisherEntry[]> {
   const all = await getCollection('publishers');
   return all.sort((a, b) => (a.data.founded ?? 9999) - (b.data.founded ?? 9999));
 }
+
+/**
+ * 把连续汉字逐个用空格拆开（非汉字片段原样保留、以空格隔开），用于给
+ * pagefind 注入"单字可检索"的索引文本。例：「狩猎愉快」→「狩 猎 愉 快」。
+ *
+ * 背景：pagefind 对中文按词（jieba）分词建索引，单字如「猎」若不在词表
+ * 边界内则搜不到；空格分隔会让 pagefind 把每个汉字当作独立词索引。
+ */
+export function splitHanziSpaced(text: string): string {
+  const HANZI = /[\u3400-\u9fff\uf900-\ufaff]/;
+  let out = '';
+  for (const ch of text) {
+    out += HANZI.test(ch) ? `${ch} ` : ch;
+  }
+  return out.replace(/\s+/g, ' ').trim();
+}
+
+/** 从奖项条目字符串中提取 4 位年份（取第一个匹配），无则 null */
+function awardYear(text: string): number | null {
+  const m = text.match(/(?:19|20)\d{2}/);
+  return m ? Number(m[0]) : null;
+}
+
+/**
+ * 奖项时间线排序：
+ *  - 无法解析出年份的条目（泛称/描述，如「中国科幻银河奖」）保持原相对顺序，统一排在前面；
+ *  - 能解析出年份的按年份升序排列（同年按原顺序稳定排列）。
+ * 这样作品/作者页的获奖时间线不再随 frontmatter 手写顺序错乱。
+ */
+export function sortAwards(awards: string[]): string[] {
+  const generic: { text: string; order: number }[] = [];
+  const dated: { text: string; year: number; order: number }[] = [];
+  awards.forEach((text, order) => {
+    const y = awardYear(text);
+    if (y == null) generic.push({ text, order });
+    else dated.push({ text, year: y, order });
+  });
+  generic.sort((a, b) => a.order - b.order);
+  dated.sort((a, b) => a.year - b.year || a.order - b.order);
+  return [...generic.map((x) => x.text), ...dated.map((x) => x.text)];
+}

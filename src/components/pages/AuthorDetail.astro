@@ -3,10 +3,11 @@ import { render, getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AuthorSeal from '../AuthorSeal.astro';
+import IndexHint from '../IndexHint.astro';
 import WorkCard from '../WorkCard.astro';
 import TranslationNotice from '../TranslationNotice.astro';
 import { ui, type Lang } from '../../i18n/ui';
-import { getWorksByAuthor } from '../../lib/content';
+import { getWorksByAuthor, sortAwards } from '../../lib/content';
 
 interface Props {
   entry: CollectionEntry<'authors'>;
@@ -67,6 +68,9 @@ const lifeText =
         {crossName && (
           <p class="title-x" lang={crossName.code}>{crossName.text}</p>
         )}
+        {/* 单字检索辅助 */}
+        <IndexHint text={d.name} />
+        {crossName && <IndexHint text={crossName.text} />}
         <p class="detail-meta">
           <span class="year">{lifeText}</span>{' '}
           {`· ${works.length} ${lang === 'zh' ? '部作品' : 'works'}`}
@@ -83,7 +87,7 @@ const lifeText =
         <>
           <h2 class="subhead">{T.sectionAwards}</h2>
           <ul class="sources awards">
-            {d.awards.map((a) => <li>{a}</li>)}
+            {sortAwards(d.awards).map((a) => <li>{a}</li>)}
           </ul>
         </>
       )

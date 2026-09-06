@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import IndexHint from '../IndexHint.astro';
 import { ui, type Lang } from '../../i18n/ui';
 import { getPublishers, getWorks, fmtYear, type PublisherEntry } from '../../lib/content';
 
@@ -53,6 +54,9 @@ const related = works.filter((w) => w.entry.data.publisher && w.entry.data.publi
         {crossName && (
           <p class="title-x" lang={crossName.code}>{crossName.text}</p>
         )}
+        {/* 单字检索辅助 */}
+        <IndexHint text={d.name} />
+        {crossName && <IndexHint text={crossName.text} />}
         <div class="detail-meta">
           <span class="badge">{typeText}</span>
           {d.founded != null && <span> · {t.pubFounded} {d.founded}</span>}

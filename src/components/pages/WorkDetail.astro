@@ -3,10 +3,11 @@ import { render, getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CreditBadge from '../CreditBadge.astro';
+import IndexHint from '../IndexHint.astro';
 import KindBadge from '../KindBadge.astro';
 import TranslationNotice from '../TranslationNotice.astro';
 import { ui, type Lang } from '../../i18n/ui';
-import { getAdaptationsFor, getAuthor, fmtYear } from '../../lib/content';
+import { getAdaptationsFor, getAuthor, fmtYear, sortAwards } from '../../lib/content';
 
 interface Props {
   entry: CollectionEntry<'works'>;
@@ -112,7 +113,9 @@ const ogDesc = [d.author, d.year ? String(d.year) : '', d.publisher]
       {crossTitle && (
         <p class="title-x" lang={crossTitle.code}>{crossTitle.text}</p>
       )}
-      <p class="detail-meta">
+      {/* 单字检索辅助：以空格分隔的汉字序列让 pagefind 索引每个单字 */}
+      <IndexHint text={d.title} />
+      {crossTitle && <IndexHint text={crossTitle.text} />}      <p class="detail-meta">
         {
           d.author ? (
             <>
@@ -143,7 +146,7 @@ const ogDesc = [d.author, d.year ? String(d.year) : '', d.publisher]
           <>
             <h2 class="subhead">{T.sectionAwards}</h2>
             <ul class="sources awards">
-              {d.awards.map((a) => <li>{a}</li>)}
+              {sortAwards(d.awards).map((a) => <li>{a}</li>)}
             </ul>
           </>
         )

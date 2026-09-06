@@ -1,0 +1,18 @@
+---
+import { splitHanziSpaced } from '../lib/content';
+
+interface Props {
+  /** 需要让 pagefind 支持"单字检索"的中文文本（标题/人名/社名） */
+  text: string;
+}
+const { text } = Astro.props;
+const HAN = /[\u3400-\u9fff\uf900-\ufaff]/;
+const spaced = HAN.test(text) ? splitHanziSpaced(text) : '';
+---
+{
+  spaced && (
+    // 视觉隐藏但保留在 DOM：pagefind 会把每个空格分隔的汉字索引为独立词，
+    // 从而使单字搜索（如「猎」→「狩猎愉快」）也能命中该页。
+    <span class="sr-only pf-cjk-hint" lang="zh">{spaced}</span>
+  )
+}
